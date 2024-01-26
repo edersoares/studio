@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Providers;
 
+use Dex\Laravel\Studio\Console\Commands\GenerateCommand;
 use Dex\Laravel\Studio\Console\Commands\StudioCommand;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,6 +17,7 @@ class StudioServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
+                GenerateCommand::class,
                 StudioCommand::class,
             ]);
 
