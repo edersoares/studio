@@ -31,6 +31,12 @@ return [
 
         'workbench' => [
 
+            'eloquent' => [
+                'namespace' => 'Workbench\\App\\Models\\Eloquent',
+                'path' => workbench_path('app/Models/Eloquent'),
+                'suffix' => 'Eloquent',
+            ],
+
             'model' => [
                 'namespace' => 'Workbench\\App\\Models',
                 'path' => workbench_path('app/Models'),

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Generators;
 
-use Illuminate\Support\Arr;
+use Dex\Laravel\Studio\Presets\Preset;
 use Illuminate\Support\Collection;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
@@ -24,39 +24,23 @@ class Generator
 
     protected ClassType $class;
 
-    /**
-     * @param array<string, string> $config
-     */
-    public function __construct(array $config)
+    protected Preset $preset;
+
+    protected string $type;
+
+    protected string $name;
+
+    public function __construct(string $type, string $name, Preset $preset)
     {
         $this->file = new PhpFile();
-        $this->config = collect(Arr::dot($config));
-    }
-
-    public static function new(string $type, string $name, array $options = []): self
-    {
-        $generator = new self([
-            'type' => $type,
-            'name' => $name,
-            'config' => $options,
-        ]);
-
-        event("generate:$type", $generator);
-
-        return $generator;
+        $this->type = $type;
+        $this->name = $name;
+        $this->preset = $preset;
     }
 
     public function config(string $key): mixed
     {
-        return $this->config->get($key);
-    }
-
-    public function string(string $key): string
-    {
-        /** @var string $string */
-        $string = $this->config($key);
-
-        return $string;
+        return $this->preset->config($key);
     }
 
     public function printer(): Printer
@@ -67,6 +51,11 @@ class Generator
     public function generate(): string
     {
         return $this->printer()->printFile($this->file);
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 
     public function file(): PhpFile

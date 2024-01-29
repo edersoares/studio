@@ -27,11 +27,26 @@ class WorkbenchServiceProvider extends ServiceProvider
     {
         Event::listen('generate:model', function (Generator $generator) {
             $namespace = $generator->namespace(
-                $generator->string('config.model.namespace'),
+                $generator->config('model.namespace'),
             );
 
             $class = $generator->class(
-                $generator->string('name')
+                $generator->name()
+            );
+
+            $extends = $generator->config('eloquent.namespace') . '\\Eloquent\\' . $generator->name() . 'Eloquent';
+
+            $namespace->addUse($extends, 'Model');
+            $class->setExtends($extends);
+        });
+
+        Event::listen('generate:eloquent', function (Generator $generator) {
+            $namespace = $generator->namespace(
+                $generator->config('eloquent.namespace'),
+            );
+
+            $class = $generator->class(
+                $generator->name()
             );
 
             $namespace->addUse(Model::class);
