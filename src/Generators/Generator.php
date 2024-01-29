@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Generators;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
@@ -24,12 +25,25 @@ class Generator
     protected ClassType $class;
 
     /**
-     * @param Collection<string, string> $config
+     * @param array<string, string> $config
      */
-    public function __construct(Collection $config)
+    public function __construct(array $config)
     {
         $this->file = new PhpFile();
-        $this->config = $config;
+        $this->config = collect(Arr::dot($config));
+    }
+
+    public static function new(string $type, string $name, array $options = []): self
+    {
+        $generator = new self([
+            'type' => $type,
+            'name' => $name,
+            'config' => $options,
+        ]);
+
+        event("generate:$type", $generator);
+
+        return $generator;
     }
 
     public function config(string $key): mixed

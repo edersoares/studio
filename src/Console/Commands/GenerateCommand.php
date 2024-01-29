@@ -6,7 +6,6 @@ namespace Dex\Laravel\Studio\Console\Commands;
 
 use Dex\Laravel\Studio\Generators\Generator;
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
 
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
@@ -19,23 +18,18 @@ class GenerateCommand extends Command
 
     public function handle(): int
     {
-        $this->comment('Generate new files');
-
         [$type, $name] = $this->getTypeAndName();
 
-        $config = collect(Arr::dot([
-            'type' => $type,
-            'name' => $name,
-            'config' => $this->config(),
-        ]));
-
-        $generator = new Generator($config);
-
-        event("generate:$type", $generator);
+        $generator = Generator::new($type, $name, $this->config() + [
+            'dump' => $this->option('dump'),
+            'preset' => $this->option('preset'),
+        ]);
 
         if ($this->option('dump')) {
             $this->line($generator->generate());
         }
+
+        $this->comment('Generate new files');
 
         return self::SUCCESS;
     }
