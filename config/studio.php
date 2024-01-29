@@ -23,7 +23,7 @@ return [
         'package' => [
 
             'model' => [
-                'namespace' => 'Dex\\Laravel\\Studio\\Models',
+                'namespace' => env('STUDIO_NAMESPACE', ''),
                 'path' => package_path('app/Models'),
             ],
 
