@@ -25,3 +25,11 @@ test('`generate` command dispatch a event', function () {
 
     Event::assertDispatched('generate:model');
 });
+
+test('`generate` dump generated content', function () {
+    artisan('generate', [
+        'type' => 'model',
+        'name' => 'User',
+        '--dump' => true,
+    ])->expectsOutputToContain('class User extends Model');
+});

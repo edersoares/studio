@@ -36,7 +36,7 @@ class Generator
 
     public function string(string $key): string
     {
-        return $this->config->get($key);
+        return $this->config($key);
     }
 
     public function printer(): Printer

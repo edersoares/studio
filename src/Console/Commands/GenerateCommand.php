@@ -13,7 +13,7 @@ use function Laravel\Prompts\text;
 
 class GenerateCommand extends Command
 {
-    protected $signature = 'generate {arguments?*} {--dump} {--preset=}';
+    protected $signature = 'generate {type?} {name?} {--dump} {--preset=}';
 
     protected $description = 'Generate new files';
 
@@ -60,27 +60,25 @@ class GenerateCommand extends Command
         return array_keys($this->config());
     }
 
-    private function isInvalidType(string $type): bool
+    private function isInvalidType(?string $type): bool
     {
         return !$this->isValidType($type);
     }
 
-    private function isValidType(string $type): bool
+    private function isValidType(?string $type): bool
     {
         return in_array($type, $this->types(), true);
     }
 
     private function getTypeAndName(): array
     {
-        $arguments = $this->argument('arguments');
-
-        $type = $arguments[0] ?? '';
+        $type = $this->argument('type');
 
         if ($this->isInvalidType($type)) {
             $type = select('What type of file would you generate?', $this->types());
         }
 
-        $name = $arguments[1] ?? '';
+        $name = $this->argument('name');
 
         if (empty($name)) {
             $name = text('What name?', required: true);
