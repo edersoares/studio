@@ -42,13 +42,15 @@ class GenerateCommand extends Command
 
     private function config(): array
     {
-        $preset = $this->preset();
+        /** @var array $preset */
+        $preset = config('studio.presets.' . $this->preset(), []);
 
-        return config('studio.presets.' . $preset, []);
+        return $preset;
     }
 
     private function preset(): string
     {
+        /** @var string $default */
         $default = config('studio.preset');
         $preset = $this->option('preset');
 

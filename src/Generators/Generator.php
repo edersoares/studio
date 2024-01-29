@@ -13,7 +13,7 @@ use Nette\PhpGenerator\Printer;
 class Generator
 {
     /**
-     * @var Collection<string, mixed>
+     * @var Collection<string, string>
      */
     protected Collection $config;
 
@@ -23,20 +23,26 @@ class Generator
 
     protected ClassType $class;
 
+    /**
+     * @param Collection<string, string> $config
+     */
     public function __construct(Collection $config)
     {
         $this->file = new PhpFile();
         $this->config = $config;
     }
 
-    public function config(string $key)
+    public function config(string $key): mixed
     {
         return $this->config->get($key);
     }
 
     public function string(string $key): string
     {
-        return $this->config($key);
+        /** @var string $string */
+        $string = $this->config($key);
+
+        return $string;
     }
 
     public function printer(): Printer
