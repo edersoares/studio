@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Workbench\App\Providers\WorkbenchServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -31,6 +32,7 @@ class TestCase extends Orchestra
     {
         return [
             StudioServiceProvider::class,
+            WorkbenchServiceProvider::class,
         ];
     }
 
