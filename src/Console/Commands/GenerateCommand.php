@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Console\Commands;
 
+use Dex\Laravel\Studio\Generators\Generator;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 
 class GenerateCommand extends Command
 {
-    protected $signature = 'generate {arguments?*}';
+    protected $signature = 'generate {arguments?*} {--dump} {--preset=}';
 
     protected $description = 'Generate new files';
 
@@ -21,22 +23,41 @@ class GenerateCommand extends Command
 
         [$type, $name] = $this->getTypeAndName();
 
+        $config = collect(Arr::dot([
+            'type' => $type,
+            'name' => $name,
+            'config' => $this->config(),
+        ]));
+
+        $generator = new Generator($config);
+
+        event("generate:$type", $generator);
+
+        if ($this->option('dump')) {
+            $this->line($generator->generate());
+        }
+
         return self::SUCCESS;
+    }
+
+    private function config(): array
+    {
+        $preset = $this->preset();
+
+        return config('studio.presets.' . $preset, []);
     }
 
     private function preset(): string
     {
         $default = config('studio.preset');
+        $preset = $this->option('preset');
 
-        return $preset ?? $default;
+        return $preset ?: $default;
     }
 
     private function types(): array
     {
-        $preset = $this->preset();
-        $config = config('studio.presets.' . $preset, []);
-
-        return array_keys($config);
+        return array_keys($this->config());
     }
 
     private function isInvalidType(string $type): bool
