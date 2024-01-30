@@ -6,12 +6,13 @@ namespace Dex\Laravel\Studio\Console\Commands;
 
 use Dex\Laravel\Studio\Generators\Factory;
 use Dex\Laravel\Studio\Generators\Generator;
+use Dex\Laravel\Studio\Presets\Preset;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class GenerateCommand extends Command
 {
-    protected $signature = 'generate {type} {name} {--dump} {--preset=}';
+    protected $signature = 'generate {type} {name} {--dump} {--file} {--preset=}';
 
     protected $description = 'Generate new files';
 
@@ -22,8 +23,10 @@ class GenerateCommand extends Command
         $preset = $this->option('preset') ?? config('studio.preset');
 
         if ($this->option('dump')) {
-            $events->listen('generate:finished', function (Generator $generator) {
-                $this->comment($generator->preset()->getNamespacedFor($generator->type(), $generator->name()));
+            $events->listen('generate:finished', function (Generator $generator, Preset $preset) {
+                $this->comment(
+                    $preset->getNamespacedFor($generator->type(), $generator->name())
+                );
                 $this->line($generator->generate());
             });
         }

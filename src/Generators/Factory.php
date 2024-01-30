@@ -11,16 +11,17 @@ class Factory
     public static function new(string $type, string $name, string $preset): Generator
     {
         $config = config('studio.presets.' . $preset, []);
+        $presetInstance = new Preset($preset, $config);
 
         $generator = new Generator(
             type: $type,
             name: $name,
-            preset: new Preset($preset, $config),
+            preset: $presetInstance,
         );
 
-        event('generate:started', $generator);
-        event("generate:$type", $generator);
-        event('generate:finished', $generator);
+        event('generate:started', [$generator, $presetInstance]);
+        event("generate:$type", [$generator, $presetInstance]);
+        event('generate:finished', [$generator, $presetInstance]);
 
         return $generator;
     }

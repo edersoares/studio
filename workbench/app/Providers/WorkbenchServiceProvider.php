@@ -6,6 +6,7 @@ namespace Workbench\App\Providers;
 
 use Dex\Laravel\Studio\Generators\Factory;
 use Dex\Laravel\Studio\Generators\Generator;
+use Dex\Laravel\Studio\Presets\Preset;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -66,14 +67,13 @@ class WorkbenchServiceProvider extends ServiceProvider
             $namespace->addUse(SoftDeletes::class);
             $class->addTrait(SoftDeletes::class);
 
-            $class->addProperty('fillable')->setType('array')->setProtected();
-
             $newEloquentBuilder = $class->addMethod('newEloquentBuilder');
+            $newEloquentBuilder->setReturnType($builder);
             $newEloquentBuilder->addParameter('query');
             $newEloquentBuilder->addBody('return new ' . $builderName . '($query);');
         });
 
-        Event::listen('generate:builder', function (Generator $generator) {
+        Event::listen('generate:builder', function (Generator $generator, Preset $preset) {
             $namespace = $generator->namespace(
                 $generator->config('builder.namespace'),
             );

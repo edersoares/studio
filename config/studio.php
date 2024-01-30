@@ -34,17 +34,20 @@ return [
             'eloquent' => [
                 'namespace' => 'Workbench\\App\\Models\\Eloquent',
                 'path' => workbench_path('app/Models/Eloquent'),
+                'extension' => '.php',
                 'suffix' => 'Eloquent',
             ],
 
             'model' => [
                 'namespace' => 'Workbench\\App\\Models',
                 'path' => workbench_path('app/Models'),
+                'extension' => '.php',
             ],
 
             'builder' => [
                 'namespace' => 'Workbench\\App\\Models\\Builder',
                 'path' => workbench_path('app/Models/Builder'),
+                'extension' => '.php',
                 'suffix' => 'Builder',
             ],
 
