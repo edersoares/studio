@@ -19,7 +19,6 @@
         "php": "^8.2",
         "illuminate/contracts": "^10.0",
         "illuminate/support": "^10.0",
-        "laravel/prompts": "^0.1.15",
         "nette/php-generator": "^4.1",
         "orchestra/testbench": "^8.8"
     },
