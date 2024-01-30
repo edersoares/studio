@@ -42,6 +42,12 @@ return [
                 'path' => workbench_path('app/Models'),
             ],
 
+            'builder' => [
+                'namespace' => 'Workbench\\App\\Models\\Builder',
+                'path' => workbench_path('app/Models/Builder'),
+                'suffix' => 'Builder',
+            ],
+
         ],
 
     ],
