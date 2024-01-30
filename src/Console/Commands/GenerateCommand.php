@@ -22,7 +22,10 @@ class GenerateCommand extends Command
         $preset = $this->option('preset') ?? config('studio.preset');
 
         if ($this->option('dump')) {
-            $events->listen('generate:finished', fn (Generator $generator) => $this->line($generator->generate()));
+            $events->listen('generate:finished', function (Generator $generator) {
+                $this->comment($generator->preset()->getNamespacedFor($generator->type(), $generator->name()));
+                $this->line($generator->generate());
+            });
         }
 
         Factory::new($type, $name, $preset);

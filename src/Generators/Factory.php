@@ -15,7 +15,7 @@ class Factory
         $generator = new Generator(
             type: $type,
             name: $name,
-            preset: new Preset($config),
+            preset: new Preset($preset, $config),
         );
 
         event('generate:started', $generator);

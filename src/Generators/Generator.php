@@ -61,6 +61,16 @@ class Generator
         return $this->printer()->printFile($this->file);
     }
 
+    public function preset(): Preset
+    {
+        return $this->preset;
+    }
+
+    public function type(): string
+    {
+        return $this->type;
+    }
+
     public function name(): string
     {
         return $this->name;
