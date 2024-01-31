@@ -4,25 +4,29 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Blueprint;
 
+use Dex\Laravel\Studio\Support\TypedGetter;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 
 class Preset extends Collection
 {
+    use TypedGetter;
+
     private Collection $dot;
 
-    private string $name;
-
-    public function __construct(string $name, $items = [])
+    public function __construct($items = [])
     {
         parent::__construct($items);
 
-        $this->name = $name;
+        if ($this->has('name') === false) {
+            throw new InvalidArgumentException('Missing [name] key');
+        }
     }
 
     public function name(): string
     {
-        return $this->name;
+        return $this->string('name');
     }
 
     public function config(string $key)

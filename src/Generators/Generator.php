@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Generators;
 
+use Dex\Laravel\Studio\Blueprint\Blueprint;
+use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Illuminate\Support\Collection;
 use Nette\PhpGenerator\ClassType;
@@ -24,17 +26,23 @@ class Generator
 
     protected ClassType $class;
 
+    protected Draft $draft;
+
+    protected Blueprint $blueprint;
+
     protected Preset $preset;
 
     protected string $type;
 
     protected string $name;
 
-    public function __construct(string $type, string $name, Preset $preset)
+    public function __construct(Draft $draft, Blueprint $blueprint, Preset $preset)
     {
         $this->file = new PhpFile();
-        $this->type = $type;
-        $this->name = $name;
+        $this->type = $draft->type();
+        $this->name = $draft->name();
+        $this->draft = $draft;
+        $this->blueprint = $blueprint;
         $this->preset = $preset;
     }
 

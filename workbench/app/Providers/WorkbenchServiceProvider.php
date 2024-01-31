@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Workbench\App\Providers;
 
+use Dex\Laravel\Studio\Blueprint\Blueprint;
+use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\Factory;
 use Dex\Laravel\Studio\Generators\Generator;
@@ -28,7 +30,7 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Event::listen('generate:model', function (Generator $generator) {
+        Event::listen('generate:model', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
             $namespace = $generator->namespace(
                 $generator->config('model.namespace'),
             );
@@ -42,8 +44,15 @@ class WorkbenchServiceProvider extends ServiceProvider
             $namespace->addUse($extends, 'Model');
             $class->setExtends($extends);
 
-            Factory::new('eloquent', $generator->name(), $generator->preset()->name());
-            Factory::new('builder', $generator->name(), $generator->preset()->name());
+            Factory::new(new Draft([
+                'type' => 'eloquent',
+                'name' => $generator->name(),
+            ]), $blueprint, $preset);
+
+            Factory::new(new Draft([
+                'type' => 'builder',
+                'name' => $generator->name(),
+            ]), $blueprint, $preset);
         });
 
         Event::listen('generate:eloquent', function (Generator $generator) {
@@ -73,7 +82,7 @@ class WorkbenchServiceProvider extends ServiceProvider
             $newEloquentBuilder->addBody('return new ' . $builderName . '($query);');
         });
 
-        Event::listen('generate:builder', function (Generator $generator, Preset $preset) {
+        Event::listen('generate:builder', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
             $namespace = $generator->namespace(
                 $generator->config('builder.namespace'),
             );
