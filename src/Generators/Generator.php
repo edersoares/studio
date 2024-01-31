@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Generators;
 
-use Dex\Laravel\Studio\Presets\Preset;
+use Dex\Laravel\Studio\Blueprint\Preset;
 use Illuminate\Support\Collection;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;

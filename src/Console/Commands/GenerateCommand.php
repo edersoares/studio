@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Console\Commands;
 
+use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\Factory;
 use Dex\Laravel\Studio\Generators\Generator;
-use Dex\Laravel\Studio\Presets\Preset;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 

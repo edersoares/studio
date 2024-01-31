@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Workbench\App\Providers;
 
+use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\Factory;
 use Dex\Laravel\Studio\Generators\Generator;
-use Dex\Laravel\Studio\Presets\Preset;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
