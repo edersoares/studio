@@ -8,7 +8,6 @@ use function Pest\Laravel\artisan;
 
 test('`generate` command exists')
     ->artisan('generate model User')
-    ->expectsOutput('Generate new files')
     ->assertOk();
 
 test('`generate` command dispatch a event', function () {

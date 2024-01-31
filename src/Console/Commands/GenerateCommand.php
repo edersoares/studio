@@ -12,7 +12,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 class GenerateCommand extends Command
 {
-    protected $signature = 'generate {type} {name} {--dump} {--file} {--preset=}';
+    protected $signature = 'generate {type} {name} {--dump} {--preset=}';
 
     protected $description = 'Generate new files';
 
@@ -32,8 +32,6 @@ class GenerateCommand extends Command
         }
 
         Factory::new($type, $name, $preset);
-
-        $this->comment('Generate new files');
 
         return self::SUCCESS;
     }
