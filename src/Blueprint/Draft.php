@@ -8,6 +8,9 @@ use Dex\Laravel\Studio\Support\TypedGetter;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
+/**
+ * @extends Collection<string, mixed>
+ */
 class Draft extends Collection
 {
     use TypedGetter;
