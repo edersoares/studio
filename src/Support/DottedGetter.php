@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Support;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 /**
@@ -17,10 +16,10 @@ trait DottedGetter
      */
     private Collection $dot;
 
-    public function config(string $key): mixed
+    public function dotted(string $key): mixed
     {
         if (empty($this->dot)) {
-            $this->dot = new Collection(Arr::dot($this->all()));
+            $this->dot = $this->dot();
         }
 
         return $this->dot->get($key);

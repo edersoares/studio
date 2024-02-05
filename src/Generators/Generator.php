@@ -48,7 +48,7 @@ class Generator
 
     public function config(string $key): mixed
     {
-        return $this->preset->config($key);
+        return $this->preset->dotted($key);
     }
 
     public function printer(): Printer

@@ -33,11 +33,11 @@ class Preset extends Collection
 
     public function getNameFor(string $type, string $name): string
     {
-        return $this->config("$type.prefix") . $name . $this->config("$type.suffix");
+        return $this->dotted("$type.prefix") . $name . $this->dotted("$type.suffix");
     }
 
     public function getNamespacedFor(string $type, string $name): string
     {
-        return $this->config("$type.namespace") . '\\' . $this->getNameFor($type, $name);
+        return $this->dotted("$type.namespace") . '\\' . $this->getNameFor($type, $name);
     }
 }
