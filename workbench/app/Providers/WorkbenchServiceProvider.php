@@ -36,36 +36,38 @@ class WorkbenchServiceProvider extends ServiceProvider
             );
 
             $class = $generator->class(
-                $generator->name()
+                $draft->string('name')
             );
 
-            $extends = $generator->preset()->getNamespacedFor('eloquent', $generator->name());
+            $extends = $generator->preset()->getNamespacedFor('eloquent', $draft->string('name'));
 
             $namespace->addUse($extends, 'Model');
             $class->setExtends($extends);
 
             Factory::new(new Draft([
                 'type' => 'eloquent',
-                'name' => $generator->name(),
+                'name' => $draft->string('name'),
+                'slug' => $draft->string('slug'),
             ]), $blueprint, $preset);
 
             Factory::new(new Draft([
                 'type' => 'builder',
-                'name' => $generator->name(),
+                'name' => $draft->string('name'),
+                'slug' => $draft->string('slug'),
             ]), $blueprint, $preset);
         });
 
-        Event::listen('generate:eloquent', function (Generator $generator) {
+        Event::listen('generate:eloquent', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
             $namespace = $generator->namespace(
                 $generator->config('eloquent.namespace'),
             );
 
             $class = $generator->class(
-                $generator->preset()->getNameFor('eloquent', $generator->name())
+                $generator->preset()->getNameFor('eloquent', $draft->name())
             );
 
-            $builder = $generator->preset()->getNamespacedFor('builder', $generator->name());
-            $builderName = $generator->preset()->getNameFor('builder', $generator->name());
+            $builder = $generator->preset()->getNamespacedFor('builder', $draft->name());
+            $builderName = $generator->preset()->getNameFor('builder', $draft->name());
             $namespace->addUse($builder);
 
             $class->addComment('@method ' . $builderName . ' query()');
@@ -88,11 +90,15 @@ class WorkbenchServiceProvider extends ServiceProvider
             );
 
             $class = $generator->class(
-                $generator->preset()->getNameFor('builder', $generator->name())
+                $generator->preset()->getNameFor('builder', $draft->name())
             );
 
             $namespace->addUse(Builder::class);
             $class->setExtends(Builder::class);
+        });
+
+        Event::listen('blueprint:draft', function (Draft $draft, Blueprint $blueprint, Preset $preset) {
+            Factory::new($draft, $blueprint, $preset);
         });
     }
 }

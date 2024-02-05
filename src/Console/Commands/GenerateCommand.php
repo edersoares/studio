@@ -7,35 +7,33 @@ namespace Dex\Laravel\Studio\Console\Commands;
 use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
+use Dex\Laravel\Studio\Console\Commands\Concerns\GenerateDumper;
 use Dex\Laravel\Studio\Generators\Factory;
-use Dex\Laravel\Studio\Generators\Generator;
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Str;
 
 class GenerateCommand extends Command
 {
+    use GenerateDumper;
+
     protected $signature = 'generate {type} {name} {--dump} {--preset=}';
 
     protected $description = 'Generate new files';
 
-    public function handle(Dispatcher $events): int
+    public function handle(): int
     {
         $type = $this->argument('type');
         $name = $this->argument('name');
         $presetOption = $this->option('preset') ?? config('studio.preset');
 
         if ($this->option('dump')) {
-            $events->listen('generate:finished', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
-                $this->comment(
-                    $preset->getNamespacedFor($generator->type(), $generator->name())
-                );
-                $this->line($generator->generate());
-            });
+            $this->dump();
         }
 
         $draft = new Draft([
             'type' => $type,
             'name' => $name,
+            'slug' => Str::slug($name),
         ]);
 
         $blueprint = new Blueprint();

@@ -23,6 +23,10 @@ class Draft extends Collection
         if ($this->has('name') === false) {
             throw new InvalidArgumentException('Missing [name] key');
         }
+
+        if ($this->has('slug') === false) {
+            throw new InvalidArgumentException('Missing [slug] key');
+        }
     }
 
     public function type(): string
@@ -33,5 +37,10 @@ class Draft extends Collection
     public function name(): string
     {
         return $this->string('name');
+    }
+
+    public function slug(): string
+    {
+        return $this->string('slug');
     }
 }
