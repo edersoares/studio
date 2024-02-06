@@ -38,6 +38,13 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:factory', SetClassName::class);
         Event::listen('generate:factory', SetExtends::class);
         Event::listen('generate:factory', SetMethods::class);
+        Event::listen('generate:factory', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
+            $class = $preset->getNameFor('model', $draft->name());
+            $namespacedClass = $preset->getNamespacedFor('model', $draft->name());
+
+            $generator->namespace()->addUse($namespacedClass);
+            $generator->class()->addComment("@extends Factory<$class>");
+        });
 
         Event::listen('generate:model', SetNamespace::class);
         Event::listen('generate:model', SetClassName::class);
