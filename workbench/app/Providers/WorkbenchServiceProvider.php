@@ -8,7 +8,6 @@ use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\Factory;
-use Dex\Laravel\Studio\Generators\Generator;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetCustomBuilder;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetFillableProperty;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetRelations;
