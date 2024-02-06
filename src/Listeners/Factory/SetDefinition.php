@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Listeners\Factory;
 
 use Dex\Laravel\Studio\Blueprint\Blueprint;
@@ -10,10 +12,12 @@ use Dex\Laravel\Studio\Generators\Generator;
 class SetDefinition
 {
     public function __invoke(Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
-    {$method = $generator->class()
-        ->addMethod('definition')
-        ->addBody('return [');
+    {
+        $method = $generator->class()
+            ->addMethod('definition')
+            ->addBody('return [');
 
+        /** @var array $definition */
         $definition = $draft->get('attributes', []);
 
         foreach ($definition as $attribute => $options) {
@@ -32,6 +36,7 @@ class SetDefinition
 
                 array_shift($faker);
 
+                /** @var string $model */
                 $model = array_shift($faker);
 
                 $namespacedModel = $preset->getNamespacedFor('model', $model);

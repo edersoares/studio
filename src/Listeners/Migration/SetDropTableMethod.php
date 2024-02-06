@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Listeners\Migration;
 
 use Dex\Laravel\Studio\Blueprint\Blueprint;

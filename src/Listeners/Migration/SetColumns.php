@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Listeners\Migration;
 
 use Dex\Laravel\Studio\Blueprint\Blueprint;
@@ -13,7 +15,11 @@ class SetColumns
 {
     public function __invoke(Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        $columns = collect($draft->get('attributes'))
+        /** @var array $attributes */
+        $attributes = $draft->get('attributes');
+
+        /** @var array $columns */
+        $columns = collect($attributes)
             ->filter(fn ($attribute) => $attribute['type'] ?? false)
             ->toArray();
 
