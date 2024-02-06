@@ -12,6 +12,7 @@ use Dex\Laravel\Studio\Generators\Generator;
 use Dex\Laravel\Studio\Listeners\NestedGenerators;
 use Dex\Laravel\Studio\Listeners\SetClassName;
 use Dex\Laravel\Studio\Listeners\SetExtends;
+use Dex\Laravel\Studio\Listeners\SetFillableProperty;
 use Dex\Laravel\Studio\Listeners\SetNamespace;
 use Dex\Laravel\Studio\Listeners\SetTraits;
 use Illuminate\Support\Facades\Event;
@@ -47,6 +48,7 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:eloquent', SetClassName::class);
         Event::listen('generate:eloquent', SetExtends::class);
         Event::listen('generate:eloquent', SetTraits::class);
+        Event::listen('generate:eloquent', SetFillableProperty::class);
 
         Event::listen('generate:eloquent', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
             $builder = $generator->preset()->getNamespacedFor('builder', $draft->name());

@@ -18,13 +18,11 @@ class NestedGenerators
         $nested = $preset->dotted("{$draft->type()}.nested");
 
         foreach ($nested as $type) {
-            $draftType = new Draft([
+            $draft = $draft->merge([
                 'type' => $type,
-                'name' => $draft->string('name'),
-                'slug' => $draft->string('slug'),
             ]);
 
-            Factory::new($draftType, $blueprint, $preset);
+            Factory::new($draft, $blueprint, $preset);
         }
     }
 }
