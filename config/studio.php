@@ -50,6 +50,8 @@ return [
                     'factory',
                     'eloquent',
                     'builder',
+                    'migration:create',
+                    'migration:foreign',
                 ],
             ],
 

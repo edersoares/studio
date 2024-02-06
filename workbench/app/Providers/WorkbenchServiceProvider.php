@@ -111,6 +111,9 @@ class WorkbenchServiceProvider extends ServiceProvider
             $newEloquentBuilder->addBody('return new ' . $builderName . '($query);');
         });
 
+        Event::listen('generate:migration:create', fn (Generator $generator) => $generator->notGenerate());
+        Event::listen('generate:migration:foreign', fn (Generator $generator) => $generator->notGenerate());
+
         Event::listen('generate:builder', SetNamespace::class);
         Event::listen('generate:builder', SetClassName::class);
         Event::listen('generate:builder', SetExtends::class);
