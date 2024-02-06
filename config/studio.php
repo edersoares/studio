@@ -67,13 +67,6 @@ return [
                 'extension' => '.php',
                 'suffix' => 'Factory',
                 'extends' => \Illuminate\Database\Eloquent\Factories\Factory::class,
-                'methods' => [
-                    [
-                        'name' => 'definition',
-                        'return' => 'array',
-                        'body' => 'return [];',
-                    ]
-                ],
             ],
 
         ],

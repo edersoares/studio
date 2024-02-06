@@ -10,9 +10,11 @@ return [
             'attributes' => [
                 'name' => [
                     'fillable' => true,
+                    'factory' => 'faker:country',
                 ],
                 'ibge_code' => [
                     'fillable' => true,
+                    'factory' => 'faker:numerify:######',
                 ],
             ],
         ],
@@ -22,12 +24,15 @@ return [
             'attributes' => [
                 'name' => [
                     'fillable' => true,
+                    'factory' => 'faker:colorName',
                 ],
                 'country_id' => [
                     'fillable' => true,
+                    'factory' => 'model:Country',
                 ],
                 'ibge_code' => [
                     'fillable' => true,
+                    'factory' => 'faker:numerify:######',
                 ],
             ],
         ],

@@ -20,7 +20,13 @@ class SetMethods
             $newMethod = $generator->class()->addMethod($method['name']);
 
             if (array_key_exists('return', $method)) {
-                $newMethod->setReturnType($method['return']);
+                $return = $method['return'];
+
+                if ($return === '$this') {
+                    $return = $preset->getNamespacedFor($draft->type(), $draft->name());
+                }
+
+                $newMethod->setReturnType($return);
             }
 
             if (array_key_exists('body', $method)) {
