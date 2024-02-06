@@ -15,7 +15,7 @@ trait GenerateDumper
     {
         app('events')->listen('generate:finished', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
             $this->comment(
-                $preset->getNamespacedFor($generator->type(), $generator->name())
+                $preset->getFilenameFor($generator->type(), $generator->name())
             );
             $this->line($generator->generate());
         });

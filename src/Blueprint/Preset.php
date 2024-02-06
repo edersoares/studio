@@ -40,4 +40,13 @@ class Preset extends Collection
     {
         return $this->dotted("$type.namespace") . '\\' . $this->getNameFor($type, $name);
     }
+
+    public function getFilenameFor(string $type, string $name): string
+    {
+        $path = $this->dotted("$type.path");
+        $file = $this->getNameFor($type, $name);
+        $extension = $this->dotted("$type.extension");
+
+        return $path . DIRECTORY_SEPARATOR . $file . $extension;
+    }
 }
