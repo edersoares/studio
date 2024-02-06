@@ -14,11 +14,13 @@ return [
                 'name' => [
                     'type' => 'string',
                     'fillable' => true,
+                    'index' => true,
                     'factory' => 'faker:country',
                 ],
                 'ibge_code' => [
                     'type' => 'integer',
                     'fillable' => true,
+                    'nullable' => true,
                     'factory' => 'faker:numerify:######',
                 ],
                 'timestamps' => [
@@ -50,12 +52,20 @@ return [
                 'name' => [
                     'type' => 'string',
                     'fillable' => true,
+                    'index' => true,
                     'factory' => 'faker:colorName',
                 ],
                 'ibge_code' => [
                     'type' => 'integer',
                     'fillable' => true,
+                    'nullable' => true,
                     'factory' => 'faker:numerify:######',
+                ],
+                'active' => [
+                    'type' => 'boolean',
+                    'fillable' => true,
+                    'default' => true,
+                    'factory' => 'faker:boolean',
                 ],
                 'timestamps' => [
                     'type' => 'timestamps',
