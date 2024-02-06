@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dex\Laravel\Studio\Listeners;
+namespace Dex\Laravel\Studio\Listeners\Eloquent;
 
 use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
