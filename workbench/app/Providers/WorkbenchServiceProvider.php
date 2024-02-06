@@ -13,6 +13,7 @@ use Dex\Laravel\Studio\Listeners\NestedGenerators;
 use Dex\Laravel\Studio\Listeners\SetClassName;
 use Dex\Laravel\Studio\Listeners\SetExtends;
 use Dex\Laravel\Studio\Listeners\SetFillableProperty;
+use Dex\Laravel\Studio\Listeners\SetMethods;
 use Dex\Laravel\Studio\Listeners\SetNamespace;
 use Dex\Laravel\Studio\Listeners\SetTraits;
 use Illuminate\Support\Facades\Event;
@@ -33,6 +34,11 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Event::listen('generate:factory', SetNamespace::class);
+        Event::listen('generate:factory', SetClassName::class);
+        Event::listen('generate:factory', SetExtends::class);
+        Event::listen('generate:factory', SetMethods::class);
+
         Event::listen('generate:model', SetNamespace::class);
         Event::listen('generate:model', SetClassName::class);
         Event::listen('generate:model', NestedGenerators::class);
