@@ -17,6 +17,12 @@ return [
                     'factory' => 'faker:numerify:######',
                 ],
             ],
+            'relations' => [
+                'states' => [
+                    'model' => 'State',
+                    'type' => 'hasMany',
+                ],
+            ],
         ],
         'state' => [
             'type' => 'model',
@@ -33,6 +39,12 @@ return [
                 'ibge_code' => [
                     'fillable' => true,
                     'factory' => 'faker:numerify:######',
+                ],
+            ],
+            'relations' => [
+                'country' => [
+                    'model' => 'Country',
+                    'type' => 'belongsTo',
                 ],
             ],
         ],
