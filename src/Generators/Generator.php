@@ -46,11 +46,6 @@ class Generator
         $this->preset = $preset;
     }
 
-    public function config(string $key): mixed
-    {
-        return $this->preset->dotted($key);
-    }
-
     public function printer(): Printer
     {
         return new class extends Printer {

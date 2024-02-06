@@ -36,12 +36,20 @@ return [
                 'path' => workbench_path('app/Models/Eloquent'),
                 'extension' => '.php',
                 'suffix' => 'Eloquent',
+                'extends' => Illuminate\Database\Eloquent\Model::class,
+                'traits' => [
+                    Illuminate\Database\Eloquent\SoftDeletes::class,
+                ],
             ],
 
             'model' => [
                 'namespace' => 'Workbench\\App\\Models',
                 'path' => workbench_path('app/Models'),
                 'extension' => '.php',
+                'nested' => [
+                    'eloquent',
+                    'builder',
+                ],
             ],
 
             'builder' => [
@@ -49,6 +57,7 @@ return [
                 'path' => workbench_path('app/Models/Builder'),
                 'extension' => '.php',
                 'suffix' => 'Builder',
+                'extends' => Illuminate\Database\Eloquent\Builder::class,
             ],
 
         ],

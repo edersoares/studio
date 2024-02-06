@@ -11,17 +11,8 @@ use Illuminate\Support\Collection;
  */
 trait DottedGetter
 {
-    /**
-     * @var Collection<string, mixed>
-     */
-    private Collection $dot;
-
-    public function dotted(string $key): mixed
+    public function dotted(string $key, mixed $default = null): mixed
     {
-        if (empty($this->dot)) {
-            $this->dot = $this->dot();
-        }
-
-        return $this->dot->get($key);
+        return data_get($this->all(), $key, $default);
     }
 }
