@@ -36,9 +36,9 @@ return [
                 'path' => workbench_path('app/Models/Eloquent'),
                 'extension' => '.php',
                 'suffix' => 'Eloquent',
-                'extends' => \Illuminate\Database\Eloquent\Model::class,
+                'extends' => Illuminate\Database\Eloquent\Model::class,
                 'traits' => [
-                    \Illuminate\Database\Eloquent\SoftDeletes::class,
+                    Illuminate\Database\Eloquent\SoftDeletes::class,
                 ],
             ],
 
@@ -60,7 +60,7 @@ return [
                 'path' => workbench_path('app/Models/Builder'),
                 'extension' => '.php',
                 'suffix' => 'Builder',
-                'extends' => \Illuminate\Database\Eloquent\Builder::class,
+                'extends' => Illuminate\Database\Eloquent\Builder::class,
                 'methods' => [
                     [
                         'name' => 'active',
@@ -75,7 +75,7 @@ return [
                 'path' => workbench_path('database/factories'),
                 'extension' => '.php',
                 'suffix' => 'Factory',
-                'extends' => \Illuminate\Database\Eloquent\Factories\Factory::class,
+                'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
             ],
 
         ],
