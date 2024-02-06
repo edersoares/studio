@@ -15,7 +15,9 @@ use Dex\Laravel\Studio\Listeners\Eloquent\SetRelations;
 use Dex\Laravel\Studio\Listeners\Factory\SetDefinition;
 use Dex\Laravel\Studio\Listeners\Factory\SetModelInComments;
 use Dex\Laravel\Studio\Listeners\Migration\SetColumns;
+use Dex\Laravel\Studio\Listeners\Migration\SetDropForeignKeys;
 use Dex\Laravel\Studio\Listeners\Migration\SetDropTableMethod;
+use Dex\Laravel\Studio\Listeners\Migration\SetForeignKeys;
 use Dex\Laravel\Studio\Listeners\Model\SetCustomEloquent;
 use Dex\Laravel\Studio\Listeners\NestedGenerators;
 use Dex\Laravel\Studio\Listeners\SetClassName;
@@ -65,7 +67,10 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:migration:create', SetColumns::class);
         Event::listen('generate:migration:create', SetDropTableMethod::class);
 
-        Event::listen('generate:migration:foreign', fn (Generator $generator) => $generator->notGenerate());
+        Event::listen('generate:migration:foreign', SetClassName::class);
+        Event::listen('generate:migration:foreign', SetExtends::class);
+        Event::listen('generate:migration:foreign', SetForeignKeys::class);
+        Event::listen('generate:migration:foreign', SetDropForeignKeys::class);
 
         Event::listen('generate:builder', SetNamespace::class);
         Event::listen('generate:builder', SetClassName::class);

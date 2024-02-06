@@ -46,6 +46,7 @@ return [
                 ],
                 'country_id' => [
                     'type' => 'foreign',
+                    'foreign' => 'country.id',
                     'fillable' => true,
                     'factory' => 'model:Country',
                 ],

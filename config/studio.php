@@ -86,6 +86,14 @@ return [
                 'extends' => Illuminate\Database\Migrations\Migration::class,
             ],
 
+            'migration:foreign' => [
+                'path' => workbench_path('database/migrations'),
+                'extension' => '.php',
+                'prefix' => 'AddForeignKeyIn',
+                'suffix' => 'Table',
+                'extends' => Illuminate\Database\Migrations\Migration::class,
+            ],
+
         ],
 
     ],
