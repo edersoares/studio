@@ -78,6 +78,14 @@ return [
                 'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
             ],
 
+            'migration:create' => [
+                'path' => workbench_path('database/migrations'),
+                'extension' => '.php',
+                'prefix' => 'Create',
+                'suffix' => 'Table',
+                'extends' => Illuminate\Database\Migrations\Migration::class,
+            ],
+
         ],
 
     ],

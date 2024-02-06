@@ -8,13 +8,24 @@ return [
             'type' => 'model',
             'name' => 'Country',
             'attributes' => [
+                'id' => [
+                    'type' => 'id',
+                ],
                 'name' => [
+                    'type' => 'string',
                     'fillable' => true,
                     'factory' => 'faker:country',
                 ],
                 'ibge_code' => [
+                    'type' => 'integer',
                     'fillable' => true,
                     'factory' => 'faker:numerify:######',
+                ],
+                'timestamps' => [
+                    'type' => 'timestamps',
+                ],
+                'softDeletes' => [
+                    'type' => 'softDeletes',
                 ],
             ],
             'relations' => [
@@ -28,17 +39,29 @@ return [
             'type' => 'model',
             'name' => 'State',
             'attributes' => [
-                'name' => [
-                    'fillable' => true,
-                    'factory' => 'faker:colorName',
+                'id' => [
+                    'type' => 'id',
                 ],
                 'country_id' => [
+                    'type' => 'foreign',
                     'fillable' => true,
                     'factory' => 'model:Country',
                 ],
+                'name' => [
+                    'type' => 'string',
+                    'fillable' => true,
+                    'factory' => 'faker:colorName',
+                ],
                 'ibge_code' => [
+                    'type' => 'integer',
                     'fillable' => true,
                     'factory' => 'faker:numerify:######',
+                ],
+                'timestamps' => [
+                    'type' => 'timestamps',
+                ],
+                'softDeletes' => [
+                    'type' => 'softDeletes',
                 ],
             ],
             'relations' => [

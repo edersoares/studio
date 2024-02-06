@@ -17,7 +17,9 @@ use Dex\Laravel\Studio\Listeners\SetMethods;
 use Dex\Laravel\Studio\Listeners\SetNamespace;
 use Dex\Laravel\Studio\Listeners\SetRelations;
 use Dex\Laravel\Studio\Listeners\SetTraits;
+use Illuminate\Database\Schema\Blueprint as BlueprintAlias;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class WorkbenchServiceProvider extends ServiceProvider
@@ -83,7 +85,6 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:model', SetNamespace::class);
         Event::listen('generate:model', SetClassName::class);
         Event::listen('generate:model', NestedGenerators::class);
-
         Event::listen('generate:model', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
             $extends = $generator->preset()->getNamespacedFor('eloquent', $draft->string('name'));
 
@@ -97,7 +98,6 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:eloquent', SetTraits::class);
         Event::listen('generate:eloquent', SetFillableProperty::class);
         Event::listen('generate:eloquent', SetRelations::class);
-
         Event::listen('generate:eloquent', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
             $builder = $generator->preset()->getNamespacedFor('builder', $draft->name());
             $builderName = $generator->preset()->getNameFor('builder', $draft->name());
@@ -111,7 +111,78 @@ class WorkbenchServiceProvider extends ServiceProvider
             $newEloquentBuilder->addBody('return new ' . $builderName . '($query);');
         });
 
-        Event::listen('generate:migration:create', fn (Generator $generator) => $generator->notGenerate());
+        Event::listen('generate:migration:create', SetClassName::class);
+        Event::listen('generate:migration:create', SetExtends::class);
+        Event::listen('generate:migration:create', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
+            $columns = collect($draft->get('attributes'))
+                ->filter(fn ($attribute) => $attribute['type'] ?? false)
+                ->toArray();
+
+            if (empty($columns)) {
+                return;
+            }
+
+            $generator->namespace()->addUse(BlueprintAlias::class);
+            $generator->namespace()->addUse(Schema::class);
+
+            $up = $generator->class()->addMethod('up')->setReturnType('void');
+
+            $up->addBody('Schema::create(\'' . $draft->slug() . '\', function (Blueprint $table) {');
+
+            foreach ($columns as $attribute => $options) {
+                $allowed = [
+                    'id',
+                    'timestamps',
+                    'softDeletes',
+                ];
+
+                if (in_array($attribute, $allowed, true)) {
+                    $up->addBody('    $table->' . $attribute . '();');
+
+                    continue;
+                }
+
+                $type = $options['type'];
+
+                $replaceable = [
+                    'foreign' => 'foreignId',
+                ];
+
+                if (isset($replaceable[$type])) {
+                    $type = $replaceable[$type];
+                }
+
+                $defaultValue = '';
+                $nullable = '';
+                $index = '';
+                $extra = [$attribute];
+
+                if (isset($options['default'])) {
+                    $defaultValue = '->default(' . $options['default'] . ')';
+                }
+
+                if ($options['nullable'] ?? false) {
+                    $nullable = '->nullable()';
+                }
+
+                if ($options['index'] ?? false) {
+                    $nullable = '->index()';
+                }
+
+                $up->addBody('    $table->' . $type . '(...?)' . $defaultValue . $nullable . $index . ';', [$extra]);
+            }
+
+            $up->addBody('});');
+        });
+        Event::listen('generate:migration:create', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
+            $generator->namespace()->addUse(BlueprintAlias::class);
+            $generator->namespace()->addUse(Schema::class);
+
+            $generator->class()->addMethod('down')
+                ->setReturnType('void')
+                ->addBody('Schema::dropIfExists(\'' . $draft->slug() . '\');');
+        });
+
         Event::listen('generate:migration:foreign', fn (Generator $generator) => $generator->notGenerate());
 
         Event::listen('generate:builder', SetNamespace::class);
