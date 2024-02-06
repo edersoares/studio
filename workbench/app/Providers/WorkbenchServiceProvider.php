@@ -112,6 +112,7 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:builder', SetNamespace::class);
         Event::listen('generate:builder', SetClassName::class);
         Event::listen('generate:builder', SetExtends::class);
+        Event::listen('generate:builder', SetMethods::class);
 
         Event::listen('blueprint:draft', function (Draft $draft, Blueprint $blueprint, Preset $preset) {
             Factory::new($draft, $blueprint, $preset);

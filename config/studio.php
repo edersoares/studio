@@ -59,6 +59,13 @@ return [
                 'extension' => '.php',
                 'suffix' => 'Builder',
                 'extends' => \Illuminate\Database\Eloquent\Builder::class,
+                'methods' => [
+                    [
+                        'name' => 'active',
+                        'return' => '$this',
+                        'body' => 'return $this->where(\'active\', true);',
+                    ],
+                ],
             ],
 
             'factory' => [
