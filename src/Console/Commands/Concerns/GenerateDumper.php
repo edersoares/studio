@@ -14,6 +14,10 @@ trait GenerateDumper
     public function dump(): void
     {
         app('events')->listen('generate:finished', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
+            if ($generator->shouldGenerate() === false) {
+                return;
+            }
+
             $this->comment(
                 $preset->getFilenameFor($draft->type(), $draft->name())
             );

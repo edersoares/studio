@@ -32,6 +32,8 @@ class Generator
 
     protected Preset $preset;
 
+    protected bool $shouldGenerate = true;
+
     public function __construct(Draft $draft, Blueprint $blueprint, Preset $preset)
     {
         $this->file = new PhpFile();
@@ -51,6 +53,16 @@ class Generator
 
             public string $indentation = '    ';
         };
+    }
+
+    public function notGenerate(): void
+    {
+        $this->shouldGenerate = false;
+    }
+
+    public function shouldGenerate(): bool
+    {
+        return $this->shouldGenerate;
     }
 
     public function generate(): string
