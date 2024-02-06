@@ -32,15 +32,9 @@ class Generator
 
     protected Preset $preset;
 
-    protected string $type;
-
-    protected string $name;
-
     public function __construct(Draft $draft, Blueprint $blueprint, Preset $preset)
     {
         $this->file = new PhpFile();
-        $this->type = $draft->type();
-        $this->name = $draft->name();
         $this->draft = $draft;
         $this->blueprint = $blueprint;
         $this->preset = $preset;
@@ -67,16 +61,6 @@ class Generator
     public function preset(): Preset
     {
         return $this->preset;
-    }
-
-    public function type(): string
-    {
-        return $this->type;
-    }
-
-    public function name(): string
-    {
-        return $this->name;
     }
 
     public function file(): PhpFile
