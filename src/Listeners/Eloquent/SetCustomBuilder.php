@@ -17,7 +17,7 @@ class SetCustomBuilder
         $builderName = $generator->preset()->getNameFor('builder', $draft->name());
         $generator->namespace()->addUse($builder);
 
-        $generator->class()->addComment('@method ' . $builderName . ' query()');
+        $generator->class()->addComment('@method static ' . $builderName . ' query()');
 
         $newEloquentBuilder = $generator->class()->addMethod('newEloquentBuilder');
         $newEloquentBuilder->setReturnType($builder);
