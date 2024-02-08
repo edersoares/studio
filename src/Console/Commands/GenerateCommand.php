@@ -7,6 +7,7 @@ namespace Dex\Laravel\Studio\Console\Commands;
 use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
+use Dex\Laravel\Studio\Console\Commands\Concerns\CreateFileAfterGenerate;
 use Dex\Laravel\Studio\Console\Commands\Concerns\GenerateDumper;
 use Dex\Laravel\Studio\Generators\Factory;
 use Illuminate\Console\Command;
@@ -14,9 +15,10 @@ use Illuminate\Support\Str;
 
 class GenerateCommand extends Command
 {
+    use CreateFileAfterGenerate;
     use GenerateDumper;
 
-    protected $signature = 'generate {type} {name} {--dump} {--preset=}';
+    protected $signature = 'generate {type} {name} {--dump} {--file} {--preset=}';
 
     protected $description = 'Generate new files';
 
@@ -28,6 +30,10 @@ class GenerateCommand extends Command
 
         if ($this->option('dump')) {
             $this->dump();
+        }
+
+        if ($this->option('file')) {
+            $this->createFileAfterGenerate();
         }
 
         $draft = new Draft([

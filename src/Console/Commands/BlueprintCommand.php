@@ -6,14 +6,16 @@ namespace Dex\Laravel\Studio\Console\Commands;
 
 use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Preset;
+use Dex\Laravel\Studio\Console\Commands\Concerns\CreateFileAfterGenerate;
 use Dex\Laravel\Studio\Console\Commands\Concerns\GenerateDumper;
 use Illuminate\Console\Command;
 
 class BlueprintCommand extends Command
 {
+    use CreateFileAfterGenerate;
     use GenerateDumper;
 
-    protected $signature = 'blueprint {file} {--dump} {--preset=}';
+    protected $signature = 'blueprint {file} {--dump} {--file} {--preset=}';
 
     protected $description = 'Generate files from blueprint';
 
@@ -28,6 +30,10 @@ class BlueprintCommand extends Command
 
         if ($this->option('dump')) {
             $this->dump();
+        }
+
+        if ($this->option('file')) {
+            $this->createFileAfterGenerate();
         }
 
         event('blueprint', [$blueprint, $preset]);
