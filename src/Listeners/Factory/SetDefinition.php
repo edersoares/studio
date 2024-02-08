@@ -15,6 +15,7 @@ class SetDefinition
     {
         $method = $generator->class()
             ->addMethod('definition')
+            ->setReturnType('array')
             ->addBody('return [');
 
         /** @var array $definition */
