@@ -8,7 +8,7 @@ use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Console\Commands\Concerns\CreateFileAfterGenerate;
-use Dex\Laravel\Studio\Console\Commands\Concerns\GenerateDumper;
+use Dex\Laravel\Studio\Console\Commands\Concerns\DumpContentAfterGenerate;
 use Dex\Laravel\Studio\Generators\Factory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class GenerateCommand extends Command
 {
     use CreateFileAfterGenerate;
-    use GenerateDumper;
+    use DumpContentAfterGenerate;
 
     protected $signature = 'generate {type} {name} {--dump} {--file} {--preset=}';
 
@@ -29,7 +29,7 @@ class GenerateCommand extends Command
         $presetOption = $this->option('preset') ?? config('studio.preset');
 
         if ($this->option('dump')) {
-            $this->dump();
+            $this->dumpContentAfterGenerate();
         }
 
         if ($this->option('file')) {

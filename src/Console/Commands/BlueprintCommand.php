@@ -7,13 +7,13 @@ namespace Dex\Laravel\Studio\Console\Commands;
 use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Console\Commands\Concerns\CreateFileAfterGenerate;
-use Dex\Laravel\Studio\Console\Commands\Concerns\GenerateDumper;
+use Dex\Laravel\Studio\Console\Commands\Concerns\DumpContentAfterGenerate;
 use Illuminate\Console\Command;
 
 class BlueprintCommand extends Command
 {
     use CreateFileAfterGenerate;
-    use GenerateDumper;
+    use DumpContentAfterGenerate;
 
     protected $signature = 'blueprint {file} {--dump} {--file} {--preset=}';
 
@@ -29,7 +29,7 @@ class BlueprintCommand extends Command
         $preset = new Preset(['name' => $presetOption] + config('studio.presets.' . $presetOption, []));
 
         if ($this->option('dump')) {
-            $this->dump();
+            $this->dumpContentAfterGenerate();
         }
 
         if ($this->option('file')) {

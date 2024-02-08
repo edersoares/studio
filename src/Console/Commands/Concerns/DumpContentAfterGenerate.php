@@ -9,9 +9,9 @@ use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\Generator;
 
-trait GenerateDumper
+trait DumpContentAfterGenerate
 {
-    public function dump(): void
+    public function dumpContentAfterGenerate(): void
     {
         app('events')->listen('generate:finished', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
             if ($generator->shouldGenerate() === false) {
