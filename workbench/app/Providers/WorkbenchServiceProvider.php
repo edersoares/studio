@@ -10,6 +10,7 @@ use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Dex\Laravel\Studio\Generators\PhpGeneratorFactory;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetCustomBuilder;
+use Dex\Laravel\Studio\Listeners\Eloquent\SetDocumentation;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetFillableProperty;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetRelations;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetTableProperty;
@@ -61,6 +62,7 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:eloquent', SetClassName::class);
         Event::listen('generate:eloquent', SetExtends::class);
         Event::listen('generate:eloquent', SetTraits::class);
+        Event::listen('generate:eloquent', SetDocumentation::class);
         Event::listen('generate:eloquent', SetTableProperty::class);
         Event::listen('generate:eloquent', SetFillableProperty::class);
         Event::listen('generate:eloquent', SetRelations::class);
