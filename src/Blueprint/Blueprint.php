@@ -12,6 +12,9 @@ use Illuminate\Support\Collection;
  */
 class Blueprint extends Collection
 {
+    /**
+     * @return Generator<int, Draft>
+     */
     public function drafts(): Generator
     {
         /** @var array $drafts */
