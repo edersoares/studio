@@ -15,8 +15,7 @@ class SetRelations
 {
     public function __invoke(Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        /** @var array $relations */
-        $relations = $draft->get('relations', []);
+        $relations = $draft->array('relations');
 
         foreach ($relations as $name => $relation) {
             $model = $relation['model'];

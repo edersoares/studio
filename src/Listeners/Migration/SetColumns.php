@@ -15,8 +15,7 @@ class SetColumns
 {
     public function __invoke(Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        /** @var array $attributes */
-        $attributes = $draft->get('attributes');
+        $attributes = $draft->array('attributes');
 
         /** @var array $columns */
         $columns = collect($attributes)

@@ -22,8 +22,7 @@ class SetForeignKeys
 
         $up->addBody('Schema::table(\'' . $draft->slug() . '\', function (Blueprint $table) {');
 
-        /** @var array $attributes */
-        $attributes = $draft->get('attributes');
+        $attributes = $draft->array('attributes');
 
         /** @var array $columns */
         $columns = collect($attributes)

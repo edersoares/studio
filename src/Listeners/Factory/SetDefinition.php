@@ -18,8 +18,7 @@ class SetDefinition
             ->setReturnType('array')
             ->addBody('return [');
 
-        /** @var array $definition */
-        $definition = $draft->get('attributes', []);
+        $definition = $draft->array('attributes');
 
         foreach ($definition as $attribute => $options) {
             if (str_starts_with($options['factory'] ?? '', 'faker:')) {
