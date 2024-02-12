@@ -11,6 +11,7 @@ use Dex\Laravel\Studio\Generators\Factory;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetCustomBuilder;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetFillableProperty;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetRelations;
+use Dex\Laravel\Studio\Listeners\Eloquent\SetTableProperty;
 use Dex\Laravel\Studio\Listeners\Factory\SetDefinition;
 use Dex\Laravel\Studio\Listeners\Factory\SetModelInComments;
 use Dex\Laravel\Studio\Listeners\Migration\SetColumns;
@@ -57,6 +58,7 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:eloquent', SetClassName::class);
         Event::listen('generate:eloquent', SetExtends::class);
         Event::listen('generate:eloquent', SetTraits::class);
+        Event::listen('generate:eloquent', SetTableProperty::class);
         Event::listen('generate:eloquent', SetFillableProperty::class);
         Event::listen('generate:eloquent', SetRelations::class);
         Event::listen('generate:eloquent', SetCustomBuilder::class);

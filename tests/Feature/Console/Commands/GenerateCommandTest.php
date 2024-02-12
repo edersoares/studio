@@ -25,3 +25,12 @@ test('`generate` dump generated content', function () {
         '--dump' => true,
     ])->expectsOutputToContain('class User extends Model');
 });
+
+test('`generate` command create file', function () {
+    artisan('generate', [
+        'type' => 'model',
+        'name' => 'User',
+        '--preset' => 'temporary',
+        '--file' => true,
+    ])->assertOk();
+});

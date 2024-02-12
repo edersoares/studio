@@ -14,3 +14,11 @@ test('`--dump` option')
         '--dump' => true,
     ])
     ->assertOk();
+
+test('`--file` option')
+    ->artisan('blueprint', [
+        'file' => 'workbench/resources/blueprint.php',
+        '--preset' => 'temporary',
+        '--file' => true,
+    ])
+    ->assertOk();
