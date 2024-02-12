@@ -52,6 +52,15 @@ class Generator
             public int $linesBetweenMethods = 1;
 
             public string $indentation = '    ';
+
+            protected function dump(mixed $var, int $column = 0): string
+            {
+                if (is_string($var) && str_ends_with($var, '::class')) {
+                    return $var;
+                }
+
+                return parent::dump($var, $column);
+            }
         };
     }
 
