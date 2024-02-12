@@ -9,7 +9,7 @@ use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Console\Commands\Concerns\CreateFileAfterGenerate;
 use Dex\Laravel\Studio\Console\Commands\Concerns\DumpContentAfterGenerate;
-use Dex\Laravel\Studio\Generators\Factory;
+use Dex\Laravel\Studio\Generators\PhpGeneratorFactory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
@@ -46,7 +46,7 @@ class GenerateCommand extends Command
 
         $preset = new Preset(['name' => $presetOption] + config('studio.presets.' . $presetOption, []));
 
-        Factory::new($draft, $blueprint, $preset);
+        PhpGeneratorFactory::new($draft, $blueprint, $preset);
 
         return self::SUCCESS;
     }

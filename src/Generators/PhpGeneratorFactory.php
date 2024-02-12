@@ -8,11 +8,11 @@ use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 
-class Factory
+class PhpGeneratorFactory
 {
-    public static function new(Draft $draft, Blueprint $blueprint, Preset $preset): Generator
+    public static function new(Draft $draft, Blueprint $blueprint, Preset $preset): PhpGenerator
     {
-        $generator = new Generator(
+        $generator = new PhpGenerator(
             draft: $draft,
             blueprint: $blueprint,
             preset: $preset,

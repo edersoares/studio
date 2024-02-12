@@ -7,8 +7,8 @@ namespace Workbench\App\Providers;
 use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
-use Dex\Laravel\Studio\Generators\Factory;
-use Dex\Laravel\Studio\Generators\Generator;
+use Dex\Laravel\Studio\Generators\PhpGeneratorFactory;
+use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetCustomBuilder;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetFillableProperty;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetRelations;
@@ -81,16 +81,16 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:builder', SetExtends::class);
         Event::listen('generate:builder', SetMethods::class);
 
-        Event::listen('generate:models', function (Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
+        Event::listen('generate:models', function (PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset) {
             $generator->body(json_encode($blueprint->get('drafts')));
         });
 
         Event::listen('blueprint:draft', function (Draft $draft, Blueprint $blueprint, Preset $preset) {
-            Factory::new($draft, $blueprint, $preset);
+            PhpGeneratorFactory::new($draft, $blueprint, $preset);
         });
 
         Event::listen('blueprint', function (Blueprint $blueprint, Preset $preset) {
-            Factory::new(new Draft([
+            PhpGeneratorFactory::new(new Draft([
                 'type' => 'models',
                 'name' => 'models',
                 'slug' => 'models',

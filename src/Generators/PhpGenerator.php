@@ -13,7 +13,7 @@ use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\Printer;
 
-class Generator
+class PhpGenerator
 {
     /**
      * @var Collection<string, string>

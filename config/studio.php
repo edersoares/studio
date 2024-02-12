@@ -76,7 +76,7 @@ return [
                 'namespace' => 'Workbench\\Database\\Factories',
                 'path' => workbench_path('database/factories'),
                 'extension' => '.php',
-                'suffix' => 'Factory',
+                'suffix' => 'PhpGeneratorFactory',
                 'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
             ],
 
@@ -151,7 +151,7 @@ return [
                 'namespace' => 'Temporary\\Database\\Factories',
                 'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
                 'extension' => '.php',
-                'suffix' => 'Factory',
+                'suffix' => 'PhpGeneratorFactory',
                 'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
             ],
 

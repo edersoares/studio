@@ -7,12 +7,12 @@ namespace Dex\Laravel\Studio\Listeners;
 use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
-use Dex\Laravel\Studio\Generators\Factory;
-use Dex\Laravel\Studio\Generators\Generator;
+use Dex\Laravel\Studio\Generators\PhpGeneratorFactory;
+use Dex\Laravel\Studio\Generators\PhpGenerator;
 
 class NestedGenerators
 {
-    public function __invoke(Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
+    public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
         /** @var array $nested */
         $nested = $preset->dotted("{$draft->type()}.nested");
@@ -22,7 +22,7 @@ class NestedGenerators
                 'type' => $type,
             ]);
 
-            Factory::new($draft, $blueprint, $preset);
+            PhpGeneratorFactory::new($draft, $blueprint, $preset);
         }
     }
 }

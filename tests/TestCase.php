@@ -20,11 +20,11 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Dex\\Laravel\\Studio\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Dex\\Laravel\\Studio\\Database\\Factories\\' . class_basename($modelName) . 'PhpGeneratorFactory'
         );
 
         Factory::guessModelNamesUsing(
-            fn ($factory) => 'Dex\\Laravel\\Studio\\Models\\' . Str::replaceLast('Factory', '', class_basename($factory))
+            fn ($factory) => 'Dex\\Laravel\\Studio\\Models\\' . Str::replaceLast('PhpGeneratorFactory', '', class_basename($factory))
         );
     }
 

@@ -7,11 +7,11 @@ namespace Dex\Laravel\Studio\Listeners;
 use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
-use Dex\Laravel\Studio\Generators\Generator;
+use Dex\Laravel\Studio\Generators\PhpGenerator;
 
 class SetTraits
 {
-    public function __invoke(Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
+    public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
         /** @var array $traits */
         $traits = $preset->dotted("{$draft->type()}.traits", []);
