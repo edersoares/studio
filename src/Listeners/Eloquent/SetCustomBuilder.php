@@ -13,8 +13,8 @@ class SetCustomBuilder
 {
     public function __invoke(Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        $builder = $generator->preset()->getNamespacedFor('builder', $draft->name());
-        $builderName = $generator->preset()->getNameFor('builder', $draft->name());
+        $builder = $preset->getNamespacedFor('builder', $draft->name());
+        $builderName = $preset->getNameFor('builder', $draft->name());
         $generator->namespace()->addUse($builder);
 
         $generator->class()->addComment('@method static ' . $builderName . ' query()');

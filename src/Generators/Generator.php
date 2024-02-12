@@ -87,11 +87,6 @@ class Generator
         return $this->printer()->printFile($this->file) . $body;
     }
 
-    public function preset(): Preset
-    {
-        return $this->preset;
-    }
-
     public function file(): PhpFile
     {
         return $this->file;

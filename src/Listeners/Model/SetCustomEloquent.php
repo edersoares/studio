@@ -13,7 +13,7 @@ class SetCustomEloquent
 {
     public function __invoke(Generator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        $extends = $generator->preset()->getNamespacedFor('eloquent', $draft->string('name'));
+        $extends = $preset->getNamespacedFor('eloquent', $draft->string('name'));
 
         $generator->namespace()->addUse($extends, 'Model');
         $generator->class()->setExtends($extends);
