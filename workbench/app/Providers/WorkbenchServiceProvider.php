@@ -14,6 +14,7 @@ use Dex\Laravel\Studio\Listeners\Eloquent\SetRelations;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetTableProperty;
 use Dex\Laravel\Studio\Listeners\Factory\SetDefinition;
 use Dex\Laravel\Studio\Listeners\Factory\SetModelInComments;
+use Dex\Laravel\Studio\Listeners\Factory\SetModelProperty;
 use Dex\Laravel\Studio\Listeners\Migration\SetColumns;
 use Dex\Laravel\Studio\Listeners\Migration\SetDropForeignKeys;
 use Dex\Laravel\Studio\Listeners\Migration\SetDropTableMethod;
@@ -47,6 +48,7 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:factory', SetClassName::class);
         Event::listen('generate:factory', SetExtends::class);
         Event::listen('generate:factory', SetModelInComments::class);
+        Event::listen('generate:factory', SetModelProperty::class);
         Event::listen('generate:factory', SetDefinition::class);
 
         Event::listen('generate:model', SetNamespace::class);
