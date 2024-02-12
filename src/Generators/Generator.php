@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Generators;
 
 abstract class Generator
