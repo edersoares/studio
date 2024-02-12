@@ -13,7 +13,7 @@ use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\Printer;
 
-class PhpGenerator
+class PhpGenerator extends Generator
 {
     /**
      * @var Collection<string, string>
@@ -31,8 +31,6 @@ class PhpGenerator
     protected Blueprint $blueprint;
 
     protected Preset $preset;
-
-    protected bool $shouldGenerate = true;
 
     protected string $body;
 
@@ -64,16 +62,6 @@ class PhpGenerator
                 return parent::dump($var, $column);
             }
         };
-    }
-
-    public function notGenerate(): void
-    {
-        $this->shouldGenerate = false;
-    }
-
-    public function shouldGenerate(): bool
-    {
-        return $this->shouldGenerate;
     }
 
     public function generate(): string
