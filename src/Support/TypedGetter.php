@@ -18,4 +18,12 @@ trait TypedGetter
 
         return $string;
     }
+
+    public function array(string $key, array $default = []): array
+    {
+        /** @var array $array */
+        $array = $this->get($key, $default);
+
+        return $array;
+    }
 }
