@@ -98,6 +98,12 @@ return [
                 'extends' => Illuminate\Database\Migrations\Migration::class,
             ],
 
+            'models' => [
+                'filename' => function () {
+                    return base_path('packages/dex/addressing/models.php');
+                },
+            ],
+
         ],
 
         'temporary' => [
@@ -165,6 +171,12 @@ return [
                 'prefix' => 'AddForeignKeyIn',
                 'suffix' => 'Table',
                 'extends' => Illuminate\Database\Migrations\Migration::class,
+            ],
+
+            'models' => [
+                'filename' => function () {
+                    return sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'models.php';
+                },
             ],
 
         ],
