@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Blueprint;
 
+use Dex\Laravel\Studio\Support\DottedGetter;
 use Dex\Laravel\Studio\Support\TypedGetter;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -13,6 +14,7 @@ use InvalidArgumentException;
  */
 class Draft extends Collection
 {
+    use DottedGetter;
     use TypedGetter;
 
     public function __construct($items = [])
