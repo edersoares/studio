@@ -34,6 +34,8 @@ class Generator
 
     protected bool $shouldGenerate = true;
 
+    protected string $body;
+
     public function __construct(Draft $draft, Blueprint $blueprint, Preset $preset)
     {
         $this->file = new PhpFile();
@@ -76,7 +78,13 @@ class Generator
 
     public function generate(): string
     {
-        return $this->printer()->printFile($this->file);
+        $body = '';
+
+        if (isset($this->body)) {
+            $body = $this->body;
+        }
+
+        return $this->printer()->printFile($this->file) . $body;
     }
 
     public function preset(): Preset
@@ -105,5 +113,10 @@ class Generator
         }
 
         return $this->class;
+    }
+
+    public function body(string $body): void
+    {
+        $this->body = $body;
     }
 }
