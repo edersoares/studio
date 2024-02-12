@@ -43,6 +43,12 @@ class Preset extends Collection
 
     public function getFilenameFor(string $type, string $name): string
     {
+        $filename = $this->dotted("$type.filename");
+
+        if (is_callable($filename)) {
+            return $filename($type, $name, $this);
+        }
+
         $path = $this->dotted("$type.path");
         $file = $this->getNameFor($type, $name);
         $extension = $this->dotted("$type.extension");
