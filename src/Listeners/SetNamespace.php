@@ -16,6 +16,8 @@ class SetNamespace
         /** @var string $namespace */
         $namespace = $preset->dotted("{$draft->type()}.namespace");
 
-        $generator->namespace($namespace);
+        if ($namespace) {
+            $generator->namespace($namespace);
+        }
     }
 }

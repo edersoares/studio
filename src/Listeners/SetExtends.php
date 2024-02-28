@@ -16,7 +16,9 @@ class SetExtends
         /** @var string $extends */
         $extends = $preset->dotted("{$draft->type()}.extends");
 
-        $generator->namespace()->addUse($extends);
-        $generator->class()->setExtends($extends);
+        if ($extends) {
+            $generator->namespace()->addUse($extends);
+            $generator->class()->setExtends($extends);
+        }
     }
 }
