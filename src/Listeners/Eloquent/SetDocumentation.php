@@ -20,21 +20,21 @@ class SetDocumentation
         foreach ($attributes as $attribute => $options) {
             $type = $options['type'];
 
-            if (in_array($type, ['id', 'foreign'])) {
+            if (in_array($type, ['id', 'foreign'], true)) {
                 $type = 'int';
             }
 
             if ($type === 'timestamps') {
                 $generator->namespace()->addUse(DateTime::class);
-                $generator->class()->addComment("@property DateTime \$created_at");
-                $generator->class()->addComment("@property DateTime \$updated_at");
+                $generator->class()->addComment('@property DateTime $created_at');
+                $generator->class()->addComment('@property DateTime $updated_at');
 
                 continue;
             }
 
             if ($type === 'softDeletes') {
                 $generator->namespace()->addUse(DateTime::class);
-                $generator->class()->addComment("@property DateTime \$deleted_at");
+                $generator->class()->addComment('@property DateTime $deleted_at');
 
                 continue;
             }
