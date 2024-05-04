@@ -31,6 +31,20 @@ class Preset extends Collection
         return $this->string('name');
     }
 
+    public function trim(string $string, string $word): string
+    {
+        if (str_starts_with($string, $word)) {
+            $string = substr($string, strlen($word));
+        }
+
+        if (str_ends_with($string, $word)) {
+            $string = substr($string, 0, -strlen($word));
+        }
+
+        return $string;
+    }
+
+
     public function getNameFor(string $type, string $name): string
     {
         return $this->dotted("$type.prefix") . $name . $this->dotted("$type.suffix");
