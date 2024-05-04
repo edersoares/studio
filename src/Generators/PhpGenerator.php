@@ -44,7 +44,8 @@ class PhpGenerator extends Generator
 
     public function printer(): Printer
     {
-        return new class extends Printer {
+        return new class extends Printer
+        {
             public bool $omitEmptyNamespaces = false;
 
             public int $linesBetweenProperties = 1;

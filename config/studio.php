@@ -24,9 +24,34 @@ return [
 
         'package' => [
 
+            'factory' => [
+                'namespace' => env('STUDIO_NAMESPACE', 'Studio\\Package') . '\\Database\\Factories',
+                'path' => package_path('database/factories'),
+                'extension' => '.php',
+                'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
+            ],
+
             'model' => [
-                'namespace' => env('STUDIO_NAMESPACE', ''),
-                'path' => package_path('app/Models'),
+                'namespace' => env('STUDIO_NAMESPACE', 'Studio\\Package') . '\\Models',
+                'path' => package_path('src/Models'),
+                'extension' => '.php',
+                'extends' => Illuminate\Database\Eloquent\Model::class,
+            ],
+
+            'migration' => [
+                'filename' => function (string $type, string $name) {
+                    return package_path('database/migrations/' . now()->format('Y_m_d') . '_000000_') . Str::snake($name) . '.php';
+                },
+                'extends' => Illuminate\Database\Migrations\Migration::class,
+            ],
+
+            'migration:create' => [
+                'filename' => function (string $type, string $name) {
+                    return package_path('database/migrations/0000_00_00_000000_create_') . Str::snake($name) . '_table.php';
+                },
+                'prefix' => 'Create',
+                'suffix' => 'Table',
+                'extends' => Illuminate\Database\Migrations\Migration::class,
             ],
 
         ],
@@ -48,6 +73,7 @@ return [
                 'namespace' => 'Workbench\\App\\Models',
                 'path' => workbench_path('app/Models'),
                 'extension' => '.php',
+                'extends' => Illuminate\Database\Eloquent\Model::class,
                 'nested' => [
                     'factory',
                     'eloquent',
@@ -76,7 +102,7 @@ return [
                 'namespace' => 'Workbench\\Database\\Factories',
                 'path' => workbench_path('database/factories'),
                 'extension' => '.php',
-                'suffix' => 'PhpGeneratorFactory',
+                'suffix' => 'Factory',
                 'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
             ],
 
@@ -151,7 +177,7 @@ return [
                 'namespace' => 'Temporary\\Database\\Factories',
                 'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
                 'extension' => '.php',
-                'suffix' => 'PhpGeneratorFactory',
+                'suffix' => 'Factory',
                 'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
             ],
 

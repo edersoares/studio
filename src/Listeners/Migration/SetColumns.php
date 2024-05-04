@@ -8,8 +8,7 @@ use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\PhpGenerator;
-use Illuminate\Database\Schema\Blueprint as BlueprintAlias;
-use Illuminate\Support\Facades\Schema;
+use Nette\PhpGenerator\Closure;
 
 class SetColumns
 {
@@ -26,12 +25,8 @@ class SetColumns
             return;
         }
 
-        $generator->namespace()->addUse(BlueprintAlias::class);
-        $generator->namespace()->addUse(Schema::class);
-
-        $up = $generator->class()->addMethod('up')->setReturnType('void');
-
-        $up->addBody('Schema::create(\'' . $draft->slug() . '\', function (Blueprint $table) {');
+        /** @var Closure $closure */
+        $closure = $draft->get('create');
 
         foreach ($columns as $attribute => $options) {
             $allowed = [
@@ -41,7 +36,7 @@ class SetColumns
             ];
 
             if (in_array($attribute, $allowed, true)) {
-                $up->addBody('    $table->' . $attribute . '();');
+                $closure->addBody('$table->' . $attribute . '();');
 
                 continue;
             }
@@ -73,9 +68,7 @@ class SetColumns
                 $nullable = '->index()';
             }
 
-            $up->addBody('    $table->' . $type . '(...?)' . $defaultValue . $nullable . $index . ';', [$extra]);
+            $closure->addBody('$table->' . $type . '(...?)' . $defaultValue . $nullable . $index . ';', [$extra]);
         }
-
-        $up->addBody('});');
     }
 }

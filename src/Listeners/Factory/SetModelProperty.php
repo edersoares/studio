@@ -13,8 +13,10 @@ class SetModelProperty
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        $modelNamespaced = $preset->getNamespacedFor('model', $draft->name());
-        $model = $preset->getNameFor('model', $draft->name());
+        $name = $preset->trim($draft->name(), 'Factory');
+
+        $modelNamespaced = $preset->getNamespacedFor('model', $name);
+        $model = $preset->getNameFor('model', $name);
 
         $generator->namespace()->addUse($modelNamespaced);
 

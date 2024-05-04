@@ -22,6 +22,8 @@ class StudioServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        $this->app->register(LaravelServiceProvider::class);
+
         $this->mergeConfigFrom(__DIR__ . '/../../config/studio.php', 'studio');
     }
 }

@@ -44,7 +44,6 @@ class Preset extends Collection
         return $string;
     }
 
-
     public function getNameFor(string $type, string $name): string
     {
         return $this->dotted("$type.prefix") . $name . $this->dotted("$type.suffix");

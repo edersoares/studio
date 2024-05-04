@@ -11,15 +11,12 @@ use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Illuminate\Database\Schema\Blueprint as BlueprintAlias;
 use Illuminate\Support\Facades\Schema;
 
-class SetDropTableMethod
+class SetUpMethod
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
         $generator->namespace()->addUse(BlueprintAlias::class);
         $generator->namespace()->addUse(Schema::class);
-
-        $generator->class()->addMethod('down')
-            ->setReturnType('void')
-            ->addBody('Schema::dropIfExists(\'' . $draft->slug() . '\');');
+        $generator->class()->addMethod('up')->setReturnType('void');
     }
 }

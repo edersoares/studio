@@ -14,15 +14,8 @@ use Dex\Laravel\Studio\Listeners\Eloquent\SetDocumentation;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetFillableProperty;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetRelations;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetTableProperty;
-use Dex\Laravel\Studio\Listeners\Factory\SetDefinition;
-use Dex\Laravel\Studio\Listeners\Factory\SetModelInComments;
-use Dex\Laravel\Studio\Listeners\Factory\SetModelProperty;
-use Dex\Laravel\Studio\Listeners\Migration\SetColumns;
 use Dex\Laravel\Studio\Listeners\Migration\SetDropForeignKeys;
-use Dex\Laravel\Studio\Listeners\Migration\SetDropTableMethod;
 use Dex\Laravel\Studio\Listeners\Migration\SetForeignKeys;
-use Dex\Laravel\Studio\Listeners\Model\SetCustomEloquent;
-use Dex\Laravel\Studio\Listeners\NestedGenerators;
 use Dex\Laravel\Studio\Listeners\SetClassName;
 use Dex\Laravel\Studio\Listeners\SetExtends;
 use Dex\Laravel\Studio\Listeners\SetMethods;
@@ -46,18 +39,6 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Event::listen('generate:factory', SetNamespace::class);
-        Event::listen('generate:factory', SetClassName::class);
-        Event::listen('generate:factory', SetExtends::class);
-        Event::listen('generate:factory', SetModelInComments::class);
-        Event::listen('generate:factory', SetModelProperty::class);
-        Event::listen('generate:factory', SetDefinition::class);
-
-        Event::listen('generate:model', SetNamespace::class);
-        Event::listen('generate:model', SetClassName::class);
-        Event::listen('generate:model', NestedGenerators::class);
-        Event::listen('generate:model', SetCustomEloquent::class);
-
         Event::listen('generate:eloquent', SetNamespace::class);
         Event::listen('generate:eloquent', SetClassName::class);
         Event::listen('generate:eloquent', SetExtends::class);
@@ -67,11 +48,6 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:eloquent', SetFillableProperty::class);
         Event::listen('generate:eloquent', SetRelations::class);
         Event::listen('generate:eloquent', SetCustomBuilder::class);
-
-        Event::listen('generate:migration:create', SetClassName::class);
-        Event::listen('generate:migration:create', SetExtends::class);
-        Event::listen('generate:migration:create', SetColumns::class);
-        Event::listen('generate:migration:create', SetDropTableMethod::class);
 
         Event::listen('generate:migration:foreign', SetClassName::class);
         Event::listen('generate:migration:foreign', SetExtends::class);

@@ -13,10 +13,12 @@ class SetModelInComments
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        $class = $preset->getNameFor('model', $draft->name());
-        $namespacedClass = $preset->getNamespacedFor('model', $draft->name());
+        $model = $preset->trim($draft->name(), 'Factory');
+
+        $class = $preset->getNameFor('model', $model);
+        $namespacedClass = $preset->getNamespacedFor('model', $model);
 
         $generator->namespace()->addUse($namespacedClass);
-        $generator->class()->addComment("@extends PhpGeneratorFactory<$class>");
+        $generator->class()->addComment("@extends Factory<$class>");
     }
 }
