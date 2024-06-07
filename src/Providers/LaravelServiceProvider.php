@@ -10,8 +10,10 @@ use Dex\Laravel\Studio\Listeners\Factory\SetModelProperty;
 use Dex\Laravel\Studio\Listeners\Migration\SetColumns;
 use Dex\Laravel\Studio\Listeners\Migration\SetCreateClosure;
 use Dex\Laravel\Studio\Listeners\Migration\SetCreateTable;
+use Dex\Laravel\Studio\Listeners\Migration\SetDownClosure;
 use Dex\Laravel\Studio\Listeners\Migration\SetDownMethod;
 use Dex\Laravel\Studio\Listeners\Migration\SetDropTable;
+use Dex\Laravel\Studio\Listeners\Migration\SetUpClosure;
 use Dex\Laravel\Studio\Listeners\Migration\SetUpMethod;
 use Dex\Laravel\Studio\Listeners\SetClassName;
 use Dex\Laravel\Studio\Listeners\SetExtends;
@@ -53,6 +55,15 @@ class LaravelServiceProvider extends EventServiceProvider
             SetColumns::class,
             SetCreateTable::class,
             SetDropTable::class,
+        ],
+
+        'generate:migration:foreign' => [
+            SetClassName::class,
+            SetExtends::class,
+            SetUpMethod::class,
+            SetDownMethod::class,
+            SetUpClosure::class,
+            SetDownClosure::class,
         ],
 
     ];
