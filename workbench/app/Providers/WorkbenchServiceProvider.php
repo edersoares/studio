@@ -49,11 +49,6 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('generate:eloquent', SetRelations::class);
         Event::listen('generate:eloquent', SetCustomBuilder::class);
 
-        Event::listen('generate:migration:foreign', SetClassName::class);
-        Event::listen('generate:migration:foreign', SetExtends::class);
-        Event::listen('generate:migration:foreign', SetForeignKeys::class);
-        Event::listen('generate:migration:foreign', SetDropForeignKeys::class);
-
         Event::listen('generate:builder', SetNamespace::class);
         Event::listen('generate:builder', SetClassName::class);
         Event::listen('generate:builder', SetExtends::class);
