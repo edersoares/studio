@@ -20,4 +20,3 @@ class SetCreateClosure
         $draft->put('create', $closure);
     }
 }
-

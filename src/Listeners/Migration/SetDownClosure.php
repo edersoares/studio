@@ -24,4 +24,3 @@ class SetDownClosure
             ->addBody("Schema::table('{$draft->slug()}', $content);");
     }
 }
-
