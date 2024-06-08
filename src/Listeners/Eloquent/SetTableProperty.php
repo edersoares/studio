@@ -14,7 +14,7 @@ class SetTableProperty
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
         /** @var string $table */
-        $table = $draft->get('table', $draft->slug());
+        $table = $draft->get('table');
 
         if ($table) {
             $generator->class()

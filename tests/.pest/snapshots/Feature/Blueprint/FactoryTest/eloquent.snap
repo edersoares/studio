@@ -1,0 +1,17 @@
+<?php
+
+namespace Workbench\Studio\Package\App\Models\Eloquent;
+
+use Illuminate\Database\Eloquent\Model;
+use Workbench\Studio\Package\App\Models\Builder\UserBuilder;
+
+/**
+ * @method static UserBuilder query()
+ */
+class UserEloquent extends Model
+{
+    public function newEloquentBuilder($query): UserBuilder
+    {
+        return new UserBuilder($query);
+    }
+}

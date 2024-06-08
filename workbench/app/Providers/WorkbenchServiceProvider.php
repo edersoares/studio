@@ -39,16 +39,6 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Event::listen('generate:eloquent', SetNamespace::class);
-        Event::listen('generate:eloquent', SetClassName::class);
-        Event::listen('generate:eloquent', SetExtends::class);
-        Event::listen('generate:eloquent', SetTraits::class);
-        Event::listen('generate:eloquent', SetDocumentation::class);
-        Event::listen('generate:eloquent', SetTableProperty::class);
-        Event::listen('generate:eloquent', SetFillableProperty::class);
-        Event::listen('generate:eloquent', SetRelations::class);
-        Event::listen('generate:eloquent', SetCustomBuilder::class);
-
         Event::listen('generate:builder', SetNamespace::class);
         Event::listen('generate:builder', SetClassName::class);
         Event::listen('generate:builder', SetExtends::class);

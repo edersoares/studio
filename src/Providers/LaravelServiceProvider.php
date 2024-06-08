@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Providers;
 
+use Dex\Laravel\Studio\Listeners\Eloquent\SetCustomBuilder;
+use Dex\Laravel\Studio\Listeners\Eloquent\SetDocumentation;
+use Dex\Laravel\Studio\Listeners\Eloquent\SetFillableProperty;
+use Dex\Laravel\Studio\Listeners\Eloquent\SetRelations;
+use Dex\Laravel\Studio\Listeners\Eloquent\SetTableProperty;
 use Dex\Laravel\Studio\Listeners\Factory\SetDefinition;
 use Dex\Laravel\Studio\Listeners\Factory\SetModelInComments;
 use Dex\Laravel\Studio\Listeners\Factory\SetModelProperty;
@@ -18,11 +23,24 @@ use Dex\Laravel\Studio\Listeners\Migration\SetUpMethod;
 use Dex\Laravel\Studio\Listeners\SetClassName;
 use Dex\Laravel\Studio\Listeners\SetExtends;
 use Dex\Laravel\Studio\Listeners\SetNamespace;
+use Dex\Laravel\Studio\Listeners\SetTraits;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
 class LaravelServiceProvider extends EventServiceProvider
 {
     protected $listen = [
+
+        'generate:eloquent' => [
+            SetNamespace::class,
+            SetClassName::class,
+            SetExtends::class,
+            SetTraits::class,
+            SetDocumentation::class,
+            SetTableProperty::class,
+            SetFillableProperty::class,
+            SetRelations::class,
+            SetCustomBuilder::class,
+        ],
 
         'generate:factory' => [
             SetNamespace::class,
