@@ -48,4 +48,9 @@ class Draft extends Collection
     {
         return $this->string('slug');
     }
+
+    public static function new(string $name): Model
+    {
+        return new Model($name);
+    }
 }
