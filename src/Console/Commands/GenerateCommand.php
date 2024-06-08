@@ -18,7 +18,7 @@ class GenerateCommand extends Command
     use CreateFileAfterGenerate;
     use DumpContentAfterGenerate;
 
-    protected $signature = 'generate {type} {name} {--dump} {--file} {--preset=}';
+    protected $signature = 'generate {type} {name} {context?*} {--dump} {--file} {--preset=}';
 
     protected $description = 'Generate new files';
 
@@ -27,6 +27,8 @@ class GenerateCommand extends Command
         $type = $this->argument('type');
         $name = $this->argument('name');
         $presetOption = $this->option('preset') ?? config('studio.preset');
+
+        $context = $this->argument('context');
 
         if ($this->option('dump')) {
             $this->dumpContentAfterGenerate();
@@ -40,6 +42,9 @@ class GenerateCommand extends Command
             'type' => $type,
             'name' => $name,
             'slug' => Str::slug($name),
+            'context' => [
+                'options' => $context,
+            ],
         ]);
 
         $blueprint = new Blueprint();

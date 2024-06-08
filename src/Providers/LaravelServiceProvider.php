@@ -20,6 +20,7 @@ use Dex\Laravel\Studio\Listeners\Migration\SetDownMethod;
 use Dex\Laravel\Studio\Listeners\Migration\SetDropTable;
 use Dex\Laravel\Studio\Listeners\Migration\SetUpClosure;
 use Dex\Laravel\Studio\Listeners\Migration\SetUpMethod;
+use Dex\Laravel\Studio\Listeners\Model\DefineContextOptionsForModel;
 use Dex\Laravel\Studio\Listeners\SetClassName;
 use Dex\Laravel\Studio\Listeners\SetExtends;
 use Dex\Laravel\Studio\Listeners\SetNamespace;
@@ -58,6 +59,7 @@ class LaravelServiceProvider extends EventServiceProvider
         ],
 
         'generate:model' => [
+            DefineContextOptionsForModel::class,
             SetNamespace::class,
             SetClassName::class,
             SetExtends::class,

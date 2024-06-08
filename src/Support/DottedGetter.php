@@ -15,4 +15,9 @@ trait DottedGetter
     {
         return data_get($this->all(), $key, $default);
     }
+
+    public function setted(string $key, mixed $default = null): void
+    {
+        data_set($this->items, $key, $default);
+    }
 }
