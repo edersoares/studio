@@ -30,6 +30,12 @@ class LaravelServiceProvider extends EventServiceProvider
 {
     protected $listen = [
 
+        'generate:builder' => [
+            SetNamespace::class,
+            SetClassName::class,
+            SetExtends::class,
+        ],
+
         'generate:eloquent' => [
             SetNamespace::class,
             SetClassName::class,

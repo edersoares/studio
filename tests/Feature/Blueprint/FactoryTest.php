@@ -10,3 +10,4 @@ test('migration', fn () => expect(Factory::make('migration', 'UserMigration'))->
 test('migration:create', fn () => expect(Factory::make('migration:create', 'User'))->toMatchSnapshot());
 test('migration:foreign', fn () => expect(Factory::make('migration:foreign', 'User'))->toMatchSnapshot());
 test('eloquent', fn () => expect(Factory::make('eloquent', 'UserEloquent'))->toMatchSnapshot());
+test('builder', fn () => expect(Factory::make('builder', 'UserBuilder'))->toMatchSnapshot());
