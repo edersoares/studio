@@ -33,6 +33,10 @@ class Preset extends Collection
 
     public function trim(string $string, string $word): string
     {
+        if (strlen($word) === 0) {
+            return $string;
+        }
+
         if (str_starts_with($string, $word)) {
             $string = substr($string, strlen($word));
         }
@@ -44,8 +48,17 @@ class Preset extends Collection
         return $string;
     }
 
+    public function getModelNameFor(string $type, string $name): string
+    {
+        $name = $this->trim($name, $this->dotted("$type.prefix", ''));
+
+        return $this->trim($name, $this->dotted("$type.suffix", ''));
+    }
+
     public function getNameFor(string $type, string $name): string
     {
+        $name = $this->getModelNameFor($type, $name);
+
         return $this->dotted("$type.prefix") . $name . $this->dotted("$type.suffix");
     }
 
