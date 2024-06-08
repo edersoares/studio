@@ -58,36 +58,11 @@ return [
 
         'workbench' => [
 
-            'eloquent' => [
-                'namespace' => 'Workbench\\App\\Models\\Eloquent',
-                'path' => workbench_path('app/Models/Eloquent'),
-                'extension' => '.php',
-                'suffix' => 'Eloquent',
-                'extends' => Illuminate\Database\Eloquent\Model::class,
-                'traits' => [
-                    Illuminate\Database\Eloquent\SoftDeletes::class,
-                ],
-            ],
-
-            'model' => [
-                'namespace' => 'Workbench\\App\\Models',
-                'path' => workbench_path('app/Models'),
-                'extension' => '.php',
-                'extends' => Illuminate\Database\Eloquent\Model::class,
-                'nested' => [
-                    'factory',
-                    'eloquent',
-                    'builder',
-                    'migration:create',
-                    'migration:foreign',
-                ],
-            ],
-
             'builder' => [
-                'namespace' => 'Workbench\\App\\Models\\Builder',
+                'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench\\Studio\\Package') . '\\App\\Models\\Builder',
                 'path' => workbench_path('app/Models/Builder'),
-                'extension' => '.php',
                 'suffix' => 'Builder',
+                'extension' => '.php',
                 'extends' => Illuminate\Database\Eloquent\Builder::class,
                 'methods' => [
                     [
@@ -98,17 +73,32 @@ return [
                 ],
             ],
 
-            'factory' => [
-                'namespace' => 'Workbench\\Database\\Factories',
-                'path' => workbench_path('database/factories'),
+            'eloquent' => [
+                'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench\\Studio\\Package') . '\\App\\Models\\Eloquent',
+                'path' => workbench_path('app/Models/Eloquent'),
+                'suffix' => 'Eloquent',
                 'extension' => '.php',
+                'extends' => Illuminate\Database\Eloquent\Model::class,
+            ],
+
+            'factory' => [
+                'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench\\Studio\\Package') . '\\Database\\Factories',
+                'path' => workbench_path('database/factories'),
                 'suffix' => 'Factory',
+                'extension' => '.php',
                 'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
+            ],
+
+            'migration' => [
+                'filename' => function (string $type, string $name) {
+                    return workbench_path('database/migrations/' . now()->format('Y_m_d') . '_000000_') . Str::snake($name) . '.php';
+                },
+                'extends' => Illuminate\Database\Migrations\Migration::class,
             ],
 
             'migration:create' => [
                 'filename' => function (string $type, string $name) {
-                    return base_path('packages/dex/addressing/database/migrations/0000_00_00_000000_create_') . Str::snake($name) . '_table.php';
+                    return workbench_path('database/migrations/0000_00_00_000000_create_') . Str::snake($name) . '_table.php';
                 },
                 'prefix' => 'Create',
                 'suffix' => 'Table',
@@ -117,17 +107,18 @@ return [
 
             'migration:foreign' => [
                 'filename' => function (string $type, string $name) {
-                    return base_path('packages/dex/addressing/database/migrations/0000_00_00_100000_add_foreign_key_in_') . Str::snake($name) . '_table.php';
+                    return workbench_path('database/migrations/0000_00_00_100000_add_foreign_key_in_') . Str::snake($name) . '_table.php';
                 },
                 'prefix' => 'AddForeignKeyIn',
                 'suffix' => 'Table',
                 'extends' => Illuminate\Database\Migrations\Migration::class,
             ],
 
-            'models' => [
-                'filename' => function () {
-                    return base_path('packages/dex/addressing/models.php');
-                },
+            'model' => [
+                'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench\\Studio\\Package') . '\\App\\Models',
+                'path' => workbench_path('app/Models'),
+                'extension' => '.php',
+                'extends' => Illuminate\Database\Eloquent\Model::class,
             ],
 
         ],
