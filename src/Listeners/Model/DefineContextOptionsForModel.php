@@ -18,6 +18,7 @@ class DefineContextOptionsForModel
             $name = $preset->getNameFor('eloquent', $draft->name());
             $namespaced = $preset->getNamespacedFor('eloquent', $draft->name());
             $preset->setted('model.extends', $namespaced);
+            $preset->setted('model.extends:alias', 'Eloquent');
 
             Factory::make('eloquent', $name);
         }
