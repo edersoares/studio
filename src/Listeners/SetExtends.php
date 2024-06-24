@@ -14,10 +14,10 @@ class SetExtends
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
         /** @var string $extends */
-        $extends = $preset->dotted("{$draft->type()}.extends");
+        $extends = $preset->dotted("drafts.{$draft->type()}.extends");
 
         /** @var string $alias */
-        $alias = $preset->dotted("{$draft->type()}.extends:alias");
+        $alias = $preset->dotted("drafts.{$draft->type()}.extends:alias");
 
         if ($extends) {
             $generator->namespace()->addUse($extends, $alias);

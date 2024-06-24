@@ -15,7 +15,7 @@ class NestedGenerators
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
         /** @var array $nested */
-        $nested = $preset->dotted("{$draft->type()}.nested", []);
+        $nested = $preset->dotted("drafts.{$draft->type()}.nested", []);
 
         foreach ($nested as $type) {
             $draft = $draft->merge([

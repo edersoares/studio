@@ -50,34 +50,34 @@ class Preset extends Collection
 
     public function getModelNameFor(string $type, string $name): string
     {
-        $name = $this->trim($name, $this->dotted("$type.prefix", ''));
+        $name = $this->trim($name, $this->dotted("drafts.$type.prefix", ''));
 
-        return $this->trim($name, $this->dotted("$type.suffix", ''));
+        return $this->trim($name, $this->dotted("drafts.$type.suffix", ''));
     }
 
     public function getNameFor(string $type, string $name): string
     {
         $name = $this->getModelNameFor($type, $name);
 
-        return $this->dotted("$type.prefix") . $name . $this->dotted("$type.suffix");
+        return $this->dotted("drafts.$type.prefix") . $name . $this->dotted("drafts.$type.suffix");
     }
 
     public function getNamespacedFor(string $type, string $name): string
     {
-        return $this->dotted("$type.namespace") . '\\' . $this->getNameFor($type, $name);
+        return $this->dotted("drafts.$type.namespace") . '\\' . $this->getNameFor($type, $name);
     }
 
     public function getFilenameFor(string $type, string $name): string
     {
-        $filename = $this->dotted("$type.filename");
+        $filename = $this->dotted("drafts.$type.filename");
 
         if (is_callable($filename)) {
             return $filename($type, $name, $this);
         }
 
-        $path = $this->dotted("$type.path");
-        $file = $this->getNameFor($type, $name);
-        $extension = $this->dotted("$type.extension");
+        $path = $this->dotted("drafts.$type.path");
+        $file = $this->getNameFor("drafts.$type", $name);
+        $extension = $this->dotted("drafts.$type.extension");
 
         return $path . DIRECTORY_SEPARATOR . $file . $extension;
     }

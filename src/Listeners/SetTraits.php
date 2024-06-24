@@ -14,7 +14,7 @@ class SetTraits
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
         /** @var array $traits */
-        $traits = $preset->dotted("{$draft->type()}.traits", []);
+        $traits = $preset->dotted("drafts.{$draft->type()}.traits", []);
 
         foreach ($traits as $trait) {
             $generator->namespace()->addUse($trait);

@@ -14,7 +14,7 @@ class SetMethods
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
         /** @var array $methods */
-        $methods = $preset->dotted("{$draft->type()}.methods", []);
+        $methods = $preset->dotted("drafts.{$draft->type()}.methods", []);
 
         foreach ($methods as $method) {
             $newMethod = $generator->class()->addMethod($method['name']);

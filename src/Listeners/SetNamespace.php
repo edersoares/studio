@@ -14,7 +14,7 @@ class SetNamespace
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
         /** @var string $namespace */
-        $namespace = $preset->dotted("{$draft->type()}.namespace");
+        $namespace = $preset->dotted("drafts.{$draft->type()}.namespace");
 
         if ($namespace) {
             $generator->namespace($namespace);
