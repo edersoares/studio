@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Console\Commands;
 
-use Dex\Laravel\Studio\Blueprint\Blueprint;
-use Dex\Laravel\Studio\Blueprint\Draft;
-use Dex\Laravel\Studio\Blueprint\Preset;
+use Dex\Laravel\Studio\Blueprint\Factory;
 use Dex\Laravel\Studio\Console\Commands\Concerns\CreateFileAfterGenerate;
 use Dex\Laravel\Studio\Console\Commands\Concerns\DumpContentAfterGenerate;
-use Dex\Laravel\Studio\Generators\PhpGeneratorFactory;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class GenerateCommand extends Command
 {
@@ -26,7 +22,7 @@ class GenerateCommand extends Command
     {
         $type = $this->argument('type');
         $name = $this->argument('name');
-        $presetOption = $this->option('preset') ?? config('studio.preset');
+        $preset = $this->option('preset') ?? config('studio.preset');
 
         $context = $this->argument('context');
 
@@ -38,20 +34,9 @@ class GenerateCommand extends Command
             $this->createFileAfterGenerate();
         }
 
-        $draft = new Draft([
-            'type' => $type,
-            'name' => $name,
-            'slug' => Str::slug($name),
-            'context' => [
-                'options' => $context,
-            ],
+        Factory::new($type, $name, $preset, [
+            'options' => $context,
         ]);
-
-        $blueprint = new Blueprint();
-
-        $preset = new Preset(['name' => $presetOption] + config('studio.presets.' . $presetOption, []));
-
-        PhpGeneratorFactory::new($draft, $blueprint, $preset);
 
         return self::SUCCESS;
     }
