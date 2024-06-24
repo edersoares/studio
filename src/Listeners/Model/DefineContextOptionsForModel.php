@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Listeners\Model;
 
 use Dex\Laravel\Studio\Blueprint\Blueprint;
@@ -14,7 +16,7 @@ class DefineContextOptionsForModel
     {
         $options = $draft->dotted('context.options', []);
 
-        if (in_array('eloquent', $options)) {
+        if (in_array('eloquent', $options, true)) {
             $name = $preset->getNameFor('eloquent', $draft->name());
             $namespaced = $preset->getNamespacedFor('eloquent', $draft->name());
             $preset->setted('model.extends', $namespaced);
@@ -23,7 +25,7 @@ class DefineContextOptionsForModel
             Factory::make('eloquent', $name);
         }
 
-        if (in_array('builder', $options)) {
+        if (in_array('builder', $options, true)) {
             $name = $preset->getNameFor('builder', $draft->name());
 
             Factory::make('builder', $name);
