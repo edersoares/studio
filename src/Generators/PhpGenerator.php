@@ -26,20 +26,13 @@ class PhpGenerator extends Generator
 
     protected ClassType $class;
 
-    protected Draft $draft;
-
-    protected Blueprint $blueprint;
-
-    protected Preset $preset;
-
     protected string $body;
 
     public function __construct(Draft $draft, Blueprint $blueprint, Preset $preset)
     {
+        parent::__construct($draft, $blueprint, $preset);
+
         $this->file = new PhpFile();
-        $this->draft = $draft;
-        $this->blueprint = $blueprint;
-        $this->preset = $preset;
     }
 
     public function printer(): Printer
