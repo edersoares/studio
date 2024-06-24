@@ -22,7 +22,7 @@ trait CreateFileAfterGenerate
                 return;
             }
 
-            $filename = $preset->getFilenameFor($draft->type(), $draft->name());
+            $filename = $generator->filename();
             $directory = dirname($filename);
 
             if (is_dir($directory)) {
@@ -37,7 +37,7 @@ trait CreateFileAfterGenerate
                 return;
             }
 
-            $filename = $preset->getFilenameFor($draft->type(), $draft->name());
+            $filename = $generator->filename();
 
             $this->comment($filename);
 

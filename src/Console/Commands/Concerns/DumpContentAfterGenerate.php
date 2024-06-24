@@ -18,9 +18,7 @@ trait DumpContentAfterGenerate
                 return;
             }
 
-            $this->comment(
-                $preset->getFilenameFor($draft->type(), $draft->name())
-            );
+            $this->comment($generator->filename());
             $this->line($generator->generate());
         });
     }

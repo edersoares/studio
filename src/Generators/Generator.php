@@ -35,5 +35,13 @@ abstract class Generator
         return $this->shouldGenerate;
     }
 
+    public function filename(): string
+    {
+        return $this->preset->getFilenameFor(
+            type: $this->draft->type(),
+            name: $this->draft->name(),
+        );
+    }
+
     abstract public function generate(): string;
 }
