@@ -62,9 +62,26 @@ class Preset extends Collection
         return $this->dotted("drafts.$type.prefix") . $name . $this->dotted("drafts.$type.suffix");
     }
 
+    public function getNamespaceForType(string $type): string
+    {
+        $kind = $this->dotted("drafts.$type.kind", 'source');
+        $baseNamespace = $this->dotted('namespace', '');
+        $kindNamespace = $this->dotted("namespaces.$kind", '');
+        $namespace = $this->dotted("drafts.$type.namespace", '');
+
+        return $this->joinNamespaces([
+            $baseNamespace,
+            $kindNamespace,
+            $namespace,
+        ]);
+    }
+
     public function getNamespacedFor(string $type, string $name): string
     {
-        return $this->dotted("drafts.$type.namespace") . '\\' . $this->getNameFor($type, $name);
+        return $this->joinNamespaces([
+            $this->getNamespaceForType($type),
+            $this->getNameFor($type, $name),
+        ]);
     }
 
     public function getFilenameFor(string $type, string $name): string
@@ -94,5 +111,13 @@ class Preset extends Collection
         $paths = array_map(fn ($path) => rtrim($path, DIRECTORY_SEPARATOR), $paths);
 
         return implode(DIRECTORY_SEPARATOR, $paths);
+    }
+
+    private function joinNamespaces(array $namespaces): string
+    {
+        $namespaces = array_filter($namespaces, fn ($namespace) => $namespace);
+        $namespaces = array_map(fn ($namespace) => trim($namespace, '\\'), $namespaces);
+
+        return implode('\\', $namespaces);
     }
 }

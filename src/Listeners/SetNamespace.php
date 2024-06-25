@@ -13,8 +13,7 @@ class SetNamespace
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        /** @var string $namespace */
-        $namespace = $preset->dotted("drafts.{$draft->type()}.namespace");
+        $namespace = $preset->getNamespaceForType($draft->type());
 
         if ($namespace) {
             $generator->namespace($namespace);
