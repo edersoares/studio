@@ -34,37 +34,44 @@ return [
             'drafts' => [
 
                 'command' => [
-                    'path' => 'source://Console/Commands',
+                    'kind' => 'source',
+                    'path' => 'Console/Commands',
                 ],
 
                 'controller' => [
-                    'path' => 'source://Http/Controllers',
+                    'kind' => 'source',
+                    'path' => 'Http/Controllers',
                 ],
 
                 'model' => [
-                    'path' => 'source://Models',
+                    'kind' => 'source',
+                    'path' => 'Models',
                     'extension' => '.php',
                     'namespace' => 'Models',
                     'extends' => Illuminate\Database\Eloquent\Model::class,
                 ],
 
                 'factory' => [
-                    'path' => 'database://factories',
+                    'kind' => 'database',
+                    'path' => 'factories',
                     'extension' => '.php',
                     'namespace' => 'Factories',
                     'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
                 ],
 
                 'migration' => [
-                    'path' => 'database://migrations',
+                    'kind' => 'database',
+                    'path' => 'migrations',
                 ],
 
                 'seeder' => [
-                    'path' => 'database://seederss',
+                    'kind' => 'database',
+                    'path' => 'seeders',
                 ],
 
                 'request' => [
-                    'path' => 'source://Http/Request',
+                    'kind' => 'source',
+                    'path' => 'Http/Request',
                 ],
 
             ],
