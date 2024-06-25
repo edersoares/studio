@@ -81,10 +81,10 @@ return [
 
             'extends' => ['laravel'],
 
-            'path' => env('STUDIO_PACKAGE', false) ? package_path() : base_path(),
+            'path' => getcwd(),
 
             'paths' => [
-                'source' => env('STUDIO_SOURCE_PATH', env('STUDIO_PACKAGE', false) ? 'src' : 'app'),
+                'source' => env('STUDIO_SOURCE_PATH', 'src'),
             ],
 
             'namespace' => env('STUDIO_NAMESPACE', 'Package'),
