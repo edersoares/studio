@@ -176,9 +176,7 @@ return [
 
             'extends' => ['laravel'],
 
-            'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
-
-            'namespace' => 'Temporary',
+            'path' => package_path('tmp'),
 
         ],
 
