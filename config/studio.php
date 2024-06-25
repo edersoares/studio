@@ -125,12 +125,15 @@ return [
                 ],
 
                 'migration' => [
+                    'kind' => 'database',
                     'filename' => function (string $type, string $name) {
                         return now()->format('Y_m_d') . '_000000_' . str($name)->snake()->value();
                     },
                 ],
 
                 'migration:create' => [
+                    'kind' => 'database',
+                    'path' => 'migrations',
                     'filename' => function (string $type, string $name) {
                         return '0000_00_00_000000_create_' . str($name)->snake()->value() . '_table';
                     },
@@ -140,6 +143,8 @@ return [
                 ],
 
                 'migration:foreign' => [
+                    'kind' => 'database',
+                    'path' => 'migrations',
                     'filename' => function (string $type, string $name) {
                         return '0000_00_00_100000_add_foreign_key_in_' . str($name)->snake()->value() . '_table';
                     },

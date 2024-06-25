@@ -100,7 +100,7 @@ class Preset extends Collection
         $path = $this->dotted("drafts.$type.path", '');
         /** @var callable $filename */
         $filename = $this->dotted("drafts.$type.filename") ?? function ($type, $name, $preset) {
-            return $preset->getNameFor("drafts.$type", $name);
+            return $preset->getNameFor($type, $name);
         };
         $extension = $this->dotted("drafts.$type.extension", '.php');
 
