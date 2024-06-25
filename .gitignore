@@ -8,5 +8,6 @@ docs
 phpunit.xml
 phpstan.neon
 testbench.yaml
+tmp
 vendor
 node_modules
