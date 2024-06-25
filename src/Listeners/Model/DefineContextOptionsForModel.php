@@ -14,6 +14,7 @@ class DefineContextOptionsForModel
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
+        /** @var array $options */
         $options = $draft->dotted('context.options', []);
 
         if (in_array('eloquent', $options, true)) {

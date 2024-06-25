@@ -21,6 +21,7 @@ class BlueprintCommand extends Command
 
     public function handle(): int
     {
+        /** @var string $presetName */
         $presetName = $this->option('preset') ?? config('studio.preset');
 
         $file = require $this->argument('file');

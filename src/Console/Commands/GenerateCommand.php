@@ -22,6 +22,7 @@ class GenerateCommand extends Command
     {
         $type = $this->argument('type');
         $name = $this->argument('name');
+        /** @var string $preset */
         $preset = $this->option('preset') ?? config('studio.preset');
 
         $context = $this->argument('context');

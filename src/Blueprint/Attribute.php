@@ -70,56 +70,56 @@ class Attribute
         return $this;
     }
 
-    public function fillable($fillable = true): static
+    public function fillable(bool $fillable = true): static
     {
         data_set($this->attribute, 'fillable', $fillable);
 
         return $this;
     }
 
-    public function nullable($nullable = true): static
+    public function nullable(bool $nullable = true): static
     {
         data_set($this->attribute, 'nullable', $nullable);
 
         return $this;
     }
 
-    public function unique($unique = true): static
+    public function unique(bool $unique = true): static
     {
         data_set($this->attribute, 'unique', $unique);
 
         return $this;
     }
 
-    public function index($index = true): static
+    public function index(bool $index = true): static
     {
         data_set($this->attribute, 'index', $index);
 
         return $this;
     }
 
-    public function factory($model): static
+    public function factory(string $model): static
     {
         data_set($this->attribute, 'factory.model', [$model]);
 
         return $this;
     }
 
-    public function faker(...$args): static
+    public function faker(string ...$args): static
     {
         data_set($this->attribute, 'factory.faker', $args);
 
         return $this;
     }
 
-    public function docs($description): static
+    public function docs(string $description): static
     {
         data_set($this->attribute, 'docs.description', $description);
 
         return $this;
     }
 
-    public function example($example): static
+    public function example(string|int $example): static
     {
         data_set($this->attribute, 'docs.example', $example);
 
@@ -128,6 +128,7 @@ class Attribute
 
     private function rule(string $rule): static
     {
+        /** @var array $rules */
         $rules = data_get($this->attribute, 'validation.rules', []);
 
         $rules[] = $rule;

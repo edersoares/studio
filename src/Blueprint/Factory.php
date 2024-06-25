@@ -12,6 +12,7 @@ class Factory
 {
     public static function make(string $type, string $name, array $context = []): string
     {
+        /** @var string $preset */
         $preset = config('studio.preset');
 
         return static::new($type, $name, $preset, $context)->generate();
@@ -37,17 +38,20 @@ class Factory
     {
         $preset = new Preset(['name' => $name]);
 
+        /** @var array $extends */
         $extends = config("studio.presets.$name.extends", []);
 
         foreach ($extends as $extend) {
-            $preset->settedAll(
-                config("studio.presets.$extend", [])
-            );
+            /** @var array $config */
+            $config = config("studio.presets.$extend", []);
+
+            $preset->settedAll($config);
         }
 
-        $preset->settedAll(
-            config("studio.presets.$name", [])
-        );
+        /** @var array $config */
+        $config = config("studio.presets.$name", []);
+
+        $preset->settedAll($config);
 
         return $preset;
     }

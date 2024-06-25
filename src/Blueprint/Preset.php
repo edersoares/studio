@@ -50,9 +50,15 @@ class Preset extends Collection
 
     public function getModelNameFor(string $type, string $name): string
     {
-        $name = $this->trim($name, $this->dotted("drafts.$type.prefix", ''));
+        /** @var string $prefix */
+        $prefix = $this->dotted("drafts.$type.prefix", '');
 
-        return $this->trim($name, $this->dotted("drafts.$type.suffix", ''));
+        /** @var string $suffix */
+        $suffix = $this->dotted("drafts.$type.suffix", '');
+
+        $name = $this->trim($name, $prefix);
+
+        return $this->trim($name, $suffix);
     }
 
     public function getNameFor(string $type, string $name): string
@@ -64,6 +70,7 @@ class Preset extends Collection
 
     public function getNamespaceForType(string $type): string
     {
+        /** @var string $kind */
         $kind = $this->dotted("drafts.$type.kind", 'source');
         $baseNamespace = $this->dotted('namespace', '');
         $kindNamespace = $this->dotted("namespaces.$kind", '');
@@ -86,10 +93,12 @@ class Preset extends Collection
 
     public function getFilenameFor(string $type, string $name): string
     {
+        /** @var string $kind */
         $kind = $this->dotted("drafts.$type.kind", 'source');
         $basePath = $this->dotted('path');
         $kindPath = $this->dotted("paths.$kind", '');
         $path = $this->dotted("drafts.$type.path", '');
+        /** @var callable $filename */
         $filename = $this->dotted("drafts.$type.filename") ?? function ($type, $name, $preset) {
             return $preset->getNameFor("drafts.$type", $name);
         };
