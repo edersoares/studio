@@ -77,7 +77,7 @@ return [
 
         ],
 
-        'package' => [
+        'studio' => [
 
             'extends' => ['laravel'],
 
@@ -148,7 +148,7 @@ return [
 
         'workbench' => [
 
-            'extends' => ['laravel', 'package'],
+            'extends' => ['laravel', 'studio'],
 
             'path' => workbench_path(),
 
