@@ -21,12 +21,19 @@ class BlueprintCommand extends Command
 
     public function handle(): int
     {
-        $presetOption = $this->option('preset') ?? config('studio.preset');
+        $presetName = $this->option('preset') ?? config('studio.preset');
 
         $file = require $this->argument('file');
 
         $blueprint = new Blueprint($file);
-        $preset = new Preset(['name' => $presetOption] + config('studio.presets.' . $presetOption, []));
+        $preset = new Preset(['name' => $presetName]);
+
+        $extends = config("studio.presets.$presetName.extends", '_');
+        $presetConfig = config("studio.presets.$presetName", []);
+        $presetExtendsConfig = config("studio.presets.$extends", []);
+
+        $preset->settedAll($presetExtendsConfig);
+        $preset->settedAll($presetConfig);
 
         if ($this->option('dump')) {
             $this->dumpContentAfterGenerate();

@@ -19,7 +19,7 @@ class Factory
 
     public static function new(string $type, string $name, string $preset, array $context = []): PhpGenerator
     {
-        $extends = config('studio.presets.$preset.extends', '_');
+        $extends = config("studio.presets.$preset.extends", '_');
         $presetConfig = config("studio.presets.$preset", []);
         $presetExtendsConfig = config("studio.presets.$extends", []);
 
