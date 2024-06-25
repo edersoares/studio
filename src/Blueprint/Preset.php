@@ -69,16 +69,41 @@ class Preset extends Collection
 
     public function getFilenameFor(string $type, string $name): string
     {
-        $filename = $this->dotted("drafts.$type.filename");
+        $basePath = $this->dotted('path');
+        $paths = $this->dotted('paths', []);
+        $replacePaths = [];
 
-        if (is_callable($filename)) {
-            return $filename($type, $name, $this);
+        foreach ($paths as $internal => $internalPath) {
+            $replacePaths["$internal://"] = $this->joinPaths([
+                $basePath,
+                $internalPath,
+            ]);
         }
 
-        $path = $this->dotted("drafts.$type.path");
-        $file = $this->getNameFor("drafts.$type", $name);
-        $extension = $this->dotted("drafts.$type.extension");
+        $filename = $this->dotted("drafts.$type.filename") ?? function ($type, $name, $preset) {
+            return $preset->getNameFor("drafts.$type", $name);
+        };
+        $path = $this->dotted("drafts.$type.path", '');
+        $extension = $this->dotted("drafts.$type.extension", '.php');
 
-        return $path . DIRECTORY_SEPARATOR . $file . $extension;
+        $file = $filename($type, $name, $this);
+
+        return $this->joinPaths([
+            $this->replacePaths($path, $replacePaths),
+            $this->replacePaths($file . $extension, $replacePaths),
+        ]);
+    }
+
+    private function replacePaths(string $path, array $replaces): string
+    {
+        return str_replace(array_keys($replaces), array_values($replaces), $path);
+    }
+
+    private function joinPaths(array $paths): string
+    {
+        $paths = array_filter($paths, fn ($path) => $path);
+        $paths = array_map(fn ($path) => rtrim($path, DIRECTORY_SEPARATOR), $paths);
+
+        return implode(DIRECTORY_SEPARATOR, $paths);
     }
 }
