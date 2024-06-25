@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Dex\Laravel\Studio\Blueprint\Blueprint;
-use Dex\Laravel\Studio\Blueprint\Draft;
 
 test('`drafts` method', function () {
     $blueprint = new Blueprint([
@@ -15,5 +14,10 @@ test('`drafts` method', function () {
         ],
     ]);
 
-    expect($blueprint->drafts())->toContainOnlyInstancesOf(Draft::class);
+    expect($blueprint->drafts())->toBe([
+        'user' => [
+            'type' => 'model',
+            'name' => 'User',
+        ],
+    ]);
 });

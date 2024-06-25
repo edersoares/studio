@@ -16,17 +16,10 @@ class Blueprint extends Collection
     use TypedGetter;
 
     /**
-     * @return Generator<int, Draft>
+     * @return array
      */
-    public function drafts(): Generator
+    public function drafts(): array
     {
-        $drafts = $this->array('drafts');
-
-        foreach ($drafts as $slug => $draft) {
-            yield new Draft([
-                'slug' => $slug,
-                'name' => $draft['name'] ?? $slug,
-            ] + $draft);
-        }
+        return $this->array('drafts');
     }
 }

@@ -28,12 +28,11 @@ class Factory
 
     public static function draft(string $type, string $name, array $context = []): Draft
     {
-        return new Draft([
+        return new Draft(array_merge($context, [
             'type' => $type,
             'name' => $name,
             'slug' => str($name)->slug()->value(),
-            'context' => $context,
-        ]);
+        ]));
     }
 
     public static function blueprint(array $blueprint = []): Blueprint

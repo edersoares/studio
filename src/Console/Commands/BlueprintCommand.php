@@ -37,7 +37,7 @@ class BlueprintCommand extends Command
         }
 
         foreach ($blueprint->drafts() as $draft) {
-            Factory::new($draft['type'], $draft['name'], $presetName);
+            Factory::new($draft['type'], $draft['name'], $presetName, $draft);
         }
 
         return self::SUCCESS;
