@@ -1,9 +1,9 @@
 <?php
 
-namespace Workbench\Studio\Package\App\Models\Eloquent;
+namespace Package\Models\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
-use Workbench\Studio\Package\App\Models\Builder\UserBuilder;
+use Package\Models\Builder\UserBuilder;
 
 /**
  * @method static UserBuilder query()
