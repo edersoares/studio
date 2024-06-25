@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Str;
-
 use function Orchestra\Testbench\package_path;
 use function Orchestra\Testbench\workbench_path;
 
@@ -86,53 +84,16 @@ return [
             'path' => package_path(),
 
             'paths' => [
-                'source' => 'src',
+                'source' => env('STUDIO_SOUCE_PATH', 'src'),
             ],
 
             'namespace' => env('STUDIO_NAMESPACE', 'Package'),
 
             'namespaces' => [
-                'source' => env('STUDIO_NAMESPACE', ''),
+                'source' => env('STUDIO_SOURCE_NAMESPACE', ''),
                 'database' => env('STUDIO_DATABASE_NAMESPACE', 'Database'),
                 'tests' => env('STUDIO_TESTS_NAMESPACE', 'Tests'),
             ],
-
-            'drafts' => [
-
-                'model' => [
-                    'namespace' => env('STUDIO_NAMESPACE', 'Studio\\Package') . '\\Models',
-                    'path' => package_path('src/Models'),
-                    'extension' => '.php',
-                    'extends' => Illuminate\Database\Eloquent\Model::class,
-                ],
-
-                'migration' => [
-                    'filename' => function (string $type, string $name) {
-                        return package_path('database/migrations/' . now()->format('Y_m_d') . '_000000_') . Str::snake($name) . '.php';
-                    },
-                    'extends' => Illuminate\Database\Migrations\Migration::class,
-                ],
-
-                'migration:create' => [
-                    'filename' => function (string $type, string $name) {
-                        return package_path('database/migrations/0000_00_00_000000_create_') . Str::snake($name) . '_table.php';
-                    },
-                    'prefix' => 'Create',
-                    'suffix' => 'Table',
-                    'extends' => Illuminate\Database\Migrations\Migration::class,
-                ],
-
-            ],
-
-        ],
-
-        'workbench' => [
-
-            'extends' => ['laravel'],
-
-            'path' => workbench_path(),
-
-            'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench'),
 
             'drafts' => [
 
@@ -157,9 +118,15 @@ return [
                     'extends' => Illuminate\Database\Eloquent\Model::class,
                 ],
 
+                'migration' => [
+                    'filename' => function (string $type, string $name) {
+                        return package_path('database/migrations/' . now()->format('Y_m_d') . '_000000_') . str($name)->snake()->value() . '.php';
+                    },
+                ],
+
                 'migration:create' => [
                     'filename' => function (string $type, string $name) {
-                        return '0000_00_00_000000_create_' . str($name)->snake()->value() . '_table';
+                        return package_path('database/migrations/0000_00_00_000000_create_') . str($name)->snake()->value() . '_table.php';
                     },
                     'prefix' => 'Create',
                     'suffix' => 'Table',
@@ -179,76 +146,31 @@ return [
 
         ],
 
+        'workbench' => [
+
+            'extends' => ['laravel', 'package'],
+
+            'path' => workbench_path(),
+
+            'paths' => [
+                'source' => 'app',
+            ],
+
+            'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench'),
+
+            'namespaces' => [
+                'source' => 'App',
+            ],
+
+        ],
+
         'temporary' => [
 
             'extends' => ['laravel'],
 
             'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
 
-            'drafts' => [
-
-                'eloquent' => [
-                    'namespace' => 'Temporary\\App\\Models\\Eloquent',
-                    'extension' => '.php',
-                    'suffix' => 'Eloquent',
-                    'extends' => Illuminate\Database\Eloquent\Model::class,
-                    'traits' => [
-                        Illuminate\Database\Eloquent\SoftDeletes::class,
-                    ],
-                ],
-
-                'model' => [
-                    'namespace' => 'Temporary\\App\\Models',
-                    'extension' => '.php',
-                    'nested' => [
-                        'factory',
-                        'eloquent',
-                        'builder',
-                        'migration:create',
-                        'migration:foreign',
-                    ],
-                ],
-
-                'builder' => [
-                    'namespace' => 'Temporary\\App\\Models\\Builder',
-                    'extension' => '.php',
-                    'suffix' => 'Builder',
-                    'extends' => Illuminate\Database\Eloquent\Builder::class,
-                    'methods' => [
-                        [
-                            'name' => 'active',
-                            'return' => '$this',
-                            'body' => 'return $this->where(\'active\', true);',
-                        ],
-                    ],
-                ],
-
-                'factory' => [
-                    'namespace' => 'Temporary\\Database\\Factories',
-                    'extension' => '.php',
-                    'suffix' => 'Factory',
-                    'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
-                ],
-
-                'migration:create' => [
-                    'filename' => function (string $type, string $name) {
-                        return '0000_00_00_000000_create_' . str($name)->snake()->value() . '_table';
-                    },
-                    'prefix' => 'Create',
-                    'suffix' => 'Table',
-                    'extends' => Illuminate\Database\Migrations\Migration::class,
-                ],
-
-                'migration:foreign' => [
-                    'filename' => function (string $type, string $name) {
-                        return '0000_00_00_100000_add_foreign_key_in_' . str($name)->snake()->value() . '_table';
-                    },
-                    'prefix' => 'AddForeignKeyIn',
-                    'suffix' => 'Table',
-                    'extends' => Illuminate\Database\Migrations\Migration::class,
-                ],
-
-            ],
+            'namespace' => 'Temporary',
 
         ],
 
