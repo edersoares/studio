@@ -23,13 +23,13 @@ class DefineContextOptionsForModel
             $preset->setted('model.extends', $namespaced);
             $preset->setted('model.extends:alias', 'Eloquent');
 
-            Factory::make('eloquent', $name);
+            Factory::new('eloquent', $name, $preset->name());
         }
 
         if (in_array('builder', $options, true)) {
             $name = $preset->getNameFor('builder', $draft->name());
 
-            Factory::make('builder', $name);
+            Factory::new('builder', $name, $preset->name());
         }
     }
 }

@@ -9,7 +9,7 @@ use Dex\Laravel\Studio\Generators\PhpGeneratorFactory;
 
 class Factory
 {
-    public static function make(string $type, string $name, array $context = []): string
+    public static function generate(string $type, string $name, array $context = []): string
     {
         /** @var string $preset */
         $preset = config('studio.preset');
