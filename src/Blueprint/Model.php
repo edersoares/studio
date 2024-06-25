@@ -42,6 +42,7 @@ class Model
     {
         return [
             'type' => 'model',
+            'name' => $this->name,
             'model' => $this->name,
             'attributes' => collect($this->attributes)->mapWithKeys(fn (Attribute $attribute) => [
                 $attribute->name() => $attribute->value(),

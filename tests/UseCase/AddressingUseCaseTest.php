@@ -15,6 +15,8 @@ test('Country')->expect(
         ->model()
         ->toArray()
 )->toBe([
+    'type' => 'model',
+    'name' => 'Country',
     'model' => 'Country',
     'attributes' => [
         'id' => [
@@ -95,6 +97,8 @@ test('State')->expect(
         ->model()
         ->toArray()
 )->toBe([
+    'type' => 'model',
+    'name' => 'State',
     'model' => 'State',
     'attributes' => [
         'id' => [
@@ -215,6 +219,8 @@ test('City')->expect(
         ->model()
         ->toArray()
 )->toBe([
+    'type' => 'model',
+    'name' => 'City',
     'model' => 'City',
     'attributes' => [
         'id' => [
@@ -318,6 +324,8 @@ test('Place')->expect(
         ->model()
         ->toArray()
 )->toBe([
+    'type' => 'model',
+    'name' => 'Place',
     'model' => 'Place',
     'attributes' => [
         'id' => [
@@ -471,6 +479,8 @@ test('District')->expect(
         ->model()
         ->toArray()
 )->toBe([
+    'type' => 'model',
+    'name' => 'District',
     'model' => 'District',
     'attributes' => [
         'id' => [

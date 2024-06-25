@@ -36,10 +36,8 @@ class BlueprintCommand extends Command
             $this->createFileAfterGenerate();
         }
 
-        event('blueprint', [$blueprint, $preset]);
-
         foreach ($blueprint->drafts() as $draft) {
-            event('blueprint:draft', [$draft, $blueprint, $preset]);
+            Factory::new($draft['type'], $draft['name'], $presetName);
         }
 
         return self::SUCCESS;
