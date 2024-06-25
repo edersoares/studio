@@ -120,6 +120,17 @@ return [
 
         'workbench' => [
 
+            'extends' => 'laravel',
+
+            'path' => workbench_path(),
+
+            'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench'),
+
+            'namespaces' => [
+                'source' => '',
+                'database' => 'Database',
+            ],
+
             'drafts' => [
 
                 'builder' => [
@@ -191,11 +202,14 @@ return [
 
         'temporary' => [
 
+            'extends' => 'laravel',
+
+            'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
+
             'drafts' => [
 
                 'eloquent' => [
                     'namespace' => 'Temporary\\App\\Models\\Eloquent',
-                    'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
                     'extension' => '.php',
                     'suffix' => 'Eloquent',
                     'extends' => Illuminate\Database\Eloquent\Model::class,
@@ -206,7 +220,6 @@ return [
 
                 'model' => [
                     'namespace' => 'Temporary\\App\\Models',
-                    'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
                     'extension' => '.php',
                     'nested' => [
                         'factory',
@@ -219,7 +232,6 @@ return [
 
                 'builder' => [
                     'namespace' => 'Temporary\\App\\Models\\Builder',
-                    'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
                     'extension' => '.php',
                     'suffix' => 'Builder',
                     'extends' => Illuminate\Database\Eloquent\Builder::class,
@@ -234,7 +246,6 @@ return [
 
                 'factory' => [
                     'namespace' => 'Temporary\\Database\\Factories',
-                    'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
                     'extension' => '.php',
                     'suffix' => 'Factory',
                     'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
@@ -242,7 +253,7 @@ return [
 
                 'migration:create' => [
                     'filename' => function (string $type, string $name) {
-                        return sys_get_temp_dir() . DIRECTORY_SEPARATOR . '0000_00_00_000000_create_' . Str::snake($name) . '_table.php';
+                        return '0000_00_00_000000_create_' . str($name)->snake()->value() . '_table';
                     },
                     'prefix' => 'Create',
                     'suffix' => 'Table',
@@ -251,17 +262,11 @@ return [
 
                 'migration:foreign' => [
                     'filename' => function (string $type, string $name) {
-                        return sys_get_temp_dir() . DIRECTORY_SEPARATOR . '0000_00_00_100000_add_foreign_key_in_' . Str::snake($name) . '_table.php';
+                        return '0000_00_00_100000_add_foreign_key_in_' . str($name)->snake()->value() . '_table';
                     },
                     'prefix' => 'AddForeignKeyIn',
                     'suffix' => 'Table',
                     'extends' => Illuminate\Database\Migrations\Migration::class,
-                ],
-
-                'models' => [
-                    'filename' => function () {
-                        return sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'models.php';
-                    },
                 ],
 
             ],

@@ -34,13 +34,5 @@ class WorkbenchServiceProvider extends ServiceProvider
         Event::listen('blueprint:draft', function (Draft $draft, Blueprint $blueprint, Preset $preset) {
             PhpGeneratorFactory::new($draft, $blueprint, $preset);
         });
-
-        Event::listen('blueprint', function (Blueprint $blueprint, Preset $preset) {
-            PhpGeneratorFactory::new(new Draft([
-                'type' => 'models',
-                'name' => 'models',
-                'slug' => 'models',
-            ]), $blueprint, $preset);
-        });
     }
 }
