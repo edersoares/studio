@@ -15,7 +15,7 @@ class SetCustomEloquent
     {
         $extends = $preset->getNamespacedFor('eloquent', $draft->string('name'));
 
-        $generator->namespace()->addUse($extends, 'Model');
+        $generator->namespace()->addUse($extends, 'Eloquent');
         $generator->class()->setExtends($extends);
     }
 }
