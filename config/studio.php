@@ -7,7 +7,7 @@ use function Orchestra\Testbench\workbench_path;
 
 return [
 
-    'preset' => env('STUDIO_PRESET', 'workbench'),
+    'preset' => env('STUDIO_PRESET', 'studio'),
 
     'presets' => [
 
