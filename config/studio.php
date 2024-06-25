@@ -120,13 +120,13 @@ return [
 
                 'migration' => [
                     'filename' => function (string $type, string $name) {
-                        return package_path('database/migrations/' . now()->format('Y_m_d') . '_000000_') . str($name)->snake()->value() . '.php';
+                        return now()->format('Y_m_d') . '_000000_' . str($name)->snake()->value();
                     },
                 ],
 
                 'migration:create' => [
                     'filename' => function (string $type, string $name) {
-                        return package_path('database/migrations/0000_00_00_000000_create_') . str($name)->snake()->value() . '_table.php';
+                        return '0000_00_00_000000_create_' . str($name)->snake()->value() . '_table';
                     },
                     'prefix' => 'Create',
                     'suffix' => 'Table',
