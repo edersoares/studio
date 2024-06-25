@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Console\Commands;
 
-use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Factory;
 use Dex\Laravel\Studio\Console\Commands\Concerns\CreateFileAfterGenerate;
 use Dex\Laravel\Studio\Console\Commands\Concerns\DumpContentAfterGenerate;
@@ -26,7 +25,7 @@ class BlueprintCommand extends Command
 
         $file = require $this->argument('file');
 
-        $blueprint = new Blueprint($file);
+        $blueprint = Factory::blueprint($file);
         $preset = Factory::preset($presetName);
 
         if ($this->option('dump')) {
