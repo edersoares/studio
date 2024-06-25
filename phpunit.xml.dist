@@ -6,6 +6,9 @@
     </testsuite>
   </testsuites>
   <coverage/>
+  <php>
+    <server name="STUDIO_WORKBENCH_NAMESPACE" value="Workbench\Studio\Package"/>
+  </php>
   <source>
     <include>
       <directory suffix=".php">src</directory>

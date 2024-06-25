@@ -34,19 +34,15 @@ return [
             'drafts' => [
 
                 'command' => [
-                    'kind' => 'source',
                     'path' => 'Console/Commands',
                 ],
 
                 'controller' => [
-                    'kind' => 'source',
                     'path' => 'Http/Controllers',
                 ],
 
                 'model' => [
-                    'kind' => 'source',
                     'path' => 'Models',
-                    'extension' => '.php',
                     'namespace' => 'Models',
                     'extends' => Illuminate\Database\Eloquent\Model::class,
                 ],
@@ -54,24 +50,29 @@ return [
                 'factory' => [
                     'kind' => 'database',
                     'path' => 'factories',
-                    'extension' => '.php',
                     'namespace' => 'Factories',
+                    'suffix' => 'Factory',
                     'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
                 ],
 
                 'migration' => [
                     'kind' => 'database',
                     'path' => 'migrations',
+                    'filename' => function (string $type, string $name) {
+                        return now()->format('Y_m_d') . '_000000_' . str($name)->snake()->value();
+                    },
+                    'extends' => Illuminate\Database\Migrations\Migration::class,
                 ],
 
                 'seeder' => [
                     'kind' => 'database',
                     'path' => 'seeders',
+                    'suffix' => 'Seeder',
                 ],
 
                 'request' => [
-                    'kind' => 'source',
                     'path' => 'Http/Request',
+                    'suffix' => 'Request',
                 ],
 
             ],
@@ -133,18 +134,12 @@ return [
 
             'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench'),
 
-            'namespaces' => [
-                'source' => '',
-                'database' => 'Database',
-            ],
-
             'drafts' => [
 
                 'builder' => [
-                    'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench\\Studio\\Package') . '\\App\\Models\\Builder',
-                    'path' => workbench_path('app/Models/Builder'),
+                    'namespace' => 'Models\\Builder',
+                    'path' => 'Models/Builder',
                     'suffix' => 'Builder',
-                    'extension' => '.php',
                     'extends' => Illuminate\Database\Eloquent\Builder::class,
                     'methods' => [
                         [
@@ -156,31 +151,15 @@ return [
                 ],
 
                 'eloquent' => [
-                    'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench\\Studio\\Package') . '\\App\\Models\\Eloquent',
-                    'path' => workbench_path('app/Models/Eloquent'),
+                    'namespace' => 'Models\\Eloquent',
+                    'path' => 'Models/Eloquent',
                     'suffix' => 'Eloquent',
-                    'extension' => '.php',
                     'extends' => Illuminate\Database\Eloquent\Model::class,
-                ],
-
-                'factory' => [
-                    'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench\\Studio\\Package') . '\\Database\\Factories',
-                    'path' => workbench_path('database/factories'),
-                    'suffix' => 'Factory',
-                    'extension' => '.php',
-                    'extends' => Illuminate\Database\Eloquent\Factories\Factory::class,
-                ],
-
-                'migration' => [
-                    'filename' => function (string $type, string $name) {
-                        return workbench_path('database/migrations/' . now()->format('Y_m_d') . '_000000_') . Str::snake($name) . '.php';
-                    },
-                    'extends' => Illuminate\Database\Migrations\Migration::class,
                 ],
 
                 'migration:create' => [
                     'filename' => function (string $type, string $name) {
-                        return workbench_path('database/migrations/0000_00_00_000000_create_') . Str::snake($name) . '_table.php';
+                        return '0000_00_00_000000_create_' . str($name)->snake()->value() . '_table';
                     },
                     'prefix' => 'Create',
                     'suffix' => 'Table',
@@ -189,18 +168,11 @@ return [
 
                 'migration:foreign' => [
                     'filename' => function (string $type, string $name) {
-                        return workbench_path('database/migrations/0000_00_00_100000_add_foreign_key_in_') . Str::snake($name) . '_table.php';
+                        return '0000_00_00_100000_add_foreign_key_in_' . str($name)->snake()->value() . '_table';
                     },
                     'prefix' => 'AddForeignKeyIn',
                     'suffix' => 'Table',
                     'extends' => Illuminate\Database\Migrations\Migration::class,
-                ],
-
-                'model' => [
-                    'namespace' => env('STUDIO_WORKBENCH_NAMESPACE', 'Workbench\\Studio\\Package') . '\\App\\Models',
-                    'path' => workbench_path('app/Models'),
-                    'extension' => '.php',
-                    'extends' => Illuminate\Database\Eloquent\Model::class,
                 ],
 
             ],
