@@ -37,6 +37,12 @@ class LaravelServiceProvider extends EventServiceProvider
             SetExtends::class,
         ],
 
+        'generate:controller' => [
+            SetNamespace::class,
+            SetClassName::class,
+            SetExtends::class,
+        ],
+
         'generate:eloquent' => [
             SetNamespace::class,
             SetClassName::class,
@@ -90,6 +96,12 @@ class LaravelServiceProvider extends EventServiceProvider
             SetDownMethod::class,
             SetUpClosure::class,
             SetDownClosure::class,
+        ],
+
+        'generate:policy' => [
+            SetNamespace::class,
+            SetClassName::class,
+            SetExtends::class,
         ],
 
     ];

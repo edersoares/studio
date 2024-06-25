@@ -41,6 +41,7 @@ class Model
     public function toArray(): array
     {
         return [
+            'type' => 'model',
             'model' => $this->name,
             'attributes' => collect($this->attributes)->mapWithKeys(fn (Attribute $attribute) => [
                 $attribute->name() => $attribute->value(),

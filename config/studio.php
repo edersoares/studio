@@ -37,6 +37,7 @@ return [
 
                 'controller' => [
                     'path' => 'Http/Controllers',
+                    'namespace' => 'Http\\Controllers',
                 ],
 
                 'model' => [
@@ -60,6 +61,11 @@ return [
                         return now()->format('Y_m_d') . '_000000_' . str($name)->snake()->value();
                     },
                     'extends' => Illuminate\Database\Migrations\Migration::class,
+                ],
+
+                'policy' => [
+                    'path' => 'Policies',
+                    'namespace' => 'Policies',
                 ],
 
                 'seeder' => [
