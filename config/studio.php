@@ -81,7 +81,7 @@ return [
 
         'package' => [
 
-            'extends' => 'laravel',
+            'extends' => ['laravel'],
 
             'path' => package_path(),
 
@@ -128,7 +128,7 @@ return [
 
         'workbench' => [
 
-            'extends' => 'laravel',
+            'extends' => ['laravel'],
 
             'path' => workbench_path(),
 
@@ -181,7 +181,7 @@ return [
 
         'temporary' => [
 
-            'extends' => 'laravel',
+            'extends' => ['laravel'],
 
             'path' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid(),
 

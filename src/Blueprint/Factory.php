@@ -19,10 +19,6 @@ class Factory
 
     public static function new(string $type, string $name, string $preset, array $context = []): PhpGenerator
     {
-        $extends = config("studio.presets.$preset.extends", '_');
-        $presetConfig = config("studio.presets.$preset", []);
-        $presetExtendsConfig = config("studio.presets.$extends", []);
-
         $draft = new Draft([
             'type' => $type,
             'name' => $name,
@@ -30,13 +26,29 @@ class Factory
             'context' => $context,
         ]);
 
-        $blueprint = new Blueprint();
+        return PhpGeneratorFactory::new(
+            draft: $draft,
+            blueprint: new Blueprint(),
+            preset: static::preset($preset),
+        );
+    }
 
-        $preset = new Preset(['name' => $preset]);
+    public static function preset(string $name): Preset
+    {
+        $preset = new Preset(['name' => $name]);
 
-        $preset->settedAll($presetExtendsConfig);
-        $preset->settedAll($presetConfig);
+        $extends = config("studio.presets.$name.extends", []);
 
-        return PhpGeneratorFactory::new($draft, $blueprint, $preset);
+        foreach ($extends as $extend) {
+            $preset->settedAll(
+                config("studio.presets.$extend", [])
+            );
+        }
+
+        $preset->settedAll(
+            config("studio.presets.$name", [])
+        );
+
+        return $preset;
     }
 }
