@@ -44,6 +44,7 @@ class Model
             'type' => 'model',
             'name' => $this->name,
             'model' => $this->name,
+            'table' => str($this->name)->slug('_')->value(),
             'attributes' => collect($this->attributes)->mapWithKeys(fn (Attribute $attribute) => [
                 $attribute->name() => $attribute->value(),
             ])->toArray(),
