@@ -15,9 +15,13 @@ use Dex\Laravel\Studio\Listeners\Factory\SetModelProperty;
 use Dex\Laravel\Studio\Listeners\Migration\SetColumns;
 use Dex\Laravel\Studio\Listeners\Migration\SetCreateClosure;
 use Dex\Laravel\Studio\Listeners\Migration\SetCreateTable;
+use Dex\Laravel\Studio\Listeners\Migration\SetDownAlterTable;
 use Dex\Laravel\Studio\Listeners\Migration\SetDownClosure;
 use Dex\Laravel\Studio\Listeners\Migration\SetDownMethod;
+use Dex\Laravel\Studio\Listeners\Migration\SetDropForeignKeys;
 use Dex\Laravel\Studio\Listeners\Migration\SetDropTable;
+use Dex\Laravel\Studio\Listeners\Migration\SetForeignKeys;
+use Dex\Laravel\Studio\Listeners\Migration\SetUpAlterTable;
 use Dex\Laravel\Studio\Listeners\Migration\SetUpClosure;
 use Dex\Laravel\Studio\Listeners\Migration\SetUpMethod;
 use Dex\Laravel\Studio\Listeners\Model\DefineContextOptionsForModel;
@@ -96,6 +100,10 @@ class LaravelServiceProvider extends EventServiceProvider
             SetDownMethod::class,
             SetUpClosure::class,
             SetDownClosure::class,
+            SetForeignKeys::class,
+            SetDropForeignKeys::class,
+            SetUpAlterTable::class,
+            SetDownAlterTable::class,
         ],
 
         'generate:policy' => [

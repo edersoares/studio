@@ -10,13 +10,17 @@ use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Nette\PhpGenerator\Closure;
 
-class SetUpClosure
+class SetDownAlterTable
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        $closure = new Closure();
-        $closure->addParameter('table')->setType('Blueprint');
+        /** @var Closure $closure */
+        $closure = $draft->get('migration:down');
 
-        $draft->put('migration:up', $closure);
+        $content = $generator->printer()->printClosure($closure);
+
+        $generator->class()
+            ->getMethod('down')
+            ->addBody("Schema::table('{$draft->slug()}', $content);");
     }
 }

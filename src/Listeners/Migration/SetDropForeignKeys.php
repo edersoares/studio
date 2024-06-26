@@ -18,15 +18,13 @@ class SetDropForeignKeys
         $generator->namespace()->addUse(BlueprintAlias::class);
         $generator->namespace()->addUse(Schema::class);
 
-        $down = $generator->class()->addMethod('down')->setReturnType('void');
-
-        $down->addBody('Schema::table(\'' . $draft->slug() . '\', function (Blueprint $table) {');
+        $down = $draft->get('migration:down');
 
         $attributes = $draft->array('attributes');
 
         /** @var array $columns */
         $columns = collect($attributes)
-            ->filter(fn ($attribute) => $attribute['type'] == 'foreign' && isset($attribute['foreign']))
+            ->filter(fn ($attribute) => $attribute['type'] == 'foreignId' && isset($attribute['foreign']))
             ->toArray();
 
         if (empty($columns)) {
@@ -38,7 +36,5 @@ class SetDropForeignKeys
         foreach ($columns as $attribute => $options) {
             $down->addBody('    $table->dropForeign([?]);', [$attribute]);
         }
-
-        $down->addBody('});');
     }
 }

@@ -18,15 +18,13 @@ class SetForeignKeys
         $generator->namespace()->addUse(BlueprintAlias::class);
         $generator->namespace()->addUse(Schema::class);
 
-        $up = $generator->class()->addMethod('up')->setReturnType('void');
-
-        $up->addBody('Schema::table(\'' . $draft->slug() . '\', function (Blueprint $table) {');
+        $up = $draft->get('migration:up');
 
         $attributes = $draft->array('attributes');
 
         /** @var array $columns */
         $columns = collect($attributes)
-            ->filter(fn ($attribute) => $attribute['type'] == 'foreign' && isset($attribute['foreign']))
+            ->filter(fn ($attribute) => $attribute['type'] == 'foreignId' && isset($attribute['foreign']))
             ->toArray();
 
         if (empty($columns)) {
@@ -40,7 +38,5 @@ class SetForeignKeys
 
             $up->addBody('    $table->foreign(?)->on(?)->references(?);', [$attribute, $tableName, $columnName]);
         }
-
-        $up->addBody('});');
     }
 }

@@ -17,10 +17,6 @@ class SetDownClosure
         $closure = new Closure();
         $closure->addParameter('table')->setType('Blueprint');
 
-        $content = $generator->printer()->printClosure($closure);
-
-        $generator->class()
-            ->getMethod('down')
-            ->addBody("Schema::table('{$draft->slug()}', $content);");
+        $draft->put('migration:down', $closure);
     }
 }
