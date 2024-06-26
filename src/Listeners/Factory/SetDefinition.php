@@ -21,20 +21,20 @@ class SetDefinition
         $definition = $draft->array('attributes');
 
         foreach ($definition as $attribute => $options) {
-            if (str_starts_with($options['factory'] ?? '', 'faker:')) {
-                $faker = explode(':', $options['factory']);
+            if (empty($options['factory'])) {
+                continue;
+            }
 
-                array_shift($faker);
+            if (array_key_exists('faker', $options['factory'])) {
+                $faker = $options['factory']['faker'];
 
                 $name = array_shift($faker);
 
                 $method->addBody('    \'' . $attribute . '\' => $this->faker->' . $name . '(...?),', [$faker]);
             }
 
-            if (str_starts_with($options['factory'] ?? '', 'model:')) {
-                $faker = explode(':', $options['factory']);
-
-                array_shift($faker);
+            if (array_key_exists('model', $options['factory'])) {
+                $faker = $options['factory']['model'];
 
                 /** @var string $model */
                 $model = array_shift($faker);
