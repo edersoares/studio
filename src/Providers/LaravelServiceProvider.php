@@ -25,6 +25,7 @@ use Dex\Laravel\Studio\Listeners\Migration\SetUpAlterTable;
 use Dex\Laravel\Studio\Listeners\Migration\SetUpClosure;
 use Dex\Laravel\Studio\Listeners\Migration\SetUpMethod;
 use Dex\Laravel\Studio\Listeners\Model\DefineContextOptionsForModel;
+use Dex\Laravel\Studio\Listeners\Request\SetRulesToRequest;
 use Dex\Laravel\Studio\Listeners\SetClassName;
 use Dex\Laravel\Studio\Listeners\SetExtends;
 use Dex\Laravel\Studio\Listeners\SetNamespace;
@@ -110,6 +111,13 @@ class LaravelServiceProvider extends EventServiceProvider
             SetNamespace::class,
             SetClassName::class,
             SetExtends::class,
+        ],
+
+        'generate:request' => [
+            SetNamespace::class,
+            SetClassName::class,
+            SetExtends::class,
+            SetRulesToRequest::class,
         ],
 
     ];

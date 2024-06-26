@@ -38,6 +38,7 @@ return [
                 'controller' => [
                     'path' => 'Http/Controllers',
                     'namespace' => 'Http\\Controllers',
+                    'suffix' => 'Controller',
                 ],
 
                 'model' => [
@@ -75,8 +76,10 @@ return [
                 ],
 
                 'request' => [
-                    'path' => 'Http/Request',
+                    'path' => 'Http/Requests',
                     'suffix' => 'Request',
+                    'namespace' => 'Http\\Requests',
+                    'extends' => Illuminate\Foundation\Http\FormRequest::class,
                 ],
 
             ],
