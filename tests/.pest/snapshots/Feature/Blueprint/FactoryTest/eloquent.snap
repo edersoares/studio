@@ -2,6 +2,7 @@
 
 namespace Package\Models\Eloquent;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Package\Models\Builder\UserBuilder;
 
@@ -10,6 +11,8 @@ use Package\Models\Builder\UserBuilder;
  */
 class UserEloquent extends Model
 {
+    use HasFactory;
+
     public function newEloquentBuilder($query): UserBuilder
     {
         return new UserBuilder($query);

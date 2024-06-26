@@ -125,6 +125,9 @@ return [
                     'path' => 'Models/Eloquent',
                     'suffix' => 'Eloquent',
                     'extends' => Illuminate\Database\Eloquent\Model::class,
+                    'traits' => [
+                        Illuminate\Database\Eloquent\Factories\HasFactory::class,
+                    ],
                 ],
 
                 'migration' => [
