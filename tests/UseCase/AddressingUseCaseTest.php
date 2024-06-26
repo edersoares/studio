@@ -8,7 +8,7 @@ test('Country')->expect(
     Draft::new('Country')
         ->attribute()->id()->docs('ID')->example(1)
         ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('country')->docs('Nome')->example('Brasil')
-        ->attribute()->integer('ibge_code')->fillable()->length(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
+        ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
         ->relation()->hasMany('states')
@@ -53,7 +53,7 @@ test('Country')->expect(
             'fillable' => true,
             'validation' => [
                 'rules' => [
-                    'length:8',
+                    'size:8',
                 ],
             ],
             'nullable' => true,
@@ -90,7 +90,7 @@ test('State')->expect(
         ->attribute()->foreign('country_id')->fillable()->factory('Country')->docs('ID do país')->example(1)
         ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->index()->faker('colorName')->docs('Nome')->example('Rio Grade do Sul')
         ->attribute()->string('abbreviation')->fillable()->required()->min(1)->max(5)->nullable()->faker('colorName')->docs('Sigla')->example('RS')
-        ->attribute()->integer('ibge_code')->fillable()->length(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(11223344)
+        ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(11223344)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
         ->relation()->belongsTo('country')
@@ -172,7 +172,7 @@ test('State')->expect(
             'fillable' => true,
             'validation' => [
                 'rules' => [
-                    'length:8',
+                    'size:8',
                 ],
             ],
             'nullable' => true,
@@ -213,7 +213,7 @@ test('City')->expect(
         ->attribute()->id()->docs('ID')->example(1)
         ->attribute()->foreign('state_id')->fillable()->factory('State')->docs('ID do estado')->example(1)
         ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('city')->docs('Nome')->example('Porto Alegre')
-        ->attribute()->integer('ibge_code')->fillable()->length(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
+        ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
         ->relation()->belongsTo('state')
@@ -274,7 +274,7 @@ test('City')->expect(
             'fillable' => true,
             'validation' => [
                 'rules' => [
-                    'length:8',
+                    'size:8',
                 ],
             ],
             'nullable' => true,
@@ -476,7 +476,7 @@ test('District')->expect(
         ->attribute()->id()->docs('ID')->example(1)
         ->attribute()->foreign('city_id')->fillable()->factory('City')->docs('ID da cidade')->example(1)
         ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('city')->docs('Nome')->example('Centro')
-        ->attribute()->integer('ibge_code')->fillable()->length(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(1234567890)
+        ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(1234567890)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
         ->relation()->belongsTo('city')
@@ -536,7 +536,7 @@ test('District')->expect(
             'fillable' => true,
             'validation' => [
                 'rules' => [
-                    'length:8',
+                    'size:8',
                 ],
             ],
             'nullable' => true,

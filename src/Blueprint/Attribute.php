@@ -153,9 +153,9 @@ class Attribute
         return $this->rule("max:$max");
     }
 
-    public function length(int $length): static
+    public function size(int $length): static
     {
-        return $this->rule("length:$length");
+        return $this->rule("size:$length");
     }
 
     public function name(): string
