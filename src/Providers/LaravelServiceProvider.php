@@ -40,12 +40,14 @@ class LaravelServiceProvider extends EventServiceProvider
             SetNamespace::class,
             SetClassName::class,
             SetExtends::class,
+            SetTraits::class,
         ],
 
         'generate:controller' => [
             SetNamespace::class,
             SetClassName::class,
             SetExtends::class,
+            SetTraits::class,
         ],
 
         'generate:eloquent' => [
@@ -64,6 +66,7 @@ class LaravelServiceProvider extends EventServiceProvider
             SetNamespace::class,
             SetClassName::class,
             SetExtends::class,
+            SetTraits::class,
             SetModelInComments::class,
             SetModelProperty::class,
             SetDefinition::class,
@@ -74,11 +77,13 @@ class LaravelServiceProvider extends EventServiceProvider
             SetNamespace::class,
             SetClassName::class,
             SetExtends::class,
+            SetTraits::class,
         ],
 
         'generate:migration' => [
             SetClassName::class,
             SetExtends::class,
+            SetTraits::class,
             SetUpMethod::class,
             SetDownMethod::class,
         ],
@@ -86,6 +91,7 @@ class LaravelServiceProvider extends EventServiceProvider
         'generate:migration:create' => [
             SetClassName::class,
             SetExtends::class,
+            SetTraits::class,
             SetUpMethod::class,
             SetDownMethod::class,
             SetCreateClosure::class,
@@ -97,6 +103,7 @@ class LaravelServiceProvider extends EventServiceProvider
         'generate:migration:foreign' => [
             SetClassName::class,
             SetExtends::class,
+            SetTraits::class,
             SetUpMethod::class,
             SetDownMethod::class,
             SetUpClosure::class,
@@ -111,12 +118,14 @@ class LaravelServiceProvider extends EventServiceProvider
             SetNamespace::class,
             SetClassName::class,
             SetExtends::class,
+            SetTraits::class,
         ],
 
         'generate:request' => [
             SetNamespace::class,
             SetClassName::class,
             SetExtends::class,
+            SetTraits::class,
             SetRulesToRequest::class,
         ],
 
