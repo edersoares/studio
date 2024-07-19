@@ -6,6 +6,7 @@ namespace Dex\Laravel\Studio\Providers;
 
 use Dex\Laravel\Studio\Listeners\Eloquent\SetCustomBuilder;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetDocumentation;
+use Dex\Laravel\Studio\Listeners\Eloquent\SetFactory;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetFillableProperty;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetRelations;
 use Dex\Laravel\Studio\Listeners\Eloquent\SetTableProperty;
@@ -60,6 +61,7 @@ class LaravelServiceProvider extends EventServiceProvider
             SetFillableProperty::class,
             SetRelations::class,
             SetCustomBuilder::class,
+            SetFactory::class,
         ],
 
         'generate:factory' => [
