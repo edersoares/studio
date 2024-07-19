@@ -18,22 +18,24 @@ class SetRelations
         $relations = $draft->array('relations');
 
         foreach ($relations as $name => $relation) {
-            $model = $relation['model'];
+            $relationModel = $relation['model'];
             $method = $generator->class()->addMethod($name);
-            $namespacedModel = $preset->getNamespacedFor('model', $model);
+            $namespacedModel = $preset->getNamespacedFor('model', $relationModel);
 
             if ($relation['type'] === 'belongsTo') {
                 $generator->namespace()->addUse(BelongsTo::class);
                 $generator->namespace()->addUse($namespacedModel);
+                $method->addComment("@return BelongsTo<$relationModel, self>");
                 $method->setReturnType(BelongsTo::class);
-                $method->setBody('return $this->belongsTo(' . $model . '::class);');
+                $method->setBody('return $this->belongsTo(' . $relationModel . '::class);');
             }
 
             if ($relation['type'] === 'hasMany') {
                 $generator->namespace()->addUse(HasMany::class);
                 $generator->namespace()->addUse($namespacedModel);
+                $method->addComment("@return HasMany<$relationModel>");
                 $method->setReturnType(HasMany::class);
-                $method->setBody('return $this->hasMany(' . $model . '::class);');
+                $method->setBody('return $this->hasMany(' . $relationModel . '::class);');
             }
         }
     }
