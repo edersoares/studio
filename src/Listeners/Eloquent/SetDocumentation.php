@@ -20,7 +20,7 @@ class SetDocumentation
         foreach ($attributes as $attribute => $options) {
             $type = $options['type'];
 
-            if (in_array($type, ['id', 'foreign'], true)) {
+            if (in_array($type, ['id', 'foreignId', 'integer'], true)) {
                 $type = 'int';
             }
 
