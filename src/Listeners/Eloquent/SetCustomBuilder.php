@@ -8,6 +8,7 @@ use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\PhpGenerator;
+use Illuminate\Database\Eloquent\HasBuilder;
 
 class SetCustomBuilder
 {
@@ -16,13 +17,18 @@ class SetCustomBuilder
         $name = $preset->getModelNameFor('eloquent', $draft->name());
         $builder = $preset->getNamespacedFor('builder', $name);
         $builderName = $preset->getNameFor('builder', $name);
+
         $generator->namespace()->addUse($builder);
+        $generator->namespace()->addUse(HasBuilder::class);
 
-        $generator->class()->addComment('@method static ' . $builderName . ' query()');
+        $generator->class()
+            ->addTrait(HasBuilder::class)
+            ->addComment("@use HasBuilder<$builderName>");
 
-        $newEloquentBuilder = $generator->class()->addMethod('newEloquentBuilder');
-        $newEloquentBuilder->setReturnType($builder);
-        $newEloquentBuilder->addParameter('query');
-        $newEloquentBuilder->addBody('return new ' . $builderName . '($query);');
+        $generator->class()
+            ->addProperty('builder', $builderName . '::class')
+            ->setType('string')
+            ->setProtected()
+            ->setStatic();
     }
 }

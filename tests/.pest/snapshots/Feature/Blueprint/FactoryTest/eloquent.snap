@@ -3,18 +3,15 @@
 namespace Package\Models\Eloquent;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\HasBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Package\Models\Builder\UserBuilder;
 
-/**
- * @method static UserBuilder query()
- */
 class UserEloquent extends Model
 {
     use HasFactory;
+    /** @use HasBuilder<UserBuilder> */
+    use HasBuilder;
 
-    public function newEloquentBuilder($query): UserBuilder
-    {
-        return new UserBuilder($query);
-    }
+    protected static string $builder = UserBuilder::class;
 }
