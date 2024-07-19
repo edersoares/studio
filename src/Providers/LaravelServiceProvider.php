@@ -57,11 +57,11 @@ class LaravelServiceProvider extends EventServiceProvider
             SetExtends::class,
             SetTraits::class,
             SetDocumentation::class,
+            SetCustomBuilder::class,
+            SetFactory::class,
             SetTableProperty::class,
             SetFillableProperty::class,
             SetRelations::class,
-            SetCustomBuilder::class,
-            SetFactory::class,
         ],
 
         'generate:factory' => [
