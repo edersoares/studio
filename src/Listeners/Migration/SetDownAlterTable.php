@@ -19,8 +19,10 @@ class SetDownAlterTable
 
         $content = $generator->printer()->printClosure($closure);
 
+        $table = $draft->string('table', $draft->slug());
+
         $generator->class()
             ->getMethod('down')
-            ->addBody("Schema::table('{$draft->slug()}', $content);");
+            ->addBody("Schema::table('$table', $content);");
     }
 }

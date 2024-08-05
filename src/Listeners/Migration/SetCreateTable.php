@@ -19,8 +19,10 @@ class SetCreateTable
 
         $content = $generator->printer()->printClosure($closure);
 
+        $table = $draft->string('table', $draft->slug());
+
         $generator->class()
             ->getMethod('up')
-            ->addBody("Schema::create('{$draft->slug()}', $content);");
+            ->addBody("Schema::create('$table', $content);");
     }
 }

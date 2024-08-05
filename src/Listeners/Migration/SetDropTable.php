@@ -13,8 +13,10 @@ class SetDropTable
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
+        $table = $draft->string('table', $draft->slug());
+
         $generator->class()
             ->getMethod('down')
-            ->addBody("Schema::dropIfExists('{$draft->slug()}');");
+            ->addBody("Schema::dropIfExists('$table');");
     }
 }
