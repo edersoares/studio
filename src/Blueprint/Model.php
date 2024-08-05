@@ -45,6 +45,7 @@ class Model
             'name' => $this->name,
             'model' => $this->name,
             'table' => str($this->name)->snake()->slug('_')->value(),
+            'endpoint' => str($this->name)->snake()->slug()->value(),
             'attributes' => collect($this->attributes)->mapWithKeys(fn (Attribute $attribute) => [
                 $attribute->name() => $attribute->value(),
             ])->toArray(),

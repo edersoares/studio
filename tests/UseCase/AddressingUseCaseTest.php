@@ -19,6 +19,7 @@ test('Country')->expect(
     'name' => 'Country',
     'model' => 'Country',
     'table' => 'country',
+    'endpoint' => 'country',
     'attributes' => [
         'id' => [
             'name' => 'id',
@@ -102,6 +103,7 @@ test('State')->expect(
     'name' => 'State',
     'model' => 'State',
     'table' => 'state',
+    'endpoint' => 'state',
     'attributes' => [
         'id' => [
             'name' => 'id',
@@ -225,6 +227,7 @@ test('City')->expect(
     'name' => 'City',
     'model' => 'City',
     'table' => 'city',
+    'endpoint' => 'city',
     'attributes' => [
         'id' => [
             'name' => 'id',
@@ -331,6 +334,7 @@ test('Place')->expect(
     'name' => 'Place',
     'model' => 'Place',
     'table' => 'place',
+    'endpoint' => 'place',
     'attributes' => [
         'id' => [
             'name' => 'id',
@@ -487,6 +491,7 @@ test('District')->expect(
     'name' => 'District',
     'model' => 'District',
     'table' => 'district',
+    'endpoint' => 'district',
     'attributes' => [
         'id' => [
             'name' => 'id',

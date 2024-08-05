@@ -105,7 +105,7 @@ class Attribute
         return $this;
     }
 
-    public function faker(string ...$args): static
+    public function faker(...$args): static
     {
         data_set($this->attribute, 'factory.faker', $args);
 
