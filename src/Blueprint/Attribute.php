@@ -54,6 +54,14 @@ class Attribute
         return $this;
     }
 
+    public function boolean(string $name): static
+    {
+        data_set($this->attribute, 'name', $name);
+        data_set($this->attribute, 'type', 'boolean');
+
+        return $this;
+    }
+
     public function integer(string $name): static
     {
         data_set($this->attribute, 'name', $name);
