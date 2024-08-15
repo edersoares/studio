@@ -8,6 +8,7 @@ use Dex\Laravel\Studio\Blueprint\Blueprint;
 use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Illuminate\Support\Collection;
+use Nette\InvalidArgumentException;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PhpNamespace;
@@ -32,12 +33,17 @@ class PhpGenerator extends Generator
     {
         parent::__construct($draft, $blueprint, $preset);
 
-        $this->file = new PhpFile();
+        if (file_exists($this->filename())) {
+            $this->file = PhpFile::fromCode(file_get_contents($this->filename()));
+        } else {
+            $this->file = new PhpFile();
+        }
     }
 
     public function printer(): Printer
     {
-        return new class extends Printer {
+        return new class extends Printer
+        {
             public bool $omitEmptyNamespaces = false;
 
             public int $linesBetweenProperties = 1;
@@ -84,8 +90,12 @@ class PhpGenerator extends Generator
 
     public function class(string $class = ''): ClassType
     {
-        if (empty($this->class) || $class) {
-            $this->class = $this->namespace()->addClass($class);
+        try {
+            $this->class = $this->namespace()->getClass($class);
+        } catch (InvalidArgumentException) {
+            if (empty($this->class) || $class) {
+                $this->class = $this->namespace()->addClass($class);
+            }
         }
 
         return $this->class;
