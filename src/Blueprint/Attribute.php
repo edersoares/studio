@@ -120,7 +120,7 @@ class Attribute
         return $this;
     }
 
-    public function faker(...$args): static
+    public function faker(mixed ...$args): static
     {
         data_set($this->attribute, 'factory.faker', $args);
 
