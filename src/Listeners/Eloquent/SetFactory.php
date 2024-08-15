@@ -21,12 +21,11 @@ class SetFactory
         $generator->namespace()->addUse($factory);
         $generator->namespace()->addUse(HasFactory::class);
 
-        $generator->class()
-            ->addTrait(HasFactory::class)
+        $generator->trait(HasFactory::class)
             ->addComment("@use HasFactory<$factoryName>");
 
-        $generator->class()
-            ->addProperty('factory', $factoryName . '::class')
+        $generator->property('factory')
+            ->setValue($factoryName . '::class')
             ->setType('string')
             ->setProtected()
             ->setStatic();

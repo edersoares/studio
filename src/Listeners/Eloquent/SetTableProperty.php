@@ -17,8 +17,7 @@ class SetTableProperty
         $table = $draft->get('table');
 
         if ($table) {
-            $generator->class()
-                ->addProperty('table')
+            $generator->property('table')
                 ->setProtected()
                 ->setValue($table);
         }

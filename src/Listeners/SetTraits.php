@@ -18,7 +18,7 @@ class SetTraits
 
         foreach ($traits as $trait) {
             $generator->namespace()->addUse($trait);
-            $generator->class()->addTrait($trait);
+            $generator->trait($trait);
         }
     }
 }

@@ -18,7 +18,7 @@ class SetRulesToRequest
             ->map(fn ($attribute) => $attribute['validation']['rules'])
             ->toArray();
 
-        $generator->class()->addMethod('commonRules')
+        $generator->method('commonRules')
             ->setReturnType('array')
             ->addBody('return ?;', [$rules]);
     }

@@ -17,6 +17,6 @@ class SetUpMethod
     {
         $generator->namespace()->addUse(BlueprintAlias::class);
         $generator->namespace()->addUse(Schema::class);
-        $generator->class()->addMethod('up')->setReturnType('void');
+        $generator->method('up')->setReturnType('void');
     }
 }

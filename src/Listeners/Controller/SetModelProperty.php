@@ -21,8 +21,7 @@ class SetModelProperty
 
             $generator->namespace()->addUse($namespacedModel);
 
-            $generator->class()
-                ->addProperty('model')
+            $generator->property('model')
                 ->setProtected()
                 ->setValue($model . '::class');
         }

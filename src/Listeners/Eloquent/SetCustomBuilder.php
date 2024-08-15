@@ -21,12 +21,11 @@ class SetCustomBuilder
         $generator->namespace()->addUse($builder);
         $generator->namespace()->addUse(HasBuilder::class);
 
-        $generator->class()
-            ->addTrait(HasBuilder::class)
+        $generator->trait(HasBuilder::class)
             ->addComment("@use HasBuilder<$builderName>");
 
-        $generator->class()
-            ->addProperty('builder', $builderName . '::class')
+        $generator->property('builder')
+            ->setValue($builderName . '::class')
             ->setType('string')
             ->setProtected()
             ->setStatic();

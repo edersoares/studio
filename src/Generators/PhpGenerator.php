@@ -10,9 +10,12 @@ use Dex\Laravel\Studio\Blueprint\Preset;
 use Illuminate\Support\Collection;
 use Nette\InvalidArgumentException;
 use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\Printer;
+use Nette\PhpGenerator\Property;
+use Nette\PhpGenerator\TraitUse;
 
 class PhpGenerator extends Generator
 {
@@ -99,6 +102,37 @@ class PhpGenerator extends Generator
         }
 
         return $this->class;
+    }
+
+    public function extends(string $class): ClassType
+    {
+        return $this->class()->setExtends($class);
+    }
+
+    public function implements(string $class): ClassType
+    {
+        return $this->class()->addImplement($class);
+    }
+
+    public function trait(string $trait): TraitUse
+    {
+        $this->class()->removeTrait($trait);
+
+        return $this->class()->addTrait($trait);
+    }
+
+    public function property(string $property): Property
+    {
+        return $this->class()->hasProperty($property)
+            ? $this->class()->getProperty($property)
+            : $this->class()->addProperty($property);
+    }
+
+    public function method(string $method): Method
+    {
+        return $this->class()->hasMethod($method)
+            ? $this->class()->getMethod($method)
+            : $this->class()->addMethod($method);
     }
 
     public function body(string $body): void

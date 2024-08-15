@@ -13,8 +13,7 @@ class SetDefinition
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
-        $method = $generator->class()
-            ->addMethod('definition')
+        $method = $generator->method('definition')
             ->setReturnType('array')
             ->addBody('return [');
 

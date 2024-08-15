@@ -22,8 +22,7 @@ class SetRequestProperty
 
             $generator->namespace()->addUse($namespacedRequest);
 
-            $generator->class()
-                ->addProperty('request')
+            $generator->property('request')
                 ->setProtected()
                 ->setValue($request . '::class');
         }

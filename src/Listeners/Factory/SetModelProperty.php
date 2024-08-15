@@ -20,8 +20,7 @@ class SetModelProperty
 
         $generator->namespace()->addUse($modelNamespaced);
 
-        $generator->class()
-            ->addProperty('model')
+        $generator->property('model')
             ->setProtected()
             ->setValue($model . '::class');
     }

@@ -17,6 +17,6 @@ class SetDownMethod
     {
         $generator->namespace()->addUse(BlueprintAlias::class);
         $generator->namespace()->addUse(Schema::class);
-        $generator->class()->addMethod('down')->setReturnType('void');
+        $generator->method('down')->setReturnType('void');
     }
 }
