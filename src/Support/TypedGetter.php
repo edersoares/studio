@@ -13,17 +13,11 @@ trait TypedGetter
 {
     public function string(string $key, string $default = ''): string
     {
-        /** @var string $string */
-        $string = $this->get($key, $default);
-
-        return $string;
+        return (string) $this->get($key, $default);
     }
 
     public function array(string $key, array $default = []): array
     {
-        /** @var array $array */
-        $array = $this->get($key, $default);
-
-        return $array;
+        return (array) $this->get($key, $default);
     }
 }
