@@ -106,6 +106,13 @@ class Attribute
         return $this;
     }
 
+    public function default(mixed $value): static
+    {
+        data_set($this->attribute, 'default', $value);
+
+        return $this;
+    }
+
     public function factory(string $model): static
     {
         data_set($this->attribute, 'factory.model', [$model]);

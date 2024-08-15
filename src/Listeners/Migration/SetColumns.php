@@ -57,6 +57,10 @@ class SetColumns
             $extra = [$attribute];
 
             if (isset($options['default'])) {
+                if ($options['default'] === false) {
+                    $options['default'] = 'false';
+                }
+
                 $defaultValue = '->default(' . $options['default'] . ')';
             }
 
