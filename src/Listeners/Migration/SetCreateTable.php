@@ -21,8 +21,7 @@ class SetCreateTable
 
         $table = $draft->string('table', $draft->slug());
 
-        $generator->class()
-            ->getMethod('up')
-            ->addBody("Schema::create('$table', $content);");
+        $generator->method('up')
+            ->setBody("Schema::create('$table', $content);");
     }
 }

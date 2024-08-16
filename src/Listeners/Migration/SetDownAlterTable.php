@@ -21,8 +21,7 @@ class SetDownAlterTable
 
         $table = $draft->string('table', $draft->slug());
 
-        $generator->class()
-            ->getMethod('down')
-            ->addBody("Schema::table('$table', $content);");
+        $generator->method('down')
+            ->setBody("Schema::table('$table', $content);");
     }
 }

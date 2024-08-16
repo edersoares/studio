@@ -15,8 +15,7 @@ class SetDropTable
     {
         $table = $draft->string('table', $draft->slug());
 
-        $generator->class()
-            ->getMethod('down')
-            ->addBody("Schema::dropIfExists('$table');");
+        $generator->method('down')
+            ->setBody("Schema::dropIfExists('$table');");
     }
 }

@@ -21,8 +21,7 @@ class SetUpAlterTable
 
         $table = $draft->string('table', $draft->slug());
 
-        $generator->class()
-            ->getMethod('up')
-            ->addBody("Schema::table('$table', $content);");
+        $generator->method('up')
+            ->setBody("Schema::table('$table', $content);");
     }
 }
