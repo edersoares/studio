@@ -20,6 +20,6 @@ class SetRulesToRequest
 
         $generator->method('commonRules')
             ->setReturnType('array')
-            ->addBody('return ?;', [$rules]);
+            ->setBody('return ?;', [$rules]);
     }
 }

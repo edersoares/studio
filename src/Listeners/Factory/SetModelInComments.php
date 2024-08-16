@@ -18,7 +18,13 @@ class SetModelInComments
         $class = $preset->getNameFor('model', $model);
         $namespacedClass = $preset->getNamespacedFor('model', $model);
 
+        $comment = "@extends Factory<$class>";
+
+        if (str_contains((string) $generator->class()->getComment(), $comment)) {
+            return;
+        }
+
         $generator->namespace()->addUse($namespacedClass);
-        $generator->class()->addComment("@extends Factory<$class>");
+        $generator->class()->addComment($comment);
     }
 }

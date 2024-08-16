@@ -15,6 +15,8 @@ class SetDocumentation
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void
     {
+        $comments = [];
+
         $attributes = $draft->array('attributes');
 
         foreach ($attributes as $attribute => $options) {
@@ -26,20 +28,20 @@ class SetDocumentation
 
             if ($type === 'timestamps') {
                 $generator->namespace()->addUse(DateTime::class);
-                $generator->class()->addComment('@property DateTime $created_at');
-                $generator->class()->addComment('@property DateTime $updated_at');
+                $comments[] = '@property DateTime $created_at';
+                $comments[] = '@property DateTime $updated_at';
 
                 continue;
             }
 
             if ($type === 'softDeletes') {
                 $generator->namespace()->addUse(DateTime::class);
-                $generator->class()->addComment('@property DateTime $deleted_at');
+                $comments[] = '@property DateTime $deleted_at';
 
                 continue;
             }
 
-            $generator->class()->addComment("@property $type \$$attribute");
+            $comments[] = "@property $type \$$attribute";
         }
 
         $relations = $draft->array('relations');
@@ -52,16 +54,24 @@ class SetDocumentation
 
             if ($type === 'belongsTo') {
                 $generator->namespace()->addUse($namespacedModel);
-                $generator->class()->addComment("@property $model \$$relation");
+                $comments[] = "@property $model \$$relation";
             }
 
             if ($type === 'hasMany') {
                 $generator->namespace()->addUse(Collection::class);
                 $generator->namespace()->addUse($namespacedModel);
-                $generator->class()->addComment("@property Collection<int, $model> \$$relation");
+                $comments[] = "@property Collection<int, $model> \$$relation";
             }
         }
 
-        $generator->class()->addComment('');
+        $comments[] = '';
+
+        foreach ($comments as $comment) {
+            if (str_contains((string) $generator->class()->getComment(), $comment)) {
+                return;
+            }
+
+            $generator->class()->addComment($comment);
+        }
     }
 }
