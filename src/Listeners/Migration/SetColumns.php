@@ -35,13 +35,13 @@ class SetColumns
                 'softDeletes',
             ];
 
-            if (in_array($attribute, $allowed, true)) {
+            $type = $options['type'];
+
+            if (in_array($type, $allowed, true)) {
                 $closure->addBody('$table->' . $attribute . '();');
 
                 continue;
             }
-
-            $type = $options['type'];
 
             $replaceable = [
                 'foreign' => 'foreignId',
@@ -51,10 +51,15 @@ class SetColumns
                 $type = $replaceable[$type];
             }
 
+            $primary = '';
             $defaultValue = '';
             $nullable = '';
             $index = '';
             $extra = [$attribute];
+
+            if ($options['primary'] ?? false) {
+                $primary = '->primary()';
+            }
 
             if (isset($options['default'])) {
                 if ($options['default'] === false) {
@@ -72,7 +77,7 @@ class SetColumns
                 $nullable = '->index()';
             }
 
-            $closure->addBody('$table->' . $type . '(...?)' . $defaultValue . $nullable . $index . ';', [$extra]);
+            $closure->addBody('$table->' . $type . '(...?)' . $primary . $defaultValue . $nullable . $index . ';', [$extra]);
         }
     }
 }
