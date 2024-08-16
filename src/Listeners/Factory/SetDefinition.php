@@ -15,7 +15,8 @@ class SetDefinition
     {
         $method = $generator->method('definition')
             ->setReturnType('array')
-            ->setBody('return [');
+            ->setBody('')
+            ->addBody('return [');
 
         $definition = $draft->array('attributes');
 
