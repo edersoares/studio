@@ -21,6 +21,14 @@ class Attribute
         return $this;
     }
 
+    public function uuid($name = 'uuid'): static
+    {
+        data_set($this->attribute, 'name', $name);
+        data_set($this->attribute, 'type', 'uuid');
+
+        return $this;
+    }
+
     public function foreign(string $name): static
     {
         data_set($this->attribute, 'name', $name);
@@ -50,6 +58,14 @@ class Attribute
     {
         data_set($this->attribute, 'name', $name);
         data_set($this->attribute, 'type', 'string');
+
+        return $this;
+    }
+
+    public function text(string $name): static
+    {
+        data_set($this->attribute, 'name', $name);
+        data_set($this->attribute, 'type', 'text');
 
         return $this;
     }
@@ -95,6 +111,13 @@ class Attribute
     public function unique(bool $unique = true): static
     {
         data_set($this->attribute, 'unique', $unique);
+
+        return $this;
+    }
+
+    public function primary(bool $primary = true): static
+    {
+        data_set($this->attribute, 'primary', $primary);
 
         return $this;
     }
