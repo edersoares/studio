@@ -19,13 +19,13 @@ class SetRelations
 
         foreach ($relations as $name => $relation) {
             $relationModel = $relation['model'];
-            $method = $generator->class()->addMethod($name);
+            $method = $generator->method($name);
             $namespacedModel = $preset->getNamespacedFor('model', $relationModel);
 
             if ($relation['type'] === 'belongsTo') {
                 $generator->namespace()->addUse(BelongsTo::class);
                 $generator->namespace()->addUse($namespacedModel);
-                $method->addComment("@return BelongsTo<$relationModel, self>");
+                $method->setComment("@return BelongsTo<$relationModel, self>");
                 $method->setReturnType(BelongsTo::class);
                 $method->setBody('return $this->belongsTo(' . $relationModel . '::class);');
             }
@@ -33,7 +33,7 @@ class SetRelations
             if ($relation['type'] === 'hasMany') {
                 $generator->namespace()->addUse(HasMany::class);
                 $generator->namespace()->addUse($namespacedModel);
-                $method->addComment("@return HasMany<$relationModel>");
+                $method->setComment("@return HasMany<$relationModel>");
                 $method->setReturnType(HasMany::class);
                 $method->setBody('return $this->hasMany(' . $relationModel . '::class);');
             }
