@@ -6,6 +6,7 @@ namespace Dex\Laravel\Studio\Providers;
 
 use Dex\Laravel\Studio\Console\Commands\BlueprintCommand;
 use Dex\Laravel\Studio\Console\Commands\GenerateCommand;
+use Dex\Laravel\Studio\Console\Commands\StudioCommand;
 use Illuminate\Support\ServiceProvider;
 
 class StudioServiceProvider extends ServiceProvider
@@ -16,6 +17,7 @@ class StudioServiceProvider extends ServiceProvider
             $this->commands([
                 BlueprintCommand::class,
                 GenerateCommand::class,
+                StudioCommand::class,
             ]);
         }
     }
