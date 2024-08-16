@@ -18,8 +18,7 @@ class SetFillableProperty
         $fillable = array_filter($attributes, fn ($attribute) => $attribute['fillable'] ?? false);
 
         if ($fillable) {
-            $generator->class()
-                ->addProperty('fillable')
+            $generator->property('fillable')
                 ->setProtected()
                 ->setValue(array_keys($fillable));
         }
