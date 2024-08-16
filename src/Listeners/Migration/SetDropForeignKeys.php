@@ -34,7 +34,7 @@ class SetDropForeignKeys
         }
 
         foreach ($columns as $attribute => $options) {
-            $down->addBody('    $table->dropForeign([?]);', [$attribute]);
+            $down->addBody('$table->dropForeign([?]);', [$attribute]);
         }
     }
 }

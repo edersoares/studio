@@ -36,7 +36,7 @@ class SetForeignKeys
         foreach ($columns as $attribute => $options) {
             [$tableName, $columnName] = explode('.', $options['foreign']);
 
-            $up->addBody('    $table->foreign(?)->on(?)->references(?);', [$attribute, $tableName, $columnName]);
+            $up->addBody('$table->foreign(?)->on(?)->references(?);', [$attribute, $tableName, $columnName]);
         }
     }
 }
