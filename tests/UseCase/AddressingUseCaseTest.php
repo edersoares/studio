@@ -83,6 +83,7 @@ test('Country')->expect(
             'type' => 'hasMany',
         ],
     ],
+    'generate' => [],
 ]);
 
 test('State')->expect(
@@ -208,6 +209,7 @@ test('State')->expect(
             'type' => 'hasMany',
         ],
     ],
+    'generate' => [],
 ]);
 
 test('City')->expect(
@@ -311,6 +313,7 @@ test('City')->expect(
             'type' => 'hasMany',
         ],
     ],
+    'generate' => [],
 ]);
 
 test('Place')->expect(
@@ -473,6 +476,7 @@ test('Place')->expect(
             'type' => 'belongsTo',
         ],
     ],
+    'generate' => [],
 ]);
 
 test('District')->expect(
@@ -570,4 +574,5 @@ test('District')->expect(
             'type' => 'belongsTo',
         ],
     ],
+    'generate' => [],
 ]);

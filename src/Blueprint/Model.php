@@ -13,6 +13,8 @@ class Model
 
     private array $relations = [];
 
+    private array $generate = [];
+
     public function __construct(
         private readonly string $name,
     ) {
@@ -41,6 +43,15 @@ class Model
         return $this->name;
     }
 
+    public function generate(string $type): self
+    {
+        if (in_array($type, $this->generate, true) === false) {
+            $this->generate[] = $type;
+        }
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         return [
@@ -55,6 +66,7 @@ class Model
             'relations' => collect($this->relations)->mapWithKeys(fn (Relation $relation) => [
                 $relation->name() => $relation->value(),
             ])->toArray(),
+            'generate' => $this->generate,
         ];
     }
 }
