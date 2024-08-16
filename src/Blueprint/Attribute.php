@@ -214,6 +214,11 @@ class Attribute
         return $this->model;
     }
 
+    public function draft(): Model
+    {
+        return $this->model();
+    }
+
     public function attribute(): self
     {
         return $this->model()->attribute();

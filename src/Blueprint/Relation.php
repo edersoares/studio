@@ -49,6 +49,11 @@ class Relation
         return $this->model;
     }
 
+    public function draft(): Model
+    {
+        return $this->model();
+    }
+
     public function attribute(): Attribute
     {
         return $this->model()->attribute();
