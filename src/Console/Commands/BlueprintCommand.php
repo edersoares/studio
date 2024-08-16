@@ -20,13 +20,12 @@ class BlueprintCommand extends Command
 
     public function handle(): int
     {
-        /** @var string $presetName */
-        $presetName = $this->option('preset') ?? config('studio.preset');
-
         $file = require $this->argument('file');
 
+        /** @var string $presetName */
+        $presetName = $this->option('preset') ?? $file['preset'] ?? config('studio.preset');
+
         $blueprint = Factory::blueprint($file);
-        $preset = Factory::preset($presetName);
 
         if ($this->option('dump')) {
             $this->dumpContentAfterGenerate();
