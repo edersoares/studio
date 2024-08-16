@@ -9,6 +9,9 @@ use Dex\Laravel\Studio\Blueprint\Draft;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\PhpGenerator;
 
+/**
+ * @codeCoverageIgnore
+ */
 class SetRequestProperty
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void

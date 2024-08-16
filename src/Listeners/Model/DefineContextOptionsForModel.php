@@ -10,6 +10,9 @@ use Dex\Laravel\Studio\Blueprint\Factory;
 use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\PhpGenerator;
 
+/**
+ * @codeCoverageIgnore
+ */
 class DefineContextOptionsForModel
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void

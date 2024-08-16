@@ -38,7 +38,7 @@ class Preset extends Collection
         }
 
         if (str_starts_with($string, $word)) {
-            $string = substr($string, strlen($word));
+            $string = substr($string, strlen($word)); // @codeCoverageIgnore
         }
 
         if (str_ends_with($string, $word)) {

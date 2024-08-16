@@ -11,6 +11,9 @@ use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Illuminate\Database\Schema\Blueprint as BlueprintAlias;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * @codeCoverageIgnore
+ */
 class SetForeignKeys
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void

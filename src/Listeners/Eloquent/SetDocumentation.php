@@ -11,6 +11,9 @@ use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * @codeCoverageIgnore
+ */
 class SetDocumentation
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void

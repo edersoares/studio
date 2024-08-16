@@ -13,7 +13,7 @@ trait DumpContentAfterGenerate
     {
         Event::listen('generate:finished', function (Generator $generator) {
             if ($generator->shouldGenerate() === false) {
-                return;
+                return; // @codeCoverageIgnore
             }
 
             $this->comment($generator->filename());

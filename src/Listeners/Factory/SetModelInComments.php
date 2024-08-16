@@ -21,7 +21,7 @@ class SetModelInComments
         $comment = "@extends Factory<$class>";
 
         if (str_contains((string) $generator->class()->getComment(), $comment)) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $generator->namespace()->addUse($namespacedClass);

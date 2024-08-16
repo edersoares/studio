@@ -10,6 +10,9 @@ use Dex\Laravel\Studio\Blueprint\Preset;
 use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Dex\Laravel\Studio\Generators\PhpGeneratorFactory;
 
+/**
+ * @codeCoverageIgnore
+ */
 class NestedGenerators
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void

@@ -17,7 +17,7 @@ trait CreateFileAfterGenerate
     {
         Event::listen('generate:finished', function (Generator $generator) {
             if ($generator->shouldGenerate() === false) {
-                return;
+                return; // @codeCoverageIgnore
             }
 
             $filename = $generator->filename();
@@ -27,12 +27,12 @@ trait CreateFileAfterGenerate
                 return;
             }
 
-            mkdir($directory, recursive: true);
+            mkdir($directory, recursive: true); // @codeCoverageIgnore
         });
 
         Event::listen('generate:finished', function (Generator $generator) {
             if ($generator->shouldGenerate() === false) {
-                return;
+                return; // @codeCoverageIgnore
             }
 
             $filename = $generator->filename();

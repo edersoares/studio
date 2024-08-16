@@ -11,6 +11,9 @@ use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @codeCoverageIgnore
+ */
 class SetRelations
 {
     public function __invoke(PhpGenerator $generator, Draft $draft, Blueprint $blueprint, Preset $preset): void

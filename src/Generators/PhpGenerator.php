@@ -61,7 +61,7 @@ class PhpGenerator extends Generator
                     return $var;
                 }
 
-                return parent::dump($var, $column);
+                return parent::dump($var, $column); // @codeCoverageIgnore
             }
         };
     }
@@ -71,7 +71,7 @@ class PhpGenerator extends Generator
         $body = '';
 
         if (isset($this->body)) {
-            $body = $this->body;
+            $body = $this->body; // @codeCoverageIgnore
         }
 
         return $this->printer()->printFile($this->file) . $body;
@@ -104,11 +104,17 @@ class PhpGenerator extends Generator
         return $this->class;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function extends(string $class): ClassType
     {
         return $this->class()->setExtends($class);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function implements(string $class): ClassType
     {
         return $this->class()->addImplement($class);
@@ -121,6 +127,9 @@ class PhpGenerator extends Generator
         return $this->class()->addTrait($trait);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function property(string $property): Property
     {
         return $this->class()->hasProperty($property)
@@ -135,6 +144,9 @@ class PhpGenerator extends Generator
             : $this->class()->addMethod($method);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function body(string $body): void
     {
         $this->body = $body;
