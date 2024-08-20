@@ -37,7 +37,7 @@ class PhpGenerator extends Generator
         parent::__construct($draft, $blueprint, $preset);
 
         if (file_exists($this->filename()) && $preset->boolean('reuse')) {
-            $this->file = PhpFile::fromCode(file_get_contents($this->filename()));
+            $this->file = PhpFile::fromCode(file_get_contents($this->filename())); // @codeCoverageIgnore
         } else {
             $this->file = new PhpFile();
         }
