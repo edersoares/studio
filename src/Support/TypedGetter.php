@@ -11,6 +11,11 @@ use Illuminate\Support\Collection;
  */
 trait TypedGetter
 {
+    public function boolean(string $key, bool $default = false): bool
+    {
+        return (bool) $this->get($key, $default);
+    }
+
     public function string(string $key, string $default = ''): string
     {
         return (string) $this->get($key, $default);
