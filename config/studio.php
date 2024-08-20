@@ -49,6 +49,7 @@ return [
                 ],
 
                 'factory' => [
+                    'use' => Dex\Laravel\Studio\Art\Laravel\Factory::class,
                     'kind' => 'database',
                     'path' => 'factories',
                     'namespace' => 'Factories',
