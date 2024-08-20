@@ -9,6 +9,16 @@ use Dex\Laravel\Studio\Generators\PhpGeneratorFactory;
 
 class Factory
 {
+    public static function art(string $name, string $type, string $preset, array $context = []): Art
+    {
+        $draft = static::draft($type, $name, $context);
+        $preseter = static::preset($preset);
+
+        $art = $preseter->dotted("drafts.$type.use");
+
+        return new $art($draft, $preseter);
+    }
+
     public static function generate(string $type, string $name, array $context = []): string
     {
         /** @var string $preset */

@@ -42,6 +42,7 @@ return [
                 ],
 
                 'model' => [
+                    'use' => Dex\Laravel\Studio\Art\Laravel\Model::class,
                     'path' => 'Models',
                     'namespace' => 'Models',
                     'extends' => Illuminate\Database\Eloquent\Model::class,
@@ -105,6 +106,10 @@ return [
             ],
 
             'drafts' => [
+
+                'class' => [
+                    'use' => Dex\Laravel\Studio\Art\Studio\PhpFile::class,
+                ],
 
                 'builder' => [
                     'namespace' => 'Models\\Builder',
