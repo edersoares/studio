@@ -57,6 +57,7 @@ return [
                 ],
 
                 'migration' => [
+                    'use' => Dex\Laravel\Studio\Art\Laravel\Migration::class,
                     'kind' => 'database',
                     'path' => 'migrations',
                     'filename' => function (string $type, string $name) {
