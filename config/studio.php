@@ -78,6 +78,18 @@ return [
                     'extends' => Illuminate\Database\Migrations\Migration::class,
                 ],
 
+                'migration:foreign' => [
+                    'use' => Dex\Laravel\Studio\Art\Laravel\MigrationForeign::class,
+                    'kind' => 'database',
+                    'path' => 'migrations',
+                    'filename' => function (string $type, string $name) {
+                        return '0000_00_00_100000_add_foreign_key_in_' . str($name)->snake()->value() . '_table';
+                    },
+                    'prefix' => 'AddForeignKeyIn',
+                    'suffix' => 'Table',
+                    'extends' => Illuminate\Database\Migrations\Migration::class,
+                ],
+
                 'policy' => [
                     'path' => 'Policies',
                     'namespace' => 'Policies',

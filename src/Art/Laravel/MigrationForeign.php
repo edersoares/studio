@@ -12,7 +12,7 @@ use Dex\Laravel\Studio\Modifier\Migration\SetDownMethodToAlter;
 use Dex\Laravel\Studio\Modifier\Migration\SetUpMethodToAlter;
 use Dex\Laravel\Studio\Modifier\NamespaceFromPreset;
 
-class Migration extends Art
+class MigrationForeign extends Art
 {
     use GeneratePhp;
 

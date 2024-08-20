@@ -4,7 +4,7 @@ namespace Dex\Laravel\Studio\Modifier\Migration;
 
 use Dex\Laravel\Studio\Blueprint\Art;
 
-class SetUpMethodForAlterMigration extends AlterMigration
+class SetUpMethodToAlter extends AlterMigration
 {
     protected function method(Art $art): string
     {
