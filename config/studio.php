@@ -137,6 +137,10 @@ return [
                     'use' => Dex\Laravel\Studio\Art\Studio\PhpFile::class,
                 ],
 
+                'model' => [
+                    'use' => Dex\Laravel\Studio\Art\Studio\Model::class,
+                ],
+
                 'builder' => [
                     'namespace' => 'Models\\Builder',
                     'path' => 'Models/Builder',
