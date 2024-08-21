@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Dex\Laravel\Studio\Blueprint\Factory;
+use Dex\Laravel\Studio\Blueprint\Draft;
 
 test('generate a factory')
-    ->expect(fn () => Factory::art('User', 'factory', 'laravel'))
+    ->expect(fn () => Draft::new('User')->art('factory', 'laravel'))
     ->filename()
     ->toEndWith('database/factories/UserFactory.php')
     ->generate()

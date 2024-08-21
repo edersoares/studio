@@ -69,4 +69,11 @@ class Model
             'generate' => $this->generate,
         ];
     }
+
+    public function art(string $type, ?string $preset = null): Art
+    {
+        $preset ??= config('studio.preset');
+
+        return Factory::art($this->name(), $type, $preset, $this->toArray());
+    }
 }

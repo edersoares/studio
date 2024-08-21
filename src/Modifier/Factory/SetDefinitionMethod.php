@@ -6,9 +6,6 @@ namespace Dex\Laravel\Studio\Modifier\Factory;
 
 use Dex\Laravel\Studio\Blueprint\Art;
 
-/**
- * @codeCoverageIgnore
- */
 class SetDefinitionMethod
 {
     public function modify(Art $art): void
