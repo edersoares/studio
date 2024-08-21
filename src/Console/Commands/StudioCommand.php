@@ -5,15 +5,10 @@ declare(strict_types=1);
 namespace Dex\Laravel\Studio\Console\Commands;
 
 use Dex\Laravel\Studio\Blueprint\Factory;
-use Dex\Laravel\Studio\Console\Commands\Concerns\CreateFileAfterGenerate;
-use Dex\Laravel\Studio\Console\Commands\Concerns\DumpContentAfterGenerate;
 use Illuminate\Console\Command;
 
 class StudioCommand extends Command
 {
-    use CreateFileAfterGenerate;
-    use DumpContentAfterGenerate;
-
     protected $signature = 'studio {file} {--dump} {--file} {--preset=}';
 
     protected $description = 'Generate all drafts from file';
@@ -22,22 +17,41 @@ class StudioCommand extends Command
     {
         $file = require $this->argument('file');
 
-        /** @var string $presetName */
-        $presetName = $this->option('preset') ?? $file['preset'] ?? config('studio.preset');
+        /** @var string $preset */
+        $preset = $this->option('preset') ?? $file['preset'] ?? config('studio.preset');
 
         $blueprint = Factory::blueprint($file);
 
-        if ($this->option('dump')) {
-            $this->dumpContentAfterGenerate();
-        }
-
-        if ($this->option('file')) {
-            $this->createFileAfterGenerate();
-        }
+        $dump = $this->option('dump');
+        $file = $this->option('file');
 
         foreach ($blueprint->drafts() as $draft) {
             foreach ($draft['generate'] ?? [] as $type) {
-                Factory::new($type, $draft['name'], $presetName, $draft);
+                $art = Factory::art($draft['name'], $type, $preset, $draft);
+
+                if ($art->generator()->shouldGenerate() === false) {
+                    continue; // @codeCoverageIgnore
+                }
+
+                $filename = $art->filename();
+                $generate = $art->generate();
+
+                if ($dump) {
+                    $this->comment($filename);
+                    $this->line($generate);
+                }
+
+                if ($file) {
+                    $directory = dirname($filename);
+
+                    if (is_dir($directory) === false) {
+                        mkdir($directory, recursive: true); // @codeCoverageIgnore
+                    }
+
+                    $this->comment($filename);
+
+                    file_put_contents($filename, $generate);
+                }
             }
         }
 
