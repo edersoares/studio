@@ -1,0 +1,28 @@
+<?php
+
+namespace Package\Database;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateUserTable extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('user', function (Blueprint $table) {
+            $table->integer('id')->primary();
+            $table->foreignId('group_id')->index();
+            $table->string('name');
+            $table->string('email');
+            $table->integer('age')->default(18)->nullable();
+            $table->boolean('active')->default(false);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('user');
+    }
+}

@@ -170,6 +170,7 @@ return [
                 ],
 
                 'migration:create' => [
+                    'use' => Dex\Laravel\Studio\Art\Studio\MigrationCreate::class,
                     'kind' => 'database',
                     'path' => 'migrations',
                     'filename' => function (string $type, string $name) {
@@ -181,6 +182,7 @@ return [
                 ],
 
                 'migration:foreign' => [
+                    'use' => Dex\Laravel\Studio\Art\Studio\MigrationForeign::class,
                     'kind' => 'database',
                     'path' => 'migrations',
                     'filename' => function (string $type, string $name) {
