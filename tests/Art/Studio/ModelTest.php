@@ -23,3 +23,12 @@ test('generate a model with `fillable` property')
     ->toEndWith('src/Models/User.php')
     ->generate()
     ->toMatchSnapshot();
+
+test('generate a model with `table` property')
+    ->expect(fn () => Factory::art('User', 'model', 'studio', [
+        'table' => 'studio_user',
+    ]))
+    ->filename()
+    ->toEndWith('src/Models/User.php')
+    ->generate()
+    ->toMatchSnapshot();
