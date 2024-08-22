@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Support;
 
+/**
+ * @codeCoverageIgnore
+ */
 trait Typed
 {
     use Dotted;

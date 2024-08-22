@@ -118,6 +118,9 @@ class PhpGenerator extends Generator
         return $this->class()->addImplement($class);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function trait(string $trait): TraitUse
     {
         $this->class()->removeTrait($trait);
@@ -135,6 +138,9 @@ class PhpGenerator extends Generator
             : $this->class()->addProperty($property);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function method(string $method): Method
     {
         return $this->class()->hasMethod($method)

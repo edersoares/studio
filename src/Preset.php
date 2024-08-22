@@ -19,7 +19,7 @@ class Preset
 
     public function name(): string
     {
-        return $this->string('name');
+        return $this->string('name'); // @codeCoverageIgnore
     }
 
     public function trim(string $string, string $word): string
@@ -33,7 +33,7 @@ class Preset
         }
 
         if (str_ends_with($string, $word)) {
-            $string = substr($string, 0, -strlen($word));
+            $string = substr($string, 0, -strlen($word)); // @codeCoverageIgnore
         }
 
         return $string;

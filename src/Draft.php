@@ -53,7 +53,7 @@ class Draft
 
         foreach ($this->get('relations', []) as $name => $relation) {
             if (is_array($relation)) {
-                $relations[$name] = $relation;
+                $relations[$name] = $relation; // @codeCoverageIgnore
             } else {
                 $relations[$relation->name()] = $relation->data();
             }

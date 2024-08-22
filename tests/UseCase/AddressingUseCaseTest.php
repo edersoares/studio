@@ -5,16 +5,15 @@ declare(strict_types=1);
 use Dex\Laravel\Studio\Draft;
 
 test('Country')
-    ->expect(
-        Draft::new('Country')
-            ->attribute()->id()->docs('ID')->example(1)
-            ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('country')->docs('Nome')->example('Brasil')
-            ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
-            ->attribute()->timestamps()
-            ->attribute()->softDeletes()
-            ->relation()->hasMany('states')
-            ->draft()
-            ->data()
+    ->expect(fn () => Draft::new('Country')
+        ->attribute()->id()->docs('ID')->example(1)
+        ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('country')->docs('Nome')->example('Brasil')
+        ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
+        ->attribute()->timestamps()
+        ->attribute()->softDeletes()
+        ->relation()->hasMany('states')
+        ->draft()
+        ->data()
     )->toBe([
         'name' => 'Country',
         'attributes' => [
@@ -82,8 +81,8 @@ test('Country')
         ],
     ]);
 
-test('State')->expect(
-    Draft::new('State')
+test('State')
+    ->expect(fn () => Draft::new('State')
         ->attribute()->id()->docs('ID')->example(1)
         ->attribute()->foreign('country_id')->fillable()->factory('Country')->docs('ID do país')->example(1)
         ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->index()->faker('colorName')->docs('Nome')->example('Rio Grade do Sul')
@@ -91,219 +90,219 @@ test('State')->expect(
         ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(11223344)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
-//        ->relation()->belongsTo('country')
-//        ->relation()->hasMany('cities')
+        ->relation()->belongsTo('country')
+        ->relation()->hasMany('cities')
         ->draft()
         ->data()
-)->toBe([
-    'name' => 'State',
-    'attributes' => [
-        'id' => [
-            'name' => 'id',
-            'type' => 'id',
-            'docs' => [
-                'description' => 'ID',
-                'example' => 1,
-            ],
-        ],
-        'country_id' => [
-            'name' => 'country_id',
-            'type' => 'foreignId',
-            'foreign' => 'country.id',
-            'fillable' => true,
-            'factory' => [
-                'model' => [
-                    'Country',
+    )->toBe([
+        'name' => 'State',
+        'attributes' => [
+            'id' => [
+                'name' => 'id',
+                'type' => 'id',
+                'docs' => [
+                    'description' => 'ID',
+                    'example' => 1,
                 ],
             ],
-            'docs' => [
-                'description' => 'ID do país',
-                'example' => 1,
-            ],
-        ],
-        'name' => [
-            'name' => 'name',
-            'type' => 'string',
-            'fillable' => true,
-            'validation' => [
-                'rules' => [
-                    'required',
-                    'min:3',
-                    'max:50',
+            'country_id' => [
+                'name' => 'country_id',
+                'type' => 'foreignId',
+                'foreign' => 'country.id',
+                'fillable' => true,
+                'factory' => [
+                    'model' => [
+                        'Country',
+                    ],
+                ],
+                'docs' => [
+                    'description' => 'ID do país',
+                    'example' => 1,
                 ],
             ],
-            'index' => true,
-            'factory' => [
-                'faker' => ['colorName'],
-            ],
-            'docs' => [
-                'description' => 'Nome',
-                'example' => 'Rio Grade do Sul',
-            ],
-        ],
-        'abbreviation' => [
-            'name' => 'abbreviation',
-            'type' => 'string',
-            'fillable' => true,
-            'validation' => [
-                'rules' => [
-                    'required',
-                    'min:1',
-                    'max:5',
+            'name' => [
+                'name' => 'name',
+                'type' => 'string',
+                'fillable' => true,
+                'validation' => [
+                    'rules' => [
+                        'required',
+                        'min:3',
+                        'max:50',
+                    ],
+                ],
+                'index' => true,
+                'factory' => [
+                    'faker' => ['colorName'],
+                ],
+                'docs' => [
+                    'description' => 'Nome',
+                    'example' => 'Rio Grade do Sul',
                 ],
             ],
-            'nullable' => true,
-            'factory' => [
-                'faker' => ['colorName'],
-            ],
-            'docs' => [
-                'description' => 'Sigla',
-                'example' => 'RS',
-            ],
-        ],
-        'ibge_code' => [
-            'name' => 'ibge_code',
-            'type' => 'integer',
-            'fillable' => true,
-            'validation' => [
-                'rules' => [
-                    'size:8',
+            'abbreviation' => [
+                'name' => 'abbreviation',
+                'type' => 'string',
+                'fillable' => true,
+                'validation' => [
+                    'rules' => [
+                        'required',
+                        'min:1',
+                        'max:5',
+                    ],
+                ],
+                'nullable' => true,
+                'factory' => [
+                    'faker' => ['colorName'],
+                ],
+                'docs' => [
+                    'description' => 'Sigla',
+                    'example' => 'RS',
                 ],
             ],
-            'nullable' => true,
-            'unique' => true,
-            'factory' => [
-                'faker' => ['numerify', '########'],
+            'ibge_code' => [
+                'name' => 'ibge_code',
+                'type' => 'integer',
+                'fillable' => true,
+                'validation' => [
+                    'rules' => [
+                        'size:8',
+                    ],
+                ],
+                'nullable' => true,
+                'unique' => true,
+                'factory' => [
+                    'faker' => ['numerify', '########'],
+                ],
+                'docs' => [
+                    'description' => 'Código IBGE',
+                    'example' => 11223344,
+                ],
             ],
-            'docs' => [
-                'description' => 'Código IBGE',
-                'example' => 11223344,
+            'timestamps' => [
+                'name' => 'timestamps',
+                'type' => 'timestamps',
+            ],
+            'softDeletes' => [
+                'name' => 'softDeletes',
+                'type' => 'softDeletes',
             ],
         ],
-        'timestamps' => [
-            'name' => 'timestamps',
-            'type' => 'timestamps',
+        'relations' => [
+            'country' => [
+                'name' => 'country',
+                'model' => 'Country',
+                'type' => 'belongsTo',
+            ],
+            'cities' => [
+                'name' => 'cities',
+                'model' => 'City',
+                'type' => 'hasMany',
+            ],
         ],
-        'softDeletes' => [
-            'name' => 'softDeletes',
-            'type' => 'softDeletes',
-        ],
-    ],
-//    'relations' => [
-//        'country' => [
-//            'name' => 'country',
-//            'model' => 'Country',
-//            'type' => 'belongsTo',
-//        ],
-//        'cities' => [
-//            'name' => 'cities',
-//            'model' => 'City',
-//            'type' => 'hasMany',
-//        ],
-//    ],
-]);
+    ]);
 
-test('City')->expect(
-    Draft::new('City')
+test('City')
+    ->expect(fn () => Draft::new('City')
         ->attribute()->id()->docs('ID')->example(1)
         ->attribute()->foreign('state_id')->fillable()->factory('State')->docs('ID do estado')->example(1)
         ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('city')->docs('Nome')->example('Porto Alegre')
         ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
-//        ->relation()->belongsTo('state')
-//        ->relation()->hasMany('places')
+        ->relation()->belongsTo('state')
+        ->relation()->hasMany('places')
         ->draft()
         ->data()
-)->toBe([
-    'name' => 'City',
-    'attributes' => [
-        'id' => [
-            'name' => 'id',
-            'type' => 'id',
-            'docs' => [
-                'description' => 'ID',
-                'example' => 1,
-            ],
-        ],
-        'state_id' => [
-            'name' => 'state_id',
-            'type' => 'foreignId',
-            'foreign' => 'state.id',
-            'fillable' => true,
-            'factory' => [
-                'model' => [
-                    'State',
+    )->toBe([
+        'name' => 'City',
+        'attributes' => [
+            'id' => [
+                'name' => 'id',
+                'type' => 'id',
+                'docs' => [
+                    'description' => 'ID',
+                    'example' => 1,
                 ],
             ],
-            'docs' => [
-                'description' => 'ID do estado',
-                'example' => 1,
-            ],
-        ],
-        'name' => [
-            'name' => 'name',
-            'type' => 'string',
-            'fillable' => true,
-            'validation' => [
-                'rules' => [
-                    'required',
-                    'min:3',
-                    'max:50',
+            'state_id' => [
+                'name' => 'state_id',
+                'type' => 'foreignId',
+                'foreign' => 'state.id',
+                'fillable' => true,
+                'factory' => [
+                    'model' => [
+                        'State',
+                    ],
+                ],
+                'docs' => [
+                    'description' => 'ID do estado',
+                    'example' => 1,
                 ],
             ],
-            'factory' => [
-                'faker' => ['city'],
-            ],
-            'docs' => [
-                'description' => 'Nome',
-                'example' => 'Porto Alegre',
-            ],
-        ],
-        'ibge_code' => [
-            'name' => 'ibge_code',
-            'type' => 'integer',
-            'fillable' => true,
-            'validation' => [
-                'rules' => [
-                    'size:8',
+            'name' => [
+                'name' => 'name',
+                'type' => 'string',
+                'fillable' => true,
+                'validation' => [
+                    'rules' => [
+                        'required',
+                        'min:3',
+                        'max:50',
+                    ],
+                ],
+                'factory' => [
+                    'faker' => ['city'],
+                ],
+                'docs' => [
+                    'description' => 'Nome',
+                    'example' => 'Porto Alegre',
                 ],
             ],
-            'nullable' => true,
-            'unique' => true,
-            'factory' => [
-                'faker' => ['numerify', '########'],
+            'ibge_code' => [
+                'name' => 'ibge_code',
+                'type' => 'integer',
+                'fillable' => true,
+                'validation' => [
+                    'rules' => [
+                        'size:8',
+                    ],
+                ],
+                'nullable' => true,
+                'unique' => true,
+                'factory' => [
+                    'faker' => ['numerify', '########'],
+                ],
+                'docs' => [
+                    'description' => 'Código IBGE',
+                    'example' => 12345678,
+                ],
             ],
-            'docs' => [
-                'description' => 'Código IBGE',
-                'example' => 12345678,
+            'timestamps' => [
+                'name' => 'timestamps',
+                'type' => 'timestamps',
+            ],
+            'softDeletes' => [
+                'name' => 'softDeletes',
+                'type' => 'softDeletes',
             ],
         ],
-        'timestamps' => [
-            'name' => 'timestamps',
-            'type' => 'timestamps',
+        'relations' => [
+            'state' => [
+                'name' => 'state',
+                'model' => 'State',
+                'type' => 'belongsTo',
+            ],
+            'places' => [
+                'name' => 'places',
+                'model' => 'Place',
+                'type' => 'hasMany',
+            ],
         ],
-        'softDeletes' => [
-            'name' => 'softDeletes',
-            'type' => 'softDeletes',
-        ],
-    ],
-//    'relations' => [
-//        'state' => [
-//            'name' => 'state',
-//            'model' => 'State',
-//            'type' => 'belongsTo',
-//        ],
-//        'places' => [
-//            'name' => 'places',
-//            'model' => 'Place',
-//            'type' => 'hasMany',
-//        ],
-//    ],
-]);
+    ]);
 
-test('Place')->expect(
-    Draft::new('Place')
+test('Place')
+    ->expect(fn () => Draft::new('Place')
         ->attribute()->id()->docs('ID')->example(1)
         ->attribute()->foreign('city_id')->fillable()->factory('City')->docs('ID da cidade')->example(1)
         ->attribute()->string('address')->fillable()->required()->min(3)->max(50)->nullable()->faker('address')->docs('Endereço')->example('Rua do Centro')
@@ -315,150 +314,150 @@ test('Place')->expect(
         ->attribute()->float('longitude')->fillable()->nullable()->faker('longitude')->docs('Longitude')->example(0)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
-//        ->relation()->belongsTo('city')
+        ->relation()->belongsTo('city')
         ->draft()
         ->data()
-)->toBe([
-    'name' => 'Place',
-    'attributes' => [
-        'id' => [
-            'name' => 'id',
-            'type' => 'id',
-            'docs' => [
-                'description' => 'ID',
-                'example' => 1,
-            ],
-        ],
-        'city_id' => [
-            'name' => 'city_id',
-            'type' => 'foreignId',
-            'foreign' => 'city.id',
-            'fillable' => true,
-            'factory' => [
-                'model' => [
-                    'City',
+    )->toBe([
+        'name' => 'Place',
+        'attributes' => [
+            'id' => [
+                'name' => 'id',
+                'type' => 'id',
+                'docs' => [
+                    'description' => 'ID',
+                    'example' => 1,
                 ],
             ],
-            'docs' => [
-                'description' => 'ID da cidade',
-                'example' => 1,
-            ],
-        ],
-        'address' => [
-            'name' => 'address',
-            'type' => 'string',
-            'fillable' => true,
-            'validation' => [
-                'rules' => [
-                    'required',
-                    'min:3',
-                    'max:50',
+            'city_id' => [
+                'name' => 'city_id',
+                'type' => 'foreignId',
+                'foreign' => 'city.id',
+                'fillable' => true,
+                'factory' => [
+                    'model' => [
+                        'City',
+                    ],
+                ],
+                'docs' => [
+                    'description' => 'ID da cidade',
+                    'example' => 1,
                 ],
             ],
-            'nullable' => true,
-            'factory' => [
-                'faker' => ['address'],
+            'address' => [
+                'name' => 'address',
+                'type' => 'string',
+                'fillable' => true,
+                'validation' => [
+                    'rules' => [
+                        'required',
+                        'min:3',
+                        'max:50',
+                    ],
+                ],
+                'nullable' => true,
+                'factory' => [
+                    'faker' => ['address'],
+                ],
+                'docs' => [
+                    'description' => 'Endereço',
+                    'example' => 'Rua do Centro',
+                ],
             ],
-            'docs' => [
-                'description' => 'Endereço',
-                'example' => 'Rua do Centro',
+            'number' => [
+                'name' => 'number',
+                'type' => 'string',
+                'fillable' => true,
+                'nullable' => true,
+                'factory' => [
+                    'faker' => ['numerify', '########'],
+                ],
+                'docs' => [
+                    'description' => 'Número',
+                    'example' => 123,
+                ],
+            ],
+            'complement' => [
+                'name' => 'complement',
+                'type' => 'string',
+                'fillable' => true,
+                'nullable' => true,
+                'factory' => [
+                    'faker' => ['numerify', '########'],
+                ],
+                'docs' => [
+                    'description' => 'Complemento',
+                    'example' => 'Sala',
+                ],
+            ],
+            'neighborhood' => [
+                'name' => 'neighborhood',
+                'type' => 'string',
+                'fillable' => true,
+                'nullable' => true,
+                'factory' => [
+                    'faker' => ['numerify', '########'],
+                ],
+                'docs' => [
+                    'description' => 'Bairro',
+                    'example' => 'Centro',
+                ],
+            ],
+            'postal_code' => [
+                'name' => 'postal_code',
+                'type' => 'string',
+                'fillable' => true,
+                'nullable' => true,
+                'factory' => [
+                    'faker' => ['numerify', '########'],
+                ],
+                'docs' => [
+                    'description' => 'CEP',
+                    'example' => '12345-000',
+                ],
+            ],
+            'latitude' => [
+                'name' => 'latitude',
+                'type' => 'float',
+                'fillable' => true,
+                'nullable' => true,
+                'factory' => [
+                    'faker' => ['latitude'],
+                ],
+                'docs' => [
+                    'description' => 'Latitude',
+                    'example' => 0,
+                ],
+            ],
+            'longitude' => [
+                'name' => 'longitude',
+                'type' => 'float',
+                'fillable' => true,
+                'nullable' => true,
+                'factory' => [
+                    'faker' => ['longitude'],
+                ],
+                'docs' => [
+                    'description' => 'Longitude',
+                    'example' => 0,
+                ],
+            ],
+            'timestamps' => [
+                'name' => 'timestamps',
+                'type' => 'timestamps',
+            ],
+            'softDeletes' => [
+                'name' => 'softDeletes',
+                'type' => 'softDeletes',
             ],
         ],
-        'number' => [
-            'name' => 'number',
-            'type' => 'string',
-            'fillable' => true,
-            'nullable' => true,
-            'factory' => [
-                'faker' => ['numerify', '########'],
-            ],
-            'docs' => [
-                'description' => 'Número',
-                'example' => 123,
+        'relations' => [
+            'city' => [
+                'name' => 'city',
+                'model' => 'City',
+                'type' => 'belongsTo',
             ],
         ],
-        'complement' => [
-            'name' => 'complement',
-            'type' => 'string',
-            'fillable' => true,
-            'nullable' => true,
-            'factory' => [
-                'faker' => ['numerify', '########'],
-            ],
-            'docs' => [
-                'description' => 'Complemento',
-                'example' => 'Sala',
-            ],
-        ],
-        'neighborhood' => [
-            'name' => 'neighborhood',
-            'type' => 'string',
-            'fillable' => true,
-            'nullable' => true,
-            'factory' => [
-                'faker' => ['numerify', '########'],
-            ],
-            'docs' => [
-                'description' => 'Bairro',
-                'example' => 'Centro',
-            ],
-        ],
-        'postal_code' => [
-            'name' => 'postal_code',
-            'type' => 'string',
-            'fillable' => true,
-            'nullable' => true,
-            'factory' => [
-                'faker' => ['numerify', '########'],
-            ],
-            'docs' => [
-                'description' => 'CEP',
-                'example' => '12345-000',
-            ],
-        ],
-        'latitude' => [
-            'name' => 'latitude',
-            'type' => 'float',
-            'fillable' => true,
-            'nullable' => true,
-            'factory' => [
-                'faker' => ['latitude'],
-            ],
-            'docs' => [
-                'description' => 'Latitude',
-                'example' => 0,
-            ],
-        ],
-        'longitude' => [
-            'name' => 'longitude',
-            'type' => 'float',
-            'fillable' => true,
-            'nullable' => true,
-            'factory' => [
-                'faker' => ['longitude'],
-            ],
-            'docs' => [
-                'description' => 'Longitude',
-                'example' => 0,
-            ],
-        ],
-        'timestamps' => [
-            'name' => 'timestamps',
-            'type' => 'timestamps',
-        ],
-        'softDeletes' => [
-            'name' => 'softDeletes',
-            'type' => 'softDeletes',
-        ],
-    ],
-//    'relations' => [
-//        'city' => [
-//            'name' => 'city',
-//            'model' => 'City',
-//            'type' => 'belongsTo',
-//        ],
-//    ],
-]);
+    ]);
 
 test('District')->expect(
     Draft::new('District')
@@ -468,7 +467,7 @@ test('District')->expect(
         ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(1234567890)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
-//        ->relation()->belongsTo('city')
+        ->relation()->belongsTo('city')
         ->draft()
         ->data()
 )->toBe([
@@ -544,11 +543,11 @@ test('District')->expect(
             'type' => 'softDeletes',
         ],
     ],
-//    'relations' => [
-//        'city' => [
-//            'name' => 'city',
-//            'model' => 'City',
-//            'type' => 'belongsTo',
-//        ],
-//    ],
+    'relations' => [
+        'city' => [
+            'name' => 'city',
+            'model' => 'City',
+            'type' => 'belongsTo',
+        ],
+    ],
 ]);
