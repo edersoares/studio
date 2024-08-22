@@ -46,6 +46,9 @@ return [
                     'path' => 'Models',
                     'namespace' => 'Models',
                     'extends' => Illuminate\Database\Eloquent\Model::class,
+                    'traits' => [
+                        Illuminate\Database\Eloquent\Factories\HasFactory::class,
+                    ],
                 ],
 
                 'factory' => [

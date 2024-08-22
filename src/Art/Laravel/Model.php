@@ -9,6 +9,7 @@ use Dex\Laravel\Studio\Generators\GeneratePhp;
 use Dex\Laravel\Studio\Modifier\ClassNameFromPreset;
 use Dex\Laravel\Studio\Modifier\ExtendsFromPreset;
 use Dex\Laravel\Studio\Modifier\NamespaceFromPreset;
+use Dex\Laravel\Studio\Modifier\TraitsFromPreset;
 
 class Model extends Art
 {
@@ -20,6 +21,7 @@ class Model extends Art
             NamespaceFromPreset::class,
             ClassNameFromPreset::class,
             ExtendsFromPreset::class,
+            TraitsFromPreset::class,
         ];
     }
 }
