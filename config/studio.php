@@ -36,6 +36,7 @@ return [
                 ],
 
                 'controller' => [
+                    'use' => Dex\Laravel\Studio\Art\Laravel\Controller::class,
                     'path' => 'Http/Controllers',
                     'namespace' => 'Http\\Controllers',
                     'suffix' => 'Controller',
