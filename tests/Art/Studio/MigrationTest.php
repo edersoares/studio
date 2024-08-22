@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Dex\Laravel\Studio\Blueprint\Draft;
+use Dex\Laravel\Studio\Draft;
 
 test('generate a migration')
     ->expect(fn () => Draft::new('User')->art('migration', 'studio'))

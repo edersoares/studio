@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Concerns;
 
 use Dex\Laravel\Studio\Attribute;
@@ -22,5 +24,4 @@ trait HasFactoryOptions
 
         return $this;
     }
-
 }

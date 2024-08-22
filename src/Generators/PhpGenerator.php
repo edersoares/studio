@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Generators;
 
-use Dex\Laravel\Studio\Blueprint\Blueprint;
-use Dex\Laravel\Studio\Blueprint\Draft;
-use Dex\Laravel\Studio\Blueprint\Preset;
+use Dex\Laravel\Studio\Draft;
+use Dex\Laravel\Studio\Preset;
 use Illuminate\Support\Collection;
 use Nette\InvalidArgumentException;
 use Nette\PhpGenerator\ClassType;
@@ -32,9 +31,9 @@ class PhpGenerator extends Generator
 
     protected string $body;
 
-    public function __construct(Draft $draft, Blueprint $blueprint, Preset $preset)
+    public function __construct(Draft $draft, Preset $preset)
     {
-        parent::__construct($draft, $blueprint, $preset);
+        parent::__construct($draft, $preset);
 
         if (file_exists($this->filename()) && $preset->boolean('reuse')) {
             $this->file = PhpFile::fromCode(file_get_contents($this->filename())); // @codeCoverageIgnore
@@ -45,8 +44,7 @@ class PhpGenerator extends Generator
 
     public function printer(): Printer
     {
-        return new class extends Printer
-        {
+        return new class extends Printer {
             public bool $omitEmptyNamespaces = false;
 
             public int $linesBetweenProperties = 1;

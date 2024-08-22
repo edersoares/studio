@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Modifier\Migration;
 
-use Dex\Laravel\Studio\Blueprint\Art;
+use Dex\Laravel\Studio\Art;
 use Nette\PhpGenerator\Closure;
 
 class SetDownMethodForeign extends SetUpMethodToCreate
@@ -23,7 +25,7 @@ class SetDownMethodForeign extends SetUpMethodToCreate
 
         $closure->addParameter('table')->setType('Blueprint');
 
-        $attributes = $art->draft()->array('attributes');
+        $attributes = $art->draft()->attributes();
 
         /** @var array $columns */
         $columns = collect($attributes)

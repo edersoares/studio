@@ -4,23 +4,21 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Generators;
 
-use Dex\Laravel\Studio\Blueprint\Blueprint;
-use Dex\Laravel\Studio\Blueprint\Draft;
-use Dex\Laravel\Studio\Blueprint\Preset;
+use Dex\Laravel\Studio\Draft;
+use Dex\Laravel\Studio\Preset;
 
 class PhpGeneratorFactory
 {
-    public static function new(Draft $draft, Blueprint $blueprint, Preset $preset): PhpGenerator
+    public static function new(Draft $draft, Preset $preset): PhpGenerator
     {
         $generator = new PhpGenerator(
             draft: $draft,
-            blueprint: $blueprint,
             preset: $preset,
         );
 
-        event('generate:started', [$generator, $draft, $blueprint, $preset]);
-        event("generate:{$draft->type()}", [$generator, $draft, $blueprint, $preset]);
-        event('generate:finished', [$generator, $draft, $blueprint, $preset]);
+        event('generate:started', [$generator, $draft, $preset]);
+        event("generate:{$draft->type()}", [$generator, $draft, $preset]);
+        event('generate:finished', [$generator, $draft, $preset]);
 
         return $generator;
     }

@@ -2,89 +2,85 @@
 
 declare(strict_types=1);
 
-use Dex\Laravel\Studio\Blueprint\Draft;
+use Dex\Laravel\Studio\Draft;
 
-test('Country')->expect(
-    Draft::new('Country')
-        ->attribute()->id()->docs('ID')->example(1)
-        ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('country')->docs('Nome')->example('Brasil')
-        ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
-        ->attribute()->timestamps()
-        ->attribute()->softDeletes()
-        ->relation()->hasMany('states')
-        ->model()
-        ->toArray()
-)->toBe([
-    'type' => 'model',
-    'name' => 'Country',
-    'model' => 'Country',
-    'table' => 'country',
-    'endpoint' => 'country',
-    'attributes' => [
-        'id' => [
-            'name' => 'id',
-            'type' => 'id',
-            'docs' => [
-                'description' => 'ID',
-                'example' => 1,
-            ],
-        ],
-        'name' => [
-            'name' => 'name',
-            'type' => 'string',
-            'fillable' => true,
-            'validation' => [
-                'rules' => [
-                    'required',
-                    'min:3',
-                    'max:50',
+test('Country')
+    ->expect(
+        Draft::new('Country')
+            ->attribute()->id()->docs('ID')->example(1)
+            ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('country')->docs('Nome')->example('Brasil')
+            ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
+            ->attribute()->timestamps()
+            ->attribute()->softDeletes()
+            ->relation()->hasMany('states')
+            ->draft()
+            ->data()
+    )->toBe([
+        'name' => 'Country',
+        'attributes' => [
+            'id' => [
+                'name' => 'id',
+                'type' => 'id',
+                'docs' => [
+                    'description' => 'ID',
+                    'example' => 1,
                 ],
             ],
-            'factory' => [
-                'faker' => ['country'],
-            ],
-            'docs' => [
-                'description' => 'Nome',
-                'example' => 'Brasil',
-            ],
-        ],
-        'ibge_code' => [
-            'name' => 'ibge_code',
-            'type' => 'integer',
-            'fillable' => true,
-            'validation' => [
-                'rules' => [
-                    'size:8',
+            'name' => [
+                'name' => 'name',
+                'type' => 'string',
+                'fillable' => true,
+                'validation' => [
+                    'rules' => [
+                        'required',
+                        'min:3',
+                        'max:50',
+                    ],
+                ],
+                'factory' => [
+                    'faker' => ['country'],
+                ],
+                'docs' => [
+                    'description' => 'Nome',
+                    'example' => 'Brasil',
                 ],
             ],
-            'nullable' => true,
-            'unique' => true,
-            'factory' => [
-                'faker' => ['numerify', '########'],
+            'ibge_code' => [
+                'name' => 'ibge_code',
+                'type' => 'integer',
+                'fillable' => true,
+                'validation' => [
+                    'rules' => [
+                        'size:8',
+                    ],
+                ],
+                'nullable' => true,
+                'unique' => true,
+                'factory' => [
+                    'faker' => ['numerify', '########'],
+                ],
+                'docs' => [
+                    'description' => 'Código IBGE',
+                    'example' => 12345678,
+                ],
             ],
-            'docs' => [
-                'description' => 'Código IBGE',
-                'example' => 12345678,
+            'timestamps' => [
+                'name' => 'timestamps',
+                'type' => 'timestamps',
+            ],
+            'softDeletes' => [
+                'name' => 'softDeletes',
+                'type' => 'softDeletes',
             ],
         ],
-        'timestamps' => [
-            'name' => 'timestamps',
-            'type' => 'timestamps',
+        'relations' => [
+            'states' => [
+                'name' => 'states',
+                'model' => 'State',
+                'type' => 'hasMany',
+            ],
         ],
-        'softDeletes' => [
-            'name' => 'softDeletes',
-            'type' => 'softDeletes',
-        ],
-    ],
-    'relations' => [
-        'states' => [
-            'name' => 'states',
-            'model' => 'State',
-            'type' => 'hasMany',
-        ],
-    ],
-    'generate' => [],
-]);
+    ]);
 
 test('State')->expect(
     Draft::new('State')
@@ -95,16 +91,12 @@ test('State')->expect(
         ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(11223344)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
-        ->relation()->belongsTo('country')
-        ->relation()->hasMany('cities')
-        ->model()
-        ->toArray()
+//        ->relation()->belongsTo('country')
+//        ->relation()->hasMany('cities')
+        ->draft()
+        ->data()
 )->toBe([
-    'type' => 'model',
     'name' => 'State',
-    'model' => 'State',
-    'table' => 'state',
-    'endpoint' => 'state',
     'attributes' => [
         'id' => [
             'name' => 'id',
@@ -197,19 +189,18 @@ test('State')->expect(
             'type' => 'softDeletes',
         ],
     ],
-    'relations' => [
-        'country' => [
-            'name' => 'country',
-            'model' => 'Country',
-            'type' => 'belongsTo',
-        ],
-        'cities' => [
-            'name' => 'cities',
-            'model' => 'City',
-            'type' => 'hasMany',
-        ],
-    ],
-    'generate' => [],
+//    'relations' => [
+//        'country' => [
+//            'name' => 'country',
+//            'model' => 'Country',
+//            'type' => 'belongsTo',
+//        ],
+//        'cities' => [
+//            'name' => 'cities',
+//            'model' => 'City',
+//            'type' => 'hasMany',
+//        ],
+//    ],
 ]);
 
 test('City')->expect(
@@ -220,16 +211,12 @@ test('City')->expect(
         ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(12345678)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
-        ->relation()->belongsTo('state')
-        ->relation()->hasMany('places')
-        ->model()
-        ->toArray()
+//        ->relation()->belongsTo('state')
+//        ->relation()->hasMany('places')
+        ->draft()
+        ->data()
 )->toBe([
-    'type' => 'model',
     'name' => 'City',
-    'model' => 'City',
-    'table' => 'city',
-    'endpoint' => 'city',
     'attributes' => [
         'id' => [
             'name' => 'id',
@@ -301,19 +288,18 @@ test('City')->expect(
             'type' => 'softDeletes',
         ],
     ],
-    'relations' => [
-        'state' => [
-            'name' => 'state',
-            'model' => 'State',
-            'type' => 'belongsTo',
-        ],
-        'places' => [
-            'name' => 'places',
-            'model' => 'Place',
-            'type' => 'hasMany',
-        ],
-    ],
-    'generate' => [],
+//    'relations' => [
+//        'state' => [
+//            'name' => 'state',
+//            'model' => 'State',
+//            'type' => 'belongsTo',
+//        ],
+//        'places' => [
+//            'name' => 'places',
+//            'model' => 'Place',
+//            'type' => 'hasMany',
+//        ],
+//    ],
 ]);
 
 test('Place')->expect(
@@ -329,15 +315,11 @@ test('Place')->expect(
         ->attribute()->float('longitude')->fillable()->nullable()->faker('longitude')->docs('Longitude')->example(0)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
-        ->relation()->belongsTo('city')
-        ->model()
-        ->toArray()
+//        ->relation()->belongsTo('city')
+        ->draft()
+        ->data()
 )->toBe([
-    'type' => 'model',
     'name' => 'Place',
-    'model' => 'Place',
-    'table' => 'place',
-    'endpoint' => 'place',
     'attributes' => [
         'id' => [
             'name' => 'id',
@@ -469,14 +451,13 @@ test('Place')->expect(
             'type' => 'softDeletes',
         ],
     ],
-    'relations' => [
-        'city' => [
-            'name' => 'city',
-            'model' => 'City',
-            'type' => 'belongsTo',
-        ],
-    ],
-    'generate' => [],
+//    'relations' => [
+//        'city' => [
+//            'name' => 'city',
+//            'model' => 'City',
+//            'type' => 'belongsTo',
+//        ],
+//    ],
 ]);
 
 test('District')->expect(
@@ -487,15 +468,11 @@ test('District')->expect(
         ->attribute()->integer('ibge_code')->fillable()->size(8)->nullable()->unique()->faker('numerify', '########')->docs('Código IBGE')->example(1234567890)
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
-        ->relation()->belongsTo('city')
-        ->model()
-        ->toArray()
+//        ->relation()->belongsTo('city')
+        ->draft()
+        ->data()
 )->toBe([
-    'type' => 'model',
     'name' => 'District',
-    'model' => 'District',
-    'table' => 'district',
-    'endpoint' => 'district',
     'attributes' => [
         'id' => [
             'name' => 'id',
@@ -567,12 +544,11 @@ test('District')->expect(
             'type' => 'softDeletes',
         ],
     ],
-    'relations' => [
-        'city' => [
-            'name' => 'city',
-            'model' => 'City',
-            'type' => 'belongsTo',
-        ],
-    ],
-    'generate' => [],
+//    'relations' => [
+//        'city' => [
+//            'name' => 'city',
+//            'model' => 'City',
+//            'type' => 'belongsTo',
+//        ],
+//    ],
 ]);

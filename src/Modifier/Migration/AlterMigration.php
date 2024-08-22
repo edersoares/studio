@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Modifier\Migration;
 
-use Dex\Laravel\Studio\Blueprint\Art;
+use Dex\Laravel\Studio\Art;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nette\PhpGenerator\Closure;

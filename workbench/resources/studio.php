@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Dex\Laravel\Studio\Blueprint\Draft;
+use Dex\Laravel\Studio\Draft;
 
 return [
 
@@ -16,8 +16,8 @@ return [
             ->attribute()->string('email')
             ->attribute()->string('password')
             ->draft()
-            ->generate('model')
-            ->toArray(),
+            ->push('generate', 'model')
+            ->data(),
 
     ],
 

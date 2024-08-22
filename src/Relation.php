@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Dex\Laravel\Studio\Blueprint;
+namespace Dex\Laravel\Studio;
 
-/**
- * @codeCoverageIgnore
- */
+use Dex\Laravel\Studio\Concerns\HasDraftItems;
+
 class Relation
 {
+    use HasDraftItems;
+
     private array $relation = [];
 
     public function __construct(
-        private readonly Model $model
+        protected Draft $draft
     ) {}
 
     public function belongsTo(string $method): static
@@ -38,28 +39,8 @@ class Relation
         return $this->relation['name'];
     }
 
-    public function value(): array
+    public function data(): array
     {
         return $this->relation;
-    }
-
-    public function model(): Model
-    {
-        return $this->model;
-    }
-
-    public function draft(): Model
-    {
-        return $this->model();
-    }
-
-    public function attribute(): Attribute
-    {
-        return $this->model()->attribute();
-    }
-
-    public function relation(): self
-    {
-        return $this->model()->relation();
     }
 }

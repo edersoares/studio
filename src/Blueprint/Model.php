@@ -17,8 +17,7 @@ class Model
 
     public function __construct(
         private readonly string $name,
-    ) {
-    }
+    ) {}
 
     public function attribute(): Attribute
     {

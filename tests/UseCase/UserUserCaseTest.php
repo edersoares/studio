@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Dex\Laravel\Studio\Draft;
 
 test('new draft')
-    ->expect(fn () => Draft::new('User')->get())
+    ->expect(fn () => Draft::new('User')->data())
     ->toBe([
         'name' => 'User',
     ]);
@@ -23,7 +23,7 @@ test('draft with attributes (database columns)')
         ->attribute()->timestamps()
         ->attribute()->softDeletes()
         ->draft()
-        ->get()
+        ->data()
     )
     ->toBe([
         'name' => 'User',
@@ -80,7 +80,7 @@ test('draft with attributes (database options)')
         ->attribute()->float('salary')->nullable()
         ->attribute()->boolean('active')->default(false)
         ->draft()
-        ->get()
+        ->data()
     )
     ->toBe([
         'name' => 'User',
@@ -119,7 +119,7 @@ test('draft with attributes (factory options)')
         ->attribute()->foreign('group_id')->factory('Group')
         ->attribute()->string('name')->faker('name')
         ->draft()
-        ->get()
+        ->data()
     )
     ->toBe([
         'name' => 'User',
@@ -152,7 +152,7 @@ test('draft with attributes (model options)')
         ->attribute()->string('name')->fillable()
         ->attribute()->integer('age')->fillable()
         ->draft()
-        ->get()
+        ->data()
     )
     ->toBe([
         'name' => 'User',
@@ -180,7 +180,7 @@ test('draft with attributes (validation rules)')
         ->attribute()->string('name')->required()->min(3)->max(50)
         ->attribute()->integer('age')->size(2)
         ->draft()
-        ->get()
+        ->data()
     )
     ->toBe([
         'name' => 'User',

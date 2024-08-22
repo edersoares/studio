@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Dex\Laravel\Studio\Blueprint\Draft;
 
 return [

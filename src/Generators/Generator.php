@@ -4,24 +4,20 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Generators;
 
-use Dex\Laravel\Studio\Blueprint\Blueprint;
-use Dex\Laravel\Studio\Blueprint\Draft;
-use Dex\Laravel\Studio\Blueprint\Preset;
+use Dex\Laravel\Studio\Draft;
+use Dex\Laravel\Studio\Preset;
 
 abstract class Generator
 {
     protected Draft $draft;
 
-    protected Blueprint $blueprint;
-
     protected Preset $preset;
 
     protected bool $shouldGenerate = true;
 
-    public function __construct(Draft $draft, Blueprint $blueprint, Preset $preset)
+    public function __construct(Draft $draft, Preset $preset)
     {
         $this->draft = $draft;
-        $this->blueprint = $blueprint;
         $this->preset = $preset;
     }
 

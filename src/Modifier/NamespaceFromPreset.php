@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Modifier;
 
-use Dex\Laravel\Studio\Blueprint\Art;
+use Dex\Laravel\Studio\Art;
 
 class NamespaceFromPreset
 {

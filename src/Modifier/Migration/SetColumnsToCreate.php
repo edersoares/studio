@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Modifier\Migration;
 
-use Dex\Laravel\Studio\Blueprint\Art;
+use Dex\Laravel\Studio\Art;
 use Nette\PhpGenerator\Closure;
 
 class SetColumnsToCreate extends SetUpMethodToCreate
@@ -13,7 +15,7 @@ class SetColumnsToCreate extends SetUpMethodToCreate
 
         $closure->addParameter('table')->setType('Blueprint');
 
-        $attributes = $art->draft()->array('attributes');
+        $attributes = $art->draft()->attributes();
 
         /** @var array $columns */
         $columns = collect($attributes)
@@ -63,7 +65,6 @@ class SetColumnsToCreate extends SetUpMethodToCreate
 
             $closure->addBody('$table->' . $type . '(...?)' . $primary . $defaultValue . $nullable . $index . ';', [$extra]);
         }
-
 
         return $art->generator()->printer()->printClosure($closure);
     }

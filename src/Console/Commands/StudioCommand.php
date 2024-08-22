@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dex\Laravel\Studio\Console\Commands;
 
-use Dex\Laravel\Studio\Blueprint\Factory;
+use Dex\Laravel\Studio\Draft;
 use Illuminate\Console\Command;
 
 class StudioCommand extends Command
@@ -15,19 +15,17 @@ class StudioCommand extends Command
 
     public function handle(): int
     {
-        $file = require $this->argument('file');
+        $data = require $this->argument('file');
 
         /** @var string $preset */
         $preset = $this->option('preset') ?? $file['preset'] ?? config('studio.preset');
 
-        $blueprint = Factory::blueprint($file);
-
         $dump = $this->option('dump');
         $file = $this->option('file');
 
-        foreach ($blueprint->drafts() as $draft) {
+        foreach ($data['drafts'] as $draft) {
             foreach ($draft['generate'] ?? [] as $type) {
-                $art = Factory::art($draft['name'], $type, $preset, $draft);
+                $art = Draft::new($draft['name'])->setAll($draft)->art($type, $preset);
 
                 if ($art->generator()->shouldGenerate() === false) {
                     continue; // @codeCoverageIgnore

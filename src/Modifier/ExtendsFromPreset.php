@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Dex\Laravel\Studio\Modifier;
 
-use Dex\Laravel\Studio\Blueprint\Art;
+use Dex\Laravel\Studio\Art;
 
 class ExtendsFromPreset
 {
     public function modify(Art $action): void
     {
-        /** @var string $extends */
-        $extends = $action->preset()->dotted("drafts.{$action->draft()->type()}.extends");
-
-        /** @var string $alias */
-        $alias = $action->preset()->dotted("drafts.{$action->draft()->type()}.extends:alias");
+        $extends = $action->preset()->string("drafts.{$action->draft()->type()}.extends");
+        $alias = $action->preset()->stringOrNull("drafts.{$action->draft()->type()}.extends:alias");
 
         if ($extends) {
             $action->generator()->namespace()->addUse($extends, $alias);

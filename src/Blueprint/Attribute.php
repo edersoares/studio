@@ -13,8 +13,7 @@ class Attribute
 
     public function __construct(
         private readonly Model $model
-    ) {
-    }
+    ) {}
 
     public function id(): static
     {

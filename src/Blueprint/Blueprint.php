@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Dex\Laravel\Studio\Blueprint;
 
 use Dex\Laravel\Studio\Support\TypedGetter;
-use Generator;
 use Illuminate\Support\Collection;
 
 /**
