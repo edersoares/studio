@@ -23,6 +23,7 @@ abstract class Art
     public function generate(): string
     {
         $this->applyModifiers();
+        $this->modify($this);
 
         return $this->generator()->generate();
     }
@@ -40,6 +41,11 @@ abstract class Art
     public function apply(): array
     {
         return [];
+    }
+
+    public function modify(Art $art): void
+    {
+        //
     }
 
     protected function applyModifiers(): void
