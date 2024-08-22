@@ -193,6 +193,13 @@ return [
                     'extends' => Illuminate\Database\Migrations\Migration::class,
                 ],
 
+                'tester' => [
+                    'use' => Dex\Laravel\Studio\Art\Studio\Tester::class,
+                    'kind' => 'tests',
+                    'path' => 'Tester',
+                    'suffix' => 'Test',
+                ],
+
             ],
 
         ],
@@ -225,7 +232,7 @@ return [
 
         'temporary' => [
 
-            'extends' => ['laravel'],
+            'extends' => ['laravel', 'studio'],
 
             'path' => package_path('tmp'),
 
