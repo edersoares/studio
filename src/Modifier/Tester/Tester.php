@@ -51,7 +51,7 @@ class Tester
             }
 
             if ($options['type'] === 'hasOne') {
-                $describe->addBody("test()->toHaveHasOneRelation($relationModel::class, ?)", [$relation]);
+                $describe->addBody("test()->toHaveHasOneRelation($relationModel::class, ?)", [$relation]); // @codeCoverageIgnore
             }
 
             if ($options['type'] === 'hasMany') {
@@ -91,8 +91,8 @@ class Tester
                     }
 
                     if (str_starts_with($rule, 'size')) {
-                        [, $size] = explode(':', $rule);
-                        $describe->addBody('test()->toValidateSize(...?)', [[$attribute, intval($size)]]);
+                        [, $size] = explode(':', $rule);  // @codeCoverageIgnore
+                        $describe->addBody('test()->toValidateSize(...?)', [[$attribute, intval($size)]]);  // @codeCoverageIgnore
                     }
                 }
             }
