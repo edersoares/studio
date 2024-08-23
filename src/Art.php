@@ -43,7 +43,7 @@ abstract class Art
         return [];
     }
 
-    public function modify(Art $art): void
+    public function modify(self $art): void
     {
         //
     }
