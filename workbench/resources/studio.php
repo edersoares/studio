@@ -17,6 +17,8 @@ return [
             ->attribute()->string('email')->unique()->fillable()->required()->min(3)->faker('email')
             ->attribute()->string('password')->fillable()->required()->min(8)->max(48)->faker('lexify', '########')
             ->attribute()->timestamps()
+            ->relation()->belongsTo('Group')
+            ->relation()->hasMany('Role')
             ->draft()
             ->push('generate', 'model')
             ->push('generate', 'migration:create')

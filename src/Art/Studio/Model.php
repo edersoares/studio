@@ -7,6 +7,7 @@ namespace Dex\Laravel\Studio\Art\Studio;
 use Dex\Laravel\Studio\Art\Laravel\Model as Laravel;
 use Dex\Laravel\Studio\Generators\GeneratePhp;
 use Dex\Laravel\Studio\Modifier\Model\SetFillableProperty;
+use Dex\Laravel\Studio\Modifier\Model\SetRelations;
 use Dex\Laravel\Studio\Modifier\Model\SetTableProperty;
 
 class Model extends Laravel
@@ -19,6 +20,7 @@ class Model extends Laravel
             ...parent::apply(),
             SetTableProperty::class,
             SetFillableProperty::class,
+            SetRelations::class,
         ];
     }
 }
