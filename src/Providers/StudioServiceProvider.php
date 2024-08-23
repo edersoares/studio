@@ -16,6 +16,8 @@ class StudioServiceProvider extends ServiceProvider
                 StudioCommand::class,
             ]);
         }
+
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
     }
 
     public function register(): void
