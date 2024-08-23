@@ -8,14 +8,14 @@ use Dex\Laravel\Studio\Art;
 
 class NamespaceFromPreset
 {
-    public function modify(Art $action): void
+    public function modify(Art $art): void
     {
-        $namespace = $action->preset()->getNamespaceForType(
-            $action->draft()->type()
+        $namespace = $art->preset()->getNamespaceForType(
+            $art->draft()->type()
         );
 
         if ($namespace) {
-            $action->generator()->namespace($namespace);
+            $art->generator()->namespace($namespace);
         }
     }
 }

@@ -8,13 +8,13 @@ use Dex\Laravel\Studio\Art;
 
 class ClassNameFromPreset
 {
-    public function modify(Art $action): void
+    public function modify(Art $art): void
     {
-        $class = $action->preset()->getNameFor(
-            type: $action->draft()->type(),
-            name: $action->draft()->name(),
+        $class = $art->preset()->getNameFor(
+            type: $art->draft()->type(),
+            name: $art->draft()->name(),
         );
 
-        $action->generator()->class($class);
+        $art->generator()->class($class);
     }
 }
