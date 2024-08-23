@@ -18,6 +18,7 @@ return [
             'paths' => [
                 'source' => 'app',
                 'database' => 'database',
+                'routes' => 'routes',
                 'tests' => 'tests',
             ],
 
@@ -203,6 +204,13 @@ return [
                     'kind' => 'tests',
                     'path' => 'Tester',
                     'suffix' => 'Test',
+                ],
+
+                'route:api' => [
+                    'use' => Dex\Laravel\Studio\Art\Studio\RouteApi::class,
+                    'kind' => 'routes',
+                    'filename' => fn () => 'api',
+                    'reuse' => true,
                 ],
 
             ],
