@@ -9,6 +9,7 @@ use Dex\Laravel\Studio\Generators\GeneratePhp;
 use Dex\Laravel\Studio\Modifier\ClassNameFromPreset;
 use Dex\Laravel\Studio\Modifier\ExtendsFromPreset;
 use Dex\Laravel\Studio\Modifier\NamespaceFromPreset;
+use Dex\Laravel\Studio\Modifier\SetStrictTypesFromPreset;
 
 class Request extends Art
 {
@@ -17,6 +18,7 @@ class Request extends Art
     public function apply(): array
     {
         return [
+            SetStrictTypesFromPreset::class,
             NamespaceFromPreset::class,
             ClassNameFromPreset::class,
             ExtendsFromPreset::class,

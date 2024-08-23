@@ -10,6 +10,7 @@ use Dex\Laravel\Studio\Modifier\ClassNameFromPreset;
 use Dex\Laravel\Studio\Modifier\ExtendsFromPreset;
 use Dex\Laravel\Studio\Modifier\Migration\SetDownMethodToAlter;
 use Dex\Laravel\Studio\Modifier\Migration\SetUpMethodToAlter;
+use Dex\Laravel\Studio\Modifier\SetStrictTypesFromPreset;
 
 class MigrationForeign extends Art
 {
@@ -18,6 +19,7 @@ class MigrationForeign extends Art
     public function apply(): array
     {
         return [
+            SetStrictTypesFromPreset::class,
             ClassNameFromPreset::class,
             ExtendsFromPreset::class,
             SetUpMethodToAlter::class,

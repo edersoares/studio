@@ -10,6 +10,7 @@ use Dex\Laravel\Studio\Modifier\ClassNameFromPreset;
 use Dex\Laravel\Studio\Modifier\ExtendsFromPreset;
 use Dex\Laravel\Studio\Modifier\Migration\SetDownMethodToDropTable;
 use Dex\Laravel\Studio\Modifier\Migration\SetUpMethodToCreate;
+use Dex\Laravel\Studio\Modifier\SetStrictTypesFromPreset;
 
 class MigrationCreate extends Art
 {
@@ -18,6 +19,7 @@ class MigrationCreate extends Art
     public function apply(): array
     {
         return [
+            SetStrictTypesFromPreset::class,
             ClassNameFromPreset::class,
             ExtendsFromPreset::class,
             SetUpMethodToCreate::class,

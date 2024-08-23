@@ -11,6 +11,7 @@ use Dex\Laravel\Studio\Modifier\ExtendsFromPreset;
 use Dex\Laravel\Studio\Modifier\Factory\SetDefinitionMethod;
 use Dex\Laravel\Studio\Modifier\Factory\SetModelProperty;
 use Dex\Laravel\Studio\Modifier\NamespaceFromPreset;
+use Dex\Laravel\Studio\Modifier\SetStrictTypesFromPreset;
 
 class Factory extends Art
 {
@@ -19,6 +20,7 @@ class Factory extends Art
     public function apply(): array
     {
         return [
+            SetStrictTypesFromPreset::class,
             NamespaceFromPreset::class,
             ClassNameFromPreset::class,
             ExtendsFromPreset::class,

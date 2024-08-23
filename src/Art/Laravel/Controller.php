@@ -10,6 +10,7 @@ use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Dex\Laravel\Studio\Modifier\ClassNameFromPreset;
 use Dex\Laravel\Studio\Modifier\ExtendsFromPreset;
 use Dex\Laravel\Studio\Modifier\NamespaceFromPreset;
+use Dex\Laravel\Studio\Modifier\SetStrictTypesFromPreset;
 
 class Controller extends Art
 {
@@ -18,6 +19,7 @@ class Controller extends Art
     public function apply(): array
     {
         return [
+            SetStrictTypesFromPreset::class,
             NamespaceFromPreset::class,
             ClassNameFromPreset::class,
             ExtendsFromPreset::class,
