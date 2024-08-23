@@ -64,9 +64,11 @@ class Tester
         $describe->addBody('');
 
         $methods = [
-            'toBeCreateByEndpoint' => [],
-            'toBeUpdateByEndpoint' => [],
-            'toBeDeleteByEndpoint' => [],
+            'toHaveIndexEndpoint' => [],
+            'toHaveShowEndpoint' => [],
+            'toHaveStoreEndpoint' => [],
+            'toHaveUpdateEndpoint' => [],
+            'toHaveDestroyEndpoint' => [],
         ];
 
         foreach ($methods as $method => $params) {
