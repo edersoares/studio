@@ -239,7 +239,7 @@ return [
 
             'extends' => ['laravel', 'studio'],
 
-            'path' => package_path('tmp'),
+            'path' => sys_get_temp_dir(),
 
         ],
 
