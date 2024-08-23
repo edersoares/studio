@@ -10,7 +10,6 @@ use Dex\Laravel\Studio\Modifier\ClassNameFromPreset;
 use Dex\Laravel\Studio\Modifier\ExtendsFromPreset;
 use Dex\Laravel\Studio\Modifier\Migration\SetDownMethodToAlter;
 use Dex\Laravel\Studio\Modifier\Migration\SetUpMethodToAlter;
-use Dex\Laravel\Studio\Modifier\NamespaceFromPreset;
 
 class Migration extends Art
 {
@@ -19,7 +18,6 @@ class Migration extends Art
     public function apply(): array
     {
         return [
-            NamespaceFromPreset::class,
             ClassNameFromPreset::class,
             ExtendsFromPreset::class,
             SetUpMethodToAlter::class,

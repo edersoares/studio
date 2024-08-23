@@ -10,7 +10,6 @@ use Dex\Laravel\Studio\Modifier\ClassNameFromPreset;
 use Dex\Laravel\Studio\Modifier\ExtendsFromPreset;
 use Dex\Laravel\Studio\Modifier\Migration\SetDownMethodForeign;
 use Dex\Laravel\Studio\Modifier\Migration\SetUpMethodForeign;
-use Dex\Laravel\Studio\Modifier\NamespaceFromPreset;
 
 class MigrationForeign extends Laravel
 {
@@ -19,7 +18,6 @@ class MigrationForeign extends Laravel
     public function apply(): array
     {
         return [
-            NamespaceFromPreset::class,
             ClassNameFromPreset::class,
             ExtendsFromPreset::class,
             SetUpMethodForeign::class,
