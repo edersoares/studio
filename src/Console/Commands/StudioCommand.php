@@ -18,7 +18,7 @@ class StudioCommand extends Command
         $data = require $this->argument('file');
 
         /** @var string $preset */
-        $preset = $this->option('preset') ?? $file['preset'] ?? config('studio.preset');
+        $preset = $this->option('preset') ?? $data['preset'] ?? config('studio.preset');
 
         $dump = $this->option('dump');
         $file = $this->option('file');
