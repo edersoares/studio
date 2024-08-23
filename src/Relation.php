@@ -38,6 +38,17 @@ class Relation
         return $this;
     }
 
+    public function hasOne(string $model, ?string $method = null): static
+    {
+        $method ??= str($model)->camel()->value();
+
+        data_set($this->relation, 'name', $method);
+        data_set($this->relation, 'model', $model);
+        data_set($this->relation, 'type', 'hasOne');
+
+        return $this;
+    }
+
     public function name(): string
     {
         return $this->relation['name'];

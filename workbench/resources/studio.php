@@ -19,6 +19,7 @@ return [
             ->attribute()->timestamps()
             ->relation()->belongsTo('Group')
             ->relation()->hasMany('Role')
+            ->relation()->hasOne('Role')
             ->draft()
             ->push('generate', 'model')
             ->push('generate', 'migration:create')

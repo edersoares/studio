@@ -7,6 +7,7 @@ namespace Dex\Laravel\Studio\Modifier\Model;
 use Dex\Laravel\Studio\Art;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SetRelations
 {
@@ -34,6 +35,14 @@ class SetRelations
                 $method->setComment("@return HasMany<$relationModel>");
                 $method->setReturnType(HasMany::class);
                 $method->setBody('return $this->hasMany(' . $relationModel . '::class);');
+            }
+
+            if ($relation['type'] === 'hasOne') {
+                $generator->namespace()->addUse(HasOne::class);
+                $generator->namespace()->addUse($namespacedModel);
+                $method->setComment("@return HasOne<$relationModel>");
+                $method->setReturnType(HasOne::class);
+                $method->setBody('return $this->hasOne(' . $relationModel . '::class);');
             }
         }
     }
