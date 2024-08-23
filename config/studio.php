@@ -107,6 +107,7 @@ return [
                 ],
 
                 'request' => [
+                    'use' => Dex\Laravel\Studio\Art\Laravel\Request::class,
                     'path' => 'Http/Requests',
                     'suffix' => 'Request',
                     'namespace' => 'Http\\Requests',

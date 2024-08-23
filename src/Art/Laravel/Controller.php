@@ -10,7 +10,6 @@ use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Dex\Laravel\Studio\Modifier\ClassNameFromPreset;
 use Dex\Laravel\Studio\Modifier\ExtendsFromPreset;
 use Dex\Laravel\Studio\Modifier\NamespaceFromPreset;
-use Illuminate\Http\Request;
 
 class Controller extends Art
 {
@@ -30,11 +29,12 @@ class Controller extends Art
         /** @var PhpGenerator $generator */
         $generator = $art->generator();
 
-        $generator->namespace()->addUse(Request::class);
-
         $name = $art->draft()->name();
         $modelNamespaced = $art->preset()->getNamespacedFor('model', $name);
         $model = $art->preset()->getNameFor('model', $name);
+        $requestNamespaced = $art->preset()->getNamespacedFor('request', $name);
+
+        $generator->namespace()->addUse($requestNamespaced);
 
         $art->generator()->namespace()->addUse($modelNamespaced);
 
@@ -43,7 +43,7 @@ class Controller extends Art
 
         $generator->method('store')
             ->addParameter('request')
-            ->setType(Request::class);
+            ->setType($requestNamespaced);
         $generator->method('store')
             ->addBody("return $model::query()->create(\$request->all());");
 
@@ -55,7 +55,7 @@ class Controller extends Art
 
         $generator->method('update')
             ->addParameter('request')
-            ->setType(Request::class);
+            ->setType($requestNamespaced);
         $generator->method('update')
             ->addParameter('id')
             ->setType('string');
