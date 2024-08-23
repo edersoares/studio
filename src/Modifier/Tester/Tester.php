@@ -47,15 +47,15 @@ class Tester
             $generator->namespace()->addUse($relationNamespaced);
 
             if ($options['type'] === 'belongsTo') {
-                $describe->addBody("test()->toHaveBelongsToRelation($relationModel::class, ?)", [$relation]);
+                $describe->addBody("test()->toHaveBelongsToRelation($relationModel::class, ?);", [$relation]);
             }
 
             if ($options['type'] === 'hasOne') {
-                $describe->addBody("test()->toHaveHasOneRelation($relationModel::class, ?)", [$relation]); // @codeCoverageIgnore
+                $describe->addBody("test()->toHaveHasOneRelation($relationModel::class, ?);", [$relation]); // @codeCoverageIgnore
             }
 
             if ($options['type'] === 'hasMany') {
-                $describe->addBody("test()->toHaveHasManyRelation($relationModel::class, ?)", [$relation]);
+                $describe->addBody("test()->toHaveHasManyRelation($relationModel::class, ?);", [$relation]);
             }
         }
 
@@ -77,22 +77,22 @@ class Tester
             if ($data['validation']['rules'] ?? false) {
                 foreach ($data['validation']['rules'] as $rule) {
                     if ($rule === 'required') {
-                        $describe->addBody('test()->toValidateRequired(...?)', [[$attribute]]);
+                        $describe->addBody('test()->toValidateRequired(...?);', [[$attribute]]);
                     }
 
                     if (str_starts_with($rule, 'min')) {
                         [, $min] = explode(':', $rule);
-                        $describe->addBody('test()->toValidateMin(...?)', [[$attribute, intval($min)]]);
+                        $describe->addBody('test()->toValidateMin(...?);', [[$attribute, intval($min)]]);
                     }
 
                     if (str_starts_with($rule, 'max')) {
                         [, $max] = explode(':', $rule);
-                        $describe->addBody('test()->toValidateMax(...?)', [[$attribute, intval($max)]]);
+                        $describe->addBody('test()->toValidateMax(...?);', [[$attribute, intval($max)]]);
                     }
 
                     if (str_starts_with($rule, 'size')) {
                         [, $size] = explode(':', $rule);  // @codeCoverageIgnore
-                        $describe->addBody('test()->toValidateSize(...?)', [[$attribute, intval($size)]]);  // @codeCoverageIgnore
+                        $describe->addBody('test()->toValidateSize(...?);', [[$attribute, intval($size)]]);  // @codeCoverageIgnore
                     }
                 }
             }
