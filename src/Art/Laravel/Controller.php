@@ -63,8 +63,10 @@ class Controller extends Art
             ->setType('string');
         $generator->method('update')
             ->addBody("\$model = $model::query()->findOrFail(\$id);")
+            ->addBody('')
             ->addBody('$model->fill($request->all());')
             ->addBody('$model->save();')
+            ->addBody('')
             ->addBody('return $model;');
 
         $generator->method('destroy')
@@ -72,7 +74,9 @@ class Controller extends Art
             ->setType('string');
         $generator->method('destroy')
             ->addBody("\$model = $model::query()->findOrFail(\$id);")
+            ->addBody('')
             ->addBody('$model->delete();')
+            ->addBody('')
             ->addBody('return $model;');
     }
 }
