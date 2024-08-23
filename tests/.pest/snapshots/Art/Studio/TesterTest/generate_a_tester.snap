@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+use Package\Models\Group;
+use Package\Models\Profile;
+use Package\Models\User;
+
+describe(User::class, function () {
+    beforeEach()->eloquent(User::class);
+
+    test()->toBeCreate();
+    test()->toBeUpdate();
+    test()->toBeDelete();
+    test()->toHaveBelongsToRelation(Group::class, 'group');
+    test()->toHaveHasManyRelation(Profile::class, 'profiles');
+
+    beforeEach()->endpoint('/user');
+
+    test()->toHaveIndexEndpoint();
+    test()->toHaveShowEndpoint();
+    test()->toHaveStoreEndpoint();
+    test()->toHaveUpdateEndpoint();
+    test()->toHaveDestroyEndpoint();
+    test()->toValidateRequired('name');
+    test()->toValidateMin('name', 3);
+    test()->toValidateMax('name', 50);
+    test()->toValidateRequired('email');
+    test()->toValidateMin('email', 3);
+    test()->toValidateRequired('password');
+    test()->toValidateMin('password', 8);
+    test()->toValidateMax('password', 48);
+});

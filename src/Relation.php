@@ -16,19 +16,23 @@ class Relation
         protected Draft $draft
     ) {}
 
-    public function belongsTo(string $method): static
+    public function belongsTo(string $model, ?string $method = null): static
     {
-        data_set($this->relation, 'name', str($method)->slug()->value());
-        data_set($this->relation, 'model', str($method)->studly()->value());
+        $method ??= str($model)->camel()->value();
+
+        data_set($this->relation, 'name', $method);
+        data_set($this->relation, 'model', $model);
         data_set($this->relation, 'type', 'belongsTo');
 
         return $this;
     }
 
-    public function hasMany(string $method): static
+    public function hasMany(string $model, ?string $method = null): static
     {
-        data_set($this->relation, 'name', str($method)->slug()->value());
-        data_set($this->relation, 'model', str($method)->singular()->studly()->value());
+        $method ??= str($model)->plural()->camel()->value();
+
+        data_set($this->relation, 'name', $method);
+        data_set($this->relation, 'model', $model);
         data_set($this->relation, 'type', 'hasMany');
 
         return $this;
