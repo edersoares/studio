@@ -42,6 +42,7 @@ class SetColumnsToCreate extends SetUpMethodToCreate
             $defaultValue = '';
             $nullable = '';
             $index = '';
+            $unique = '';
             $extra = [$attribute];
 
             if ($options['primary'] ?? false) {
@@ -61,14 +62,14 @@ class SetColumnsToCreate extends SetUpMethodToCreate
             }
 
             if ($options['index'] ?? false) {
-                $nullable = '->index()';
+                $index = '->index()';
             }
 
             if ($options['unique'] ?? false) {
-                $nullable = '->unique()';
+                $unique = '->unique()';
             }
 
-            $closure->addBody('$table->' . $type . '(...?)' . $primary . $defaultValue . $nullable . $index . ';', [$extra]);
+            $closure->addBody('$table->' . $type . '(...?)' . $primary . $defaultValue . $nullable . $index . $unique . ';', [$extra]);
         }
 
         return $art->generator()->printer()->printClosure($closure);
