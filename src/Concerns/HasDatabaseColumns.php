@@ -52,6 +52,14 @@ trait HasDatabaseColumns
         return $this;
     }
 
+    public function longText(string $name): static
+    {
+        data_set($this->attribute, 'name', $name);
+        data_set($this->attribute, 'type', 'longText');
+
+        return $this;
+    }
+
     public function integer(string $name): static
     {
         data_set($this->attribute, 'name', $name);
