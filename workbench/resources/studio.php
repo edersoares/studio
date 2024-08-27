@@ -31,6 +31,27 @@ return [
             ->push('generate', 'tester')
             ->data(),
 
+        Draft::new('PasswordResetTokens')
+            ->set('table', 'password_reset_tokens')
+            ->attribute()->string('email')->primary()
+            ->attribute()->string('token')
+            ->attribute()->timestamp('created_at')->nullable()
+            ->draft()
+            ->push('generate', 'migration:create')
+            ->data(),
+
+        Draft::new('Sessions')
+            ->set('table', 'sessions')
+            ->attribute()->string('id')->primary()
+            ->attribute()->foreign('user_id')->nullable()->index()
+            ->attribute()->string('ip_address', 45)->nullable()
+            ->attribute()->text('user_agent')->nullable()
+            ->attribute()->longText('payload')
+            ->attribute()->integer('last_activity')->index()
+            ->draft()
+            ->push('generate', 'migration:create')
+            ->data(),
+
     ],
 
 ];
