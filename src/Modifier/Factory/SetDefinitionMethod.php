@@ -13,6 +13,7 @@ class SetDefinitionMethod
         $method = $art->generator()
             ->method('definition')
             ->setReturnType('array')
+            ->setBody('')
             ->addBody('return [');
 
         $definition = $art->draft()->attributes();
