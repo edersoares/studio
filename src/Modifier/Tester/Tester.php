@@ -59,8 +59,10 @@ class Tester
             }
         }
 
+        $endpoint = $art->draft()->string('endpoint', '/' . $art->draft()->slug());
+
         $describe->addBody('');
-        $describe->addBody('beforeEach()->endpoint(?);', ['/' . $art->draft()->slug()]);
+        $describe->addBody('beforeEach()->endpoint(?);', [$endpoint]);
         $describe->addBody('');
 
         $methods = [
