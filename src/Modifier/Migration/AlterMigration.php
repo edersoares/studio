@@ -34,7 +34,7 @@ abstract class AlterMigration
             $content = ", $content";
         }
 
-        $table = $art->draft()->string('table', $art->draft()->slug());
+        $table = $art->draft()->string('table', str($art->draft()->slug())->slug('_')->value());
 
         $art->generator()->namespace()->addUse(Blueprint::class);
         $art->generator()->namespace()->addUse(Schema::class);
