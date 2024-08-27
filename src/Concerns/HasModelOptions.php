@@ -17,4 +17,11 @@ trait HasModelOptions
 
         return $this;
     }
+
+    public function hidden(bool $hidden = true): static
+    {
+        data_set($this->attribute, 'hidden', $hidden);
+
+        return $this;
+    }
 }

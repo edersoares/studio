@@ -86,7 +86,7 @@ trait HasDatabaseColumns
 
     public function rememberToken(): static
     {
-        data_set($this->attribute, 'name', 'rememberToken');
+        data_set($this->attribute, 'name', 'remember_token');
         data_set($this->attribute, 'type', 'rememberToken');
 
         return $this;
