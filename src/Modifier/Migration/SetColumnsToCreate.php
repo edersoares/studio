@@ -33,7 +33,7 @@ class SetColumnsToCreate extends SetUpMethodToCreate
             $type = $options['type'];
 
             if (in_array($type, $allowed, true)) {
-                $closure->addBody('$table->' . $attribute . '();');
+                $closure->addBody('$table->' . $type . '();');
 
                 continue;
             }
