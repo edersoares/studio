@@ -37,7 +37,10 @@
         "psr-4": {
             "Dex\\Laravel\\Studio\\": "src",
             "Dex\\Laravel\\Studio\\Database\\Factories\\": "database/factories"
-        }
+        },
+        "files": [
+            "files/studio.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
