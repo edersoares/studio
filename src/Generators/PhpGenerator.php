@@ -35,7 +35,7 @@ class PhpGenerator extends Generator
     {
         parent::__construct($draft, $preset);
 
-        $reuse = $preset->boolean("drafts.{$draft->type()}.reuse");
+        $reuse = $draft->boolean('reuse', $preset->boolean("drafts.{$draft->type()}.reuse"));
 
         if (file_exists($this->filename()) && $reuse) {
             $this->file = PhpFile::fromCode(file_get_contents($this->filename())); // @codeCoverageIgnore
