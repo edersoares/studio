@@ -76,6 +76,22 @@ trait HasDatabaseColumns
         return $this;
     }
 
+    public function rememberToken(): static
+    {
+        data_set($this->attribute, 'name', 'rememberToken');
+        data_set($this->attribute, 'type', 'rememberToken');
+
+        return $this;
+    }
+
+    public function timestamp(string $name): static
+    {
+        data_set($this->attribute, 'name', $name);
+        data_set($this->attribute, 'type', 'timestamp');
+
+        return $this;
+    }
+
     public function timestamps(): static
     {
         data_set($this->attribute, 'name', 'timestamps');

@@ -25,6 +25,7 @@ class SetColumnsToCreate extends SetUpMethodToCreate
         foreach ($columns as $attribute => $options) {
             $allowed = [
                 'id',
+                'rememberToken',
                 'timestamps',
                 'softDeletes',
             ];
@@ -61,6 +62,10 @@ class SetColumnsToCreate extends SetUpMethodToCreate
 
             if ($options['index'] ?? false) {
                 $nullable = '->index()';
+            }
+
+            if ($options['unique'] ?? false) {
+                $nullable = '->unique()';
             }
 
             $closure->addBody('$table->' . $type . '(...?)' . $primary . $defaultValue . $nullable . $index . ';', [$extra]);
