@@ -24,4 +24,11 @@ trait HasModelOptions
 
         return $this;
     }
+
+    public function cast(string $cast): static
+    {
+        data_set($this->attribute, 'cast', $cast);
+
+        return $this;
+    }
 }
