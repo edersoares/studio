@@ -31,6 +31,16 @@ return [
             ->push('generate', 'tester')
             ->data(),
 
+        Draft::new('Profile')
+            ->set('table', 'profile')
+            ->attribute()->uuid('id')->primary()
+            ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('name')
+            ->attribute()->timestamps()
+            ->relation()->belongsTo('User')
+            ->draft()
+            ->push('generate', 'model')
+            ->data(),
+
         Draft::new('PasswordResetTokens')
             ->set('table', 'password_reset_tokens')
             ->attribute()->string('email')->primary()
@@ -49,6 +59,7 @@ return [
             ->attribute()->longText('payload')
             ->attribute()->integer('last_activity')->index()
             ->draft()
+            ->push('generate', 'model')
             ->push('generate', 'migration:create')
             ->data(),
 
