@@ -6,6 +6,7 @@ namespace Dex\Laravel\Studio\Modifier\Tester;
 
 use Dex\Laravel\Studio\Art;
 use Dex\Laravel\Studio\Generators\PhpGenerator;
+use Dex\Pest\Plugin\Laravel\Tester\Tester as PestTester;
 use Nette\PhpGenerator\Closure;
 
 class Tester
@@ -22,6 +23,7 @@ class Tester
 
         $generator->file()->setStrictTypes();
         $generator->namespace()->addUse($namespaced);
+        $generator->namespace()->addUse(PestTester::class);
 
         $describe = new Closure();
 
@@ -104,8 +106,12 @@ class Tester
 
         $printed = $generator->printer()->printClosure($describe);
 
-        $body = "describe($name::class, $printed);";
+        $body = [];
 
-        $generator->body($body);
+        $body[] = 'uses(Tester::class);';
+        $body[] = '';
+        $body[] = "describe($name::class, $printed);";
+
+        $generator->body(implode("\n", $body));
     }
 }
