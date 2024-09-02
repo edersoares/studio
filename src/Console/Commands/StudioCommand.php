@@ -9,7 +9,7 @@ use Illuminate\Console\Command;
 
 class StudioCommand extends Command
 {
-    protected $signature = 'studio {file} {--dump} {--file} {--preset=}';
+    protected $signature = 'studio {file} {--dump} {--file} {--preset=} {--force}';
 
     protected $description = 'Generate all drafts from file';
 
@@ -22,6 +22,7 @@ class StudioCommand extends Command
 
         $dump = $this->option('dump');
         $file = $this->option('file');
+        $force = $this->option('force');
 
         foreach ($data['drafts'] as $draft) {
             foreach ($draft['generate'] ?? [] as $type) {
@@ -44,6 +45,14 @@ class StudioCommand extends Command
 
                     if (is_dir($directory) === false) {
                         mkdir($directory, recursive: true); // @codeCoverageIgnore
+                    }
+
+                    $reuse = $art->preset()->boolean("drafts.{$art->draft()->type()}.reuse", true);
+                    $reuse = $art->draft()->boolean('reuse', $reuse);
+                    $reuse = $force ?: $reuse;
+
+                    if (file_exists($filename) && $reuse === false) {
+                        continue; // @codeCoverageIgnore
                     }
 
                     $this->comment($filename);
