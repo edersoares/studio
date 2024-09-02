@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Dex\Laravel\Studio\Modifier\Tester;
 
 use Dex\Laravel\Studio\Art;
-use Dex\Laravel\Studio\Generators\PhpGenerator;
 use Dex\Pest\Plugin\Laravel\Tester\Tester as PestTester;
 use Nette\PhpGenerator\Closure;
 
@@ -15,17 +14,35 @@ class Tester
 
     public function modify(Art $art): void
     {
-        /** @var PhpGenerator $generator */
-        $generator = $art->generator();
-
         $name = $art->draft()->name();
         $namespaced = $art->preset()->getNamespacedFor('model', $name);
 
-        $generator->file()->setStrictTypes();
-        $generator->namespace()->addUse($namespaced);
-        $generator->namespace()->addUse(PestTester::class);
+        $art->generator()->file()->setStrictTypes();
+        $art->generator()->namespace()->addUse($namespaced);
+        $art->generator()->namespace()->addUse(PestTester::class);
 
         $describe = new Closure();
+
+        $this->addEloquentTests($art, $describe);
+        $this->addRelationsTests($art, $describe);
+        $this->addEndpointTests($art, $describe);
+        $this->addValidatorTests($art, $describe);
+
+        $printed = $art->generator()->printer()->printClosure($describe);
+
+        $body = [];
+
+        $body[] = 'uses(Tester::class);';
+        $body[] = '';
+        $body[] = "describe($name::class, $printed);";
+        $body[] = '';
+
+        $art->generator()->body(implode("\n", $body));
+    }
+
+    protected function addEloquentTests(Art $art, Closure $describe): void
+    {
+        $name = $art->draft()->name();
 
         $describe->addBody("beforeEach()->eloquent($name::class);");
         $describe->addBody('');
@@ -39,14 +56,17 @@ class Tester
         foreach ($methods as $method => $params) {
             $describe->addBody("test()->$method(...?);", [$params]);
         }
+    }
 
+    protected function addRelationsTests(Art $art, Closure $describe): void
+    {
         $relations = $art->draft()->relations();
 
         foreach ($relations as $relation => $options) {
             $relationModel = $options['model'];
             $relationNamespaced = $art->preset()->getNamespacedFor('model', $relationModel);
 
-            $generator->namespace()->addUse($relationNamespaced);
+            $art->generator()->namespace()->addUse($relationNamespaced);
 
             if ($options['type'] === 'belongsTo') {
                 $describe->addBody("test()->toHaveBelongsToRelation($relationModel::class, ?);", [$relation]);
@@ -60,8 +80,15 @@ class Tester
                 $describe->addBody("test()->toHaveHasManyRelation($relationModel::class, ?);", [$relation]);
             }
         }
+    }
 
-        $endpoint = $art->draft()->string('endpoint', '/' . $art->draft()->slug());
+    protected function addEndpointTests(Art $art, Closure $describe): void
+    {
+        $endpoint = $art->draft()->string('endpoint');
+
+        if (empty($endpoint)) {
+            return;
+        }
 
         $describe->addBody('');
         $describe->addBody('beforeEach()->endpoint(?);', [$endpoint]);
@@ -77,6 +104,15 @@ class Tester
 
         foreach ($methods as $method => $params) {
             $describe->addBody("test()->$method(...?);", [$params]);
+        }
+    }
+
+    protected function addValidatorTests(Art $art, Closure $describe): void
+    {
+        $endpoint = $art->draft()->string('endpoint');
+
+        if (empty($endpoint)) {
+            return;
         }
 
         foreach ($art->draft()->attributes() as $attribute => $data) {
@@ -103,15 +139,5 @@ class Tester
                 }
             }
         }
-
-        $printed = $generator->printer()->printClosure($describe);
-
-        $body = [];
-
-        $body[] = 'uses(Tester::class);';
-        $body[] = '';
-        $body[] = "describe($name::class, $printed);";
-
-        $generator->body(implode("\n", $body));
     }
 }

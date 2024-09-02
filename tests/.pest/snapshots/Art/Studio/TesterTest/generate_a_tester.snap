@@ -18,7 +18,7 @@ describe(User::class, function () {
     test()->toHaveBelongsToRelation(Group::class, 'group');
     test()->toHaveHasManyRelation(Profile::class, 'profiles');
 
-    beforeEach()->endpoint('/user');
+    beforeEach()->endpoint('/api/user');
 
     test()->toHaveIndexEndpoint();
     test()->toHaveShowEndpoint();
