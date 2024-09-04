@@ -47,11 +47,15 @@ class SeederEntity extends Art
         $run->addBody('$entity = Entity::query()->updateOrCreate([');
         $run->addBody('    \'slug\' => ?,', [$slug]);
         $run->addBody('], [');
-        $run->addBody('    \'name\' => ?,', [$name]);
         $run->addBody('    \'label\' => ?,', [$label]);
         $run->addBody('    \'table_name\' => ?,', [$table]);
         $run->addBody("    'class' => $name::class,");
         $run->addBody(']);');
+
+        $rules = collect($attributes)
+            ->filter(fn ($attribute) => $attribute['validation']['rules'] ?? false)
+            ->map(fn ($attribute) => $attribute['validation']['rules'])
+            ->toArray();
 
         foreach ($attributes as $attribute) {
             if (empty($attribute['label'])) {
@@ -70,6 +74,7 @@ class SeederEntity extends Art
             $run->addBody('    \'is_sortable\' => ?,', [$attribute['orion']['is_sortable'] ?? false]);
             $run->addBody('    \'is_includable\' => ?,', [$attribute['orion']['is_includable'] ?? false]);
             $run->addBody('    \'is_relation\' => ?,', [$attribute['orion']['is_relation'] ?? false]);
+            $run->addBody('    \'rules\' => ?,', [$rules[$attribute['name']] ?? []]);
             $run->addBody(']);');
         }
     }
