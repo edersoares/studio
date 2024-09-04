@@ -9,7 +9,7 @@ use Illuminate\Console\Command;
 
 class StudioCommand extends Command
 {
-    protected $signature = 'studio {file} {--dump} {--file} {--preset=} {--force}';
+    protected $signature = 'studio {file} {--dump} {--file} {--preset=} {--only=*} {--force}';
 
     protected $description = 'Generate all drafts from file';
 
@@ -22,10 +22,15 @@ class StudioCommand extends Command
 
         $dump = $this->option('dump');
         $file = $this->option('file');
+        $only = $this->option('only');
         $force = $this->option('force');
 
         foreach ($data['drafts'] as $draft) {
             foreach ($draft['generate'] ?? [] as $type) {
+                if ($only && in_array($type, $only, true) === false) {
+                    continue;
+                }
+
                 $art = Draft::new($draft['name'])->setAll($draft)->art($type, $preset);
 
                 if ($art->generator()->shouldGenerate() === false) {

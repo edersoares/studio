@@ -22,3 +22,11 @@ test('`--file` option')
         '--file' => true,
     ])
     ->assertOk();
+
+test('`--only` option')
+    ->artisan('studio', [
+        'file' => 'workbench/resources/studio.php',
+        '--preset' => 'temporary',
+        '--only' => ['model'],
+    ])
+    ->assertOk();
