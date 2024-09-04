@@ -60,6 +60,14 @@ trait HasDatabaseColumns
         return $this;
     }
 
+    public function json(string $name): static
+    {
+        data_set($this->attribute, 'name', $name);
+        data_set($this->attribute, 'type', 'json');
+
+        return $this;
+    }
+
     public function integer(string $name): static
     {
         data_set($this->attribute, 'name', $name);
