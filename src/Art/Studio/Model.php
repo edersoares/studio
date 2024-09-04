@@ -7,6 +7,7 @@ namespace Dex\Laravel\Studio\Art\Studio;
 use Dex\Laravel\Studio\Art\Laravel\Model as Laravel;
 use Dex\Laravel\Studio\Generators\GeneratePhp;
 use Dex\Laravel\Studio\Modifier\Model\SetCastsProperty;
+use Dex\Laravel\Studio\Modifier\Model\SetDocumentation;
 use Dex\Laravel\Studio\Modifier\Model\SetFillableProperty;
 use Dex\Laravel\Studio\Modifier\Model\SetHiddenProperty;
 use Dex\Laravel\Studio\Modifier\Model\SetRelations;
@@ -20,6 +21,7 @@ class Model extends Laravel
     {
         return [
             ...parent::apply(),
+            SetDocumentation::class,
             SetTableProperty::class,
             SetFillableProperty::class,
             SetHiddenProperty::class,
