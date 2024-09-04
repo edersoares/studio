@@ -11,6 +11,13 @@ use Dex\Laravel\Studio\Attribute;
  */
 trait HasDocumentation
 {
+    public function label(string $label): static
+    {
+        data_set($this->attribute, 'label', $label);
+
+        return $this;
+    }
+
     public function docs(string $description): static
     {
         data_set($this->attribute, 'docs.description', $description);
