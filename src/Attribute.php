@@ -10,6 +10,7 @@ use Dex\Laravel\Studio\Concerns\HasDocumentation;
 use Dex\Laravel\Studio\Concerns\HasDraftItems;
 use Dex\Laravel\Studio\Concerns\HasFactoryOptions;
 use Dex\Laravel\Studio\Concerns\HasModelOptions;
+use Dex\Laravel\Studio\Concerns\HasOrionOptions;
 use Dex\Laravel\Studio\Concerns\HasValidationRules;
 
 class Attribute
@@ -20,6 +21,7 @@ class Attribute
     use HasDraftItems;
     use HasFactoryOptions;
     use HasModelOptions;
+    use HasOrionOptions;
     use HasValidationRules;
 
     protected array $attribute = [];

@@ -217,6 +217,40 @@ return [
 
         ],
 
+        'space' => [
+
+            'extends' => ['laravel', 'studio'],
+
+            'drafts' => [
+
+                'controller:orion' => [
+                    'use' => Dex\Laravel\Studio\Art\Laravel\Controller::class,
+                    'path' => 'Http/Controllers',
+                    'namespace' => 'Http\\Controllers',
+                    'suffix' => 'Controller',
+                ],
+
+                'route:orion' => [
+                    'use' => Dex\Laravel\Studio\Art\Space\RouteOrion::class,
+                    'kind' => 'routes',
+                    'filename' => fn () => 'api',
+                    'reuse' => true,
+                ],
+
+                'seeder:entity' => [
+                    'use' => Dex\Laravel\Studio\Art\Space\SeederEntity::class,
+                    'kind' => 'database',
+                    'path' => 'Seeders',
+                    'prefix' => 'Entity',
+                    'suffix' => 'Seeder',
+                    'namespace' => 'Seeders',
+                    'extends' => Illuminate\Database\Seeder::class,
+                ],
+
+            ],
+
+        ],
+
         'package' => [
 
             'extends' => ['laravel', 'studio'],
