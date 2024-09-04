@@ -74,6 +74,7 @@ class SeederEntity extends Art
             $run->addBody('    \'is_sortable\' => ?,', [$attribute['orion']['is_sortable'] ?? false]);
             $run->addBody('    \'is_includable\' => ?,', [$attribute['orion']['is_includable'] ?? false]);
             $run->addBody('    \'is_relation\' => ?,', [$attribute['orion']['is_relation'] ?? false]);
+            $run->addBody('    \'is_visible\' => ?,', [!($attribute['hidden'] ?? false)]);
             $run->addBody('    \'rules\' => ?,', [$rules[$attribute['name']] ?? []]);
             $run->addBody(']);');
         }

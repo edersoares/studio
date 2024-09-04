@@ -90,8 +90,15 @@ class Tester
             return;
         }
 
+        $seeder = $art->preset()->getNameFor('seeder:entity', $art->draft()->name());
+        $seederNamespaced = $art->preset()->getNamespacedFor('seeder:entity', $art->draft()->name());
+
+        $art->generator()->namespace()->addUse($seederNamespaced);
+
         $describe->addBody('');
         $describe->addBody('beforeEach()->endpoint(?);', [$endpoint]);
+        $describe->addBody('beforeEach()->wrap(\'data\');');
+        $describe->addBody("beforeEach()->seed($seeder::class);");
         $describe->addBody('');
 
         $methods = [
@@ -114,6 +121,8 @@ class Tester
         if (empty($endpoint)) {
             return;
         }
+
+        $describe->addBody('');
 
         foreach ($art->draft()->attributes() as $attribute => $data) {
             if ($data['validation']['rules'] ?? false) {
