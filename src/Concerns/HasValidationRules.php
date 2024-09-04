@@ -28,6 +28,16 @@ trait HasValidationRules
         return $this->rule('required');
     }
 
+    public function email(): static
+    {
+        return $this->rule('email');
+    }
+
+    public function confirmed(): static
+    {
+        return $this->rule('confirmed');
+    }
+
     public function min(int $min): static
     {
         return $this->rule("min:$min");
