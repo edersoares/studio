@@ -41,7 +41,7 @@ class Controller extends Art
         $art->generator()->namespace()->addUse($modelNamespaced);
 
         $generator->method('index')
-            ->setBody("return $model::query()->paginate();");
+            ->setBody("return $model::query()->get();");
 
         $generator->method('store')
             ->addParameter('request')
