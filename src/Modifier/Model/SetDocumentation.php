@@ -18,12 +18,19 @@ class SetDocumentation
             $name = $attribute['name'];
             $label = $attribute['label'] ?? '';
 
-            if ($type === 'id') {
+            if (in_array($type, ['id', 'integer', 'foreignId'], true)) {
                 $type = 'int';
             }
 
-            if (in_array($type, ['uuid', 'text', 'longText'], true)) {
+            if (in_array($type, ['uuid', 'text', 'longText', 'rememberToken'], true)) {
                 $type = 'string';
+            }
+
+            if (in_array($type, ['timestamp', 'softDeletes'], true)) {
+                $art->generator()
+                    ->namespace()->addUse(DateTime::class);
+
+                $type = 'DateTime';
             }
 
             if ($type === 'timestamps') {
@@ -32,15 +39,15 @@ class SetDocumentation
 
                 $art->generator()
                     ->class()
-                    ->addComment('@var DateTime $created_at')
-                    ->addComment('@var DateTime $updated_at');
+                    ->addComment('@property DateTime $created_at')
+                    ->addComment('@property DateTime $updated_at');
 
                 continue;
             }
 
             $art->generator()
                 ->class()
-                ->addComment("@var $type \${$name} $label");
+                ->addComment("@property $type \${$name} $label");
         }
 
         $relations = $art->draft()->relations();
@@ -61,7 +68,7 @@ class SetDocumentation
 
                 $art->generator()
                     ->class()
-                    ->addComment("@var $type \${$name} $label");
+                    ->addComment("@property $type \${$name} $label");
             }
         }
     }
