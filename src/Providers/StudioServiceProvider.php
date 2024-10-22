@@ -23,5 +23,9 @@ class StudioServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/studio.php', 'studio');
+
+        if (file_exists(__DIR__ . '/../../routes/api.php')) {
+            $this->loadRoutesFrom(__DIR__ . '/../../routes/api.php'); // @codeCoverageIgnore
+        }
     }
 }

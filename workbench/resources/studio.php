@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-use Dex\Laravel\Studio\Draft;
-
 return [
 
     'preset' => 'studio',
 
     'drafts' => [
 
-        Draft::new('User')
+        draft('User')
             ->set('table', 'user')
             ->attribute()->label('ID')->id()
             ->attribute()->label('Nome')->string('name')->fillable()->required()->min(3)->max(50)->faker('name')
@@ -19,9 +17,8 @@ return [
             ->attribute()->label('Senha')->string('password')->fillable()->hidden()->cast('hashed')->required()->confirmed()->min(8)->max(48)->faker('lexify', '########')
             ->attribute()->rememberToken()->hidden()
             ->attribute()->timestamps()
-            ->relation()->belongsTo('Group')
-            ->relation()->hasMany('Role')
-            ->relation()->hasOne('Role')
+            ->relation()->hasMany('Profile')
+            ->relation()->hasOne('Profile')
             ->draft()
             ->push('generate', 'model')
             ->push('generate', 'migration:create')
@@ -31,17 +28,21 @@ return [
             ->push('generate', 'tester')
             ->data(),
 
-        Draft::new('Profile')
+        draft('Profile')
             ->set('table', 'profile')
             ->attribute()->uuid('id')->primary()
+            ->attribute()->foreign('user_id')->factory('User')
             ->attribute()->string('name')->fillable()->required()->min(3)->max(50)->faker('name')
             ->attribute()->timestamps()
             ->relation()->belongsTo('User')
             ->draft()
             ->push('generate', 'model')
+            ->push('generate', 'factory')
+            ->push('generate', 'migration:create')
+            ->push('generate', 'tester')
             ->data(),
 
-        Draft::new('PasswordResetTokens')
+        draft('PasswordResetTokens')
             ->set('table', 'password_reset_tokens')
             ->attribute()->string('email')->primary()
             ->attribute()->string('token')
@@ -50,7 +51,7 @@ return [
             ->push('generate', 'migration:create')
             ->data(),
 
-        Draft::new('Sessions')
+        draft('Sessions')
             ->set('table', 'sessions')
             ->attribute()->string('id')->primary()
             ->attribute()->foreign('user_id')->nullable()->index()
