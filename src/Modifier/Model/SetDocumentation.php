@@ -6,6 +6,7 @@ namespace Dex\Laravel\Studio\Modifier\Model;
 
 use DateTime;
 use Dex\Laravel\Studio\Art;
+use Illuminate\Database\Eloquent\Collection;
 
 class SetDocumentation
 {
@@ -31,6 +32,10 @@ class SetDocumentation
                     ->namespace()->addUse(DateTime::class);
 
                 $type = 'DateTime';
+            }
+
+            if ($name === 'softDeletes') {
+                $name = 'deleted_at';
             }
 
             if ($type === 'timestamps') {
@@ -69,6 +74,26 @@ class SetDocumentation
                 $art->generator()
                     ->class()
                     ->addComment("@property $type \${$name} $label");
+            }
+
+            if ($type === 'hasMany') {
+                $type = $relation['model'];
+                $name = $relation['name'];
+                $label = $relation['label'] ?? '';
+
+                $class = $art->preset()->getNamespacedFor('model', $name);
+
+                $art->generator()
+                    ->namespace()
+                    ->addUse($class);
+
+                $art->generator()
+                    ->namespace()
+                    ->addUse(Collection::class);
+
+                $art->generator()
+                    ->class()
+                    ->addComment("@property Collection<int, $type> \${$name} $label");
             }
         }
     }
