@@ -19,12 +19,20 @@ class SetDocumentation
             $name = $attribute['name'];
             $label = $attribute['label'] ?? '';
 
+            if ($type === 'boolean') {
+                $type = 'bool';
+            }
+
             if (in_array($type, ['id', 'integer', 'foreignId'], true)) {
                 $type = 'int';
             }
 
             if (in_array($type, ['uuid', 'text', 'longText', 'rememberToken'], true)) {
                 $type = 'string';
+            }
+
+            if ($type === 'json') {
+                $type = 'array';
             }
 
             if (in_array($type, ['timestamp', 'softDeletes'], true)) {
@@ -50,12 +58,26 @@ class SetDocumentation
                 continue;
             }
 
+            if (in_array($type, ['timestamp', 'softDeletes'], true)) {
+                $type = 'DateTime';
+
+                $art->generator()
+                    ->namespace()
+                    ->addUse(DateTime::class);
+            }
+
             $art->generator()
                 ->class()
                 ->addComment("@property $type \${$name} $label");
         }
 
         $relations = $art->draft()->relations();
+
+        if ($relations) {
+            $art->generator()
+                ->class()
+                ->addComment('');
+        }
 
         foreach ($relations as $relation) {
             $type = $relation['type'];
@@ -85,10 +107,7 @@ class SetDocumentation
 
                 $art->generator()
                     ->namespace()
-                    ->addUse($class);
-
-                $art->generator()
-                    ->namespace()
+                    ->addUse($class)
                     ->addUse(Collection::class);
 
                 $art->generator()

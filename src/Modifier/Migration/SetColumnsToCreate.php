@@ -54,6 +54,10 @@ class SetColumnsToCreate extends SetUpMethodToCreate
                     $options['default'] = 'false';
                 }
 
+                if ($options['default'] === true) {
+                    $options['default'] = 'true';
+                }
+
                 $defaultValue = '->default(' . $options['default'] . ')';
             }
 
