@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Package\Models;
+
+use DateTime;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @property bool $active
+ * @property array $extra
+ * @property DateTime $left_at
+ * @property DateTime $deleted_at
+ */
+class User extends Model
+{
+    use HasFactory;
+}

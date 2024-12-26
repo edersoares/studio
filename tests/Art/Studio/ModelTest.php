@@ -28,3 +28,17 @@ test('generate a model with `table` property')
     ->toEndWith('src/Models/User.php')
     ->generate()
     ->toMatchSnapshot();
+
+test('generate a model with documentation')
+    ->expect(fn () => Draft::new('User')
+        ->attribute()->boolean('active')->default(true)
+        ->attribute()->json('extra')
+        ->attribute()->timestamp('left_at')
+        ->attribute()->softDeletes()
+        ->draft()
+        ->art('model', 'studio')
+    )
+    ->filename()
+    ->toEndWith('src/Models/User.php')
+    ->generate()
+    ->toMatchSnapshot();

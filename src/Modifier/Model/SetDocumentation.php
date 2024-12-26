@@ -37,7 +37,8 @@ class SetDocumentation
 
             if (in_array($type, ['timestamp', 'softDeletes'], true)) {
                 $art->generator()
-                    ->namespace()->addUse(DateTime::class);
+                    ->namespace()
+                    ->addUse(DateTime::class);
 
                 $type = 'DateTime';
             }
@@ -56,14 +57,6 @@ class SetDocumentation
                     ->addComment('@property DateTime $updated_at');
 
                 continue;
-            }
-
-            if (in_array($type, ['timestamp', 'softDeletes'], true)) {
-                $type = 'DateTime';
-
-                $art->generator()
-                    ->namespace()
-                    ->addUse(DateTime::class);
             }
 
             $art->generator()

@@ -38,11 +38,4 @@ trait HasOrionOptions
 
         return $this;
     }
-
-    public function isRelation(): static
-    {
-        data_set($this->attribute, 'orion.is_relation', true);
-
-        return $this;
-    }
 }

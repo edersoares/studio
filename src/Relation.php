@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Dex\Laravel\Studio;
 
 use Dex\Laravel\Studio\Concerns\HasDraftItems;
+use Dex\Laravel\Studio\Concerns\HasOrionOptions;
 
 class Relation
 {
     use HasDraftItems;
+    use HasOrionOptions;
 
     private array $relation = [];
 

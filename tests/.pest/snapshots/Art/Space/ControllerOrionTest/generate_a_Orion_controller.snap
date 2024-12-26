@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Package\Http\Controllers;
+
+use Dex\Laravel\Space\Extensions\Orion\Controller;
+use Orion\Concerns\DisableAuthorization;
+use Package\Models\User;
+
+class UserController extends Controller
+{
+    use DisableAuthorization;
+
+    protected $model = User::class;
+}
