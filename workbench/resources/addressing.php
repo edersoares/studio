@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
 
-    'preset' => 'studio',
+    'preset' => 'space',
 
     'drafts' => [
 
@@ -22,10 +22,10 @@ return [
             ->push('generate', 'migration:create')
             ->push('generate', 'migration:foreign')
             ->push('generate', 'factory')
-            ->push('generate', 'controller')
-            ->push('generate', 'request')
+            ->push('generate', 'controller:orion')
+            ->push('generate', 'request:orion')
             ->push('generate', 'tester')
-            ->push('generate', 'route:api')
+            ->push('generate', 'route:orion')
             ->data(),
 
         draft('State')
@@ -45,10 +45,10 @@ return [
             ->push('generate', 'migration:create')
             ->push('generate', 'migration:foreign')
             ->push('generate', 'factory')
-            ->push('generate', 'controller')
-            ->push('generate', 'request')
+            ->push('generate', 'controller:orion')
+            ->push('generate', 'request:orion')
             ->push('generate', 'tester')
-            ->push('generate', 'route:api')
+            ->push('generate', 'route:orion')
             ->data(),
 
         draft('City')
@@ -67,10 +67,10 @@ return [
             ->push('generate', 'migration:create')
             ->push('generate', 'migration:foreign')
             ->push('generate', 'factory')
-            ->push('generate', 'controller')
-            ->push('generate', 'request')
+            ->push('generate', 'controller:orion')
+            ->push('generate', 'request:orion')
             ->push('generate', 'tester')
-            ->push('generate', 'route:api')
+            ->push('generate', 'route:orion')
             ->data(),
 
         draft('Place')
@@ -93,10 +93,10 @@ return [
             ->push('generate', 'migration:create')
             ->push('generate', 'migration:foreign')
             ->push('generate', 'factory')
-            ->push('generate', 'controller')
-            ->push('generate', 'request')
+            ->push('generate', 'controller:orion')
+            ->push('generate', 'request:orion')
             ->push('generate', 'tester')
-            ->push('generate', 'route:api')
+            ->push('generate', 'route:orion')
             ->data(),
 
         draft('District')
@@ -114,10 +114,10 @@ return [
             ->push('generate', 'migration:create')
             ->push('generate', 'migration:foreign')
             ->push('generate', 'factory')
-            ->push('generate', 'controller')
-            ->push('generate', 'request')
+            ->push('generate', 'controller:orion')
+            ->push('generate', 'request:orion')
             ->push('generate', 'tester')
-            ->push('generate', 'route:api')
+            ->push('generate', 'route:orion')
             ->data(),
 
     ],

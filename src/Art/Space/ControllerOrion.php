@@ -37,10 +37,18 @@ class ControllerOrion extends Art
         $modelNamespaced = $art->preset()->getNamespacedFor('model', $name);
         $model = $art->preset()->getNameFor('model', $name);
 
+        $requestNamespaced = $art->preset()->getNamespacedFor('request', $name);
+        $request = $art->preset()->getNameFor('request', $name);
+
         $art->generator()->namespace()->addUse($modelNamespaced);
+        $art->generator()->namespace()->addUse($requestNamespaced);
 
         $generator->property('model')
             ->setProtected()
             ->setValue($model . '::class');
+
+        $generator->property('request')
+            ->setProtected()
+            ->setValue($request . '::class');
     }
 }

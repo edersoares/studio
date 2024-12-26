@@ -228,10 +228,18 @@ return [
                     'path' => 'Http/Controllers',
                     'namespace' => 'Http\\Controllers',
                     'suffix' => 'Controller',
-                    'extends' => Dex\Laravel\Space\Extensions\Orion\Controller::class,
+                    'extends' => Orion\Http\Controllers\Controller::class,
                     'traits' => [
                         Orion\Concerns\DisableAuthorization::class,
                     ],
+                ],
+
+                'request:orion' => [
+                    'use' => Dex\Laravel\Studio\Art\Space\RequestOrion::class,
+                    'path' => 'Http/Requests',
+                    'suffix' => 'Request',
+                    'namespace' => 'Http\\Requests',
+                    'extends' => Orion\Http\Requests\Request::class,
                 ],
 
                 'route:orion' => [

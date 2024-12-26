@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Orion\OrionServiceProvider;
 use Workbench\App\Providers\WorkbenchServiceProvider;
 
 class TestCase extends Orchestra
@@ -31,6 +32,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
+            OrionServiceProvider::class,
             StudioServiceProvider::class,
             WorkbenchServiceProvider::class,
         ];
