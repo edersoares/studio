@@ -217,6 +217,34 @@ return [
 
         ],
 
+        'space' => [
+
+            'extends' => ['laravel', 'studio'],
+
+            'drafts' => [
+
+                'controller:orion' => [
+                    'use' => Dex\Laravel\Studio\Art\Space\ControllerOrion::class,
+                    'path' => 'Http/Controllers',
+                    'namespace' => 'Http\\Controllers',
+                    'suffix' => 'Controller',
+                    'extends' => Dex\Laravel\Space\Extensions\Orion\Controller::class,
+                    'traits' => [
+                        Orion\Concerns\DisableAuthorization::class,
+                    ],
+                ],
+
+                'route:orion' => [
+                    'use' => Dex\Laravel\Studio\Art\Space\RouteOrion::class,
+                    'kind' => 'routes',
+                    'filename' => fn () => 'api',
+                    'reuse' => true,
+                ],
+
+            ],
+
+        ],
+
         'package' => [
 
             'extends' => ['laravel', 'studio'],

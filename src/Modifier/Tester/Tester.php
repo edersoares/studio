@@ -92,6 +92,7 @@ class Tester
 
         $describe->addBody('');
         $describe->addBody('beforeEach()->endpoint(?);', [$endpoint]);
+        $describe->addBody('beforeEach()->wrap(\'data\');');
         $describe->addBody('');
 
         $methods = [
@@ -114,6 +115,8 @@ class Tester
         if (empty($endpoint)) {
             return;
         }
+
+        $describe->addBody('');
 
         foreach ($art->draft()->attributes() as $attribute => $data) {
             if ($data['validation']['rules'] ?? false) {

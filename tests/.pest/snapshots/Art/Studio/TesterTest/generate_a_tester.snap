@@ -19,12 +19,14 @@ describe(User::class, function () {
     test()->toHaveHasManyRelation(Profile::class, 'profiles');
 
     beforeEach()->endpoint('/api/user');
+    beforeEach()->wrap('data');
 
     test()->toHaveIndexEndpoint();
     test()->toHaveShowEndpoint();
     test()->toHaveStoreEndpoint();
     test()->toHaveUpdateEndpoint();
     test()->toHaveDestroyEndpoint();
+
     test()->toValidateRequired('name');
     test()->toValidateMin('name', 3);
     test()->toValidateMax('name', 50);
